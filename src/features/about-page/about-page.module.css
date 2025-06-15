@@ -1,0 +1,29 @@
+.pageWrapper {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+@media screen and (max-width: 500px) {
+  /* .pageWrapper {
+    padding: 0 4rem; 
+  } */
+}
+
+.styledImg {
+  width: 66%;
+  margin: auto;
+  pointer-events: none;
+  filter: contrast(1.1);
+  border-radius: 2rem;
+  border: 0.5rem solid var(--c-foreground);
+}
+
+@media screen and (max-width: 500px) {
+  .styledImg {
+    width: 100%;
+  }
+}

@@ -1,0 +1,46 @@
+import { createAsyncThunk } from "@reduxjs/toolkit"
+import { FEATURE_NAME } from "../settings.constants"
+import { ThunkAPI } from "app/store"
+import { User } from "firebase/auth"
+import { settingsActions } from "./settings.slice"
+import { fetchSettings } from "../api/fetch-settings"
+import { firestore } from "app/firebase-init"
+import { collection, doc, setDoc } from "firebase/firestore"
+import { statsActions } from "features/user-stats/store/user-stats.slice"
+import { DateRange } from "../settings.types"
+
+interface Payload {
+  user: User
+}
+const { setSettings } = settingsActions
+const { setDateRange } = statsActions
+
+export const fetchSettingsThunk = createAsyncThunk<void, User, ThunkAPI>(
+  `${FEATURE_NAME}/getSettings` as const,
+  async (user, thunkAPI): Promise<void> => {
+    const userSettings = await fetchSettings(user, firestore)
+    userSettings.defaultDateRange =
+      userSettings.defaultDateRange ||
+      userSettings.defaultChartRange ||
+      DateRange.Year
+
+    thunkAPI.dispatch(setSettings(userSettings))
+    thunkAPI.dispatch(setDateRange(userSettings.defaultDateRange))
+  }
+)
+
+export const sendSettingsThunk = createAsyncThunk<void, Payload, ThunkAPI>(
+  `${FEATURE_NAME}/setSettings` as const,
+  // eslint-disable-next-line max-statements
+  async ({ user }, thunkAPI) => {
+    const settings = thunkAPI.getState().settings
+    const statsColRef = collection(firestore, "settings")
+    const settingsRef = doc(statsColRef, user.uid)
+
+    try {
+      await setDoc(settingsRef, settings)
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e)
+    }
+  }
+)

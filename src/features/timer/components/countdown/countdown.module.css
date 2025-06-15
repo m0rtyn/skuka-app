@@ -1,0 +1,53 @@
+.countdown {
+  font-display: block;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 5.5rem;
+  line-height: 1;
+  cursor: help;
+  transition: 0.2s color ease;
+  -webkit-touch-callout: none !important;
+  animation: none;
+  color: var(--c-foreground);
+
+  &.countdownAnimation {
+    animation: fading 1s ease-in-out infinite;
+  }
+
+  &.loading {
+    color: var(--c-foreground);
+  }
+  &.loaded {
+    color: var(--c-foreground);
+  }
+  &.error {
+    color: var(--c-foreground);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .countdown {
+    margin: 0;
+  }
+}
+
+@media screen and (hover: none) and (orientation: landscape) {
+  .countdown {
+    font-size: 7rem;
+  }
+}
+
+@keyframes fading {
+  0% {
+    opacity: 0%;
+  }
+  3% {
+    opacity: 100%;
+  }
+  60% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 0%;
+  }
+}

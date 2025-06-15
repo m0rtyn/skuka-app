@@ -1,0 +1,72 @@
+.tooltip {
+  position: relative;
+
+  &:hover {
+    filter: brightness(2);
+  }
+
+  &:hover + .tooltipContent,
+  &:active + .tooltipContent,
+  &:focus + .tooltipContent {
+    opacity: 1;
+  }
+
+  & + .tooltipContent {
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    margin: 0 1rem;
+    transition:
+      opacity 0.1s ease-out,
+      transform 0.1s ease-out;
+    display: inline-block;
+    padding: 1rem;
+    font-size: 1.5rem;
+    background-color: var(--c-foreground);
+    color: var(--c-background);
+    border-radius: 1rem;
+    z-index: 2;
+    min-width: 10rem;
+  }
+}
+
+.calendarContainer {
+  min-width: 25rem;
+  max-width: 100%;
+  grid-area: calendar;
+
+  & :global(.react-activity-calendar.react-activity-calendar) {
+    direction: rtl;
+    min-width: 100%;
+  }
+
+  /* NOTE: in progress */
+  /* TODO: complete */
+  svg > g:has(:global(.new-year)) {
+    /* position: relative; */
+    /* background-color: var(--c-foreground); */
+
+    & > :global(.new-year) {
+      /* &::after {
+        content: attr(title);
+        position: absolute;
+        top: 0;
+        left: 0;
+        white-space: nowrap;
+        margin: 0 1rem;
+        transition:
+          opacity 0.1s ease-out,
+          transform 0.1s ease-out;
+        opacity: 0;
+        display: inline-block;
+        padding: 1rem;
+        font-size: 1.5rem;
+        background-color: var(--c-foreground);
+        color: var(--c-backgrounden-gray);
+        border-radius: 1rem;
+        z-index: 2;
+        min-width: 10rem;
+      } */
+    }
+  }
+}

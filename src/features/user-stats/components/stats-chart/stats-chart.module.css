@@ -1,0 +1,24 @@
+.statsChartWrapper {
+  grid-area: chart;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.statsChart {
+  height: 100%;
+  min-width: 100%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  max-width: 60rem;
+}
+
+.statsChartRangeButtonsWrapper {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 2fr 1fr 0.5fr 1fr 2fr;
+  gap: 1rem;
+  grid-area: range-switch;
+}

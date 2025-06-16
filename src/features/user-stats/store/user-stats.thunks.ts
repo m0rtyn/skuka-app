@@ -58,7 +58,7 @@ export const fetchChartDataThunk = createAsyncThunk(
 
     const daysDataFullRange = getFullRange(shallowDaysWithSessions)
 
-    const setChartDataAction = statsActions.setChartData(daysDataFullRange)
+    const setChartDataAction = statsActions.setDaysData(daysDataFullRange)
     thunkAPI.dispatch(setChartDataAction)
   }
 )

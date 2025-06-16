@@ -13,7 +13,7 @@ export const GREEN = "#5ff4ad"
 export const CYAN = "#3ff0ed"
 export const BLUE = "#7cb1ff"
 export const MAGENTA = "#ff66f0"
-export const ALMOST_WHITE = "#f5f5f5"
+export const WHITE = "#f5f5f5"
 
 export enum CSS_COLOR_VARIABLES {
   BACKGROUND = "--c-background",

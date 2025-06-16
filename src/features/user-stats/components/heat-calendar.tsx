@@ -5,14 +5,17 @@ import ActivityCalendar, {
   BlockElement
 } from "react-activity-calendar"
 import { Tooltip } from "react-tooltip"
-import { CYAN, DARK_GRAY, LIGHT_GRAY, MINS_IN_HOUR } from "shared/constants"
+import { BLACK, MINS_IN_HOUR, WHITE } from "shared/constants"
 import { DayData, Millisecond } from "shared/types"
 import { getYear } from "date-fns"
 import { useAppSelector } from "app/store"
 import { addRangeEdges, mapDaysToActivity } from "../utils/add-range-edges"
 import { selectFirstSessionDateByRange } from "../store/user-stats.selectors"
 
-const THEME = { dark: [DARK_GRAY, CYAN], light: [LIGHT_GRAY, DARK_GRAY] }
+const THEME = {
+  dark: [WHITE, WHITE],
+  light: [BLACK, BLACK]
+}
 
 interface Props {
   dayData: DayData[]
@@ -40,34 +43,59 @@ export const HeatCalendar: FC<Props> = ({ dayData, loading }) => {
 
   useEffect(() => {
     addYearsToCalendar(activityCalRef.current, firstDateByRange)
+    // addGradientToCalendar(activityCalRef.current)
+    return () => {
+      const gradientFill = document.getElementById("gradientFill")
+      if (gradientFill) {
+        gradientFill.remove()
+      }
+    }
   }, [activityCalRef.current, firstDateByRange])
-
-  const renderBlock = (block: BlockElement, activity: Activity) =>
-    cloneElement(block, {
-      style: {
-        ...block.props.style
-      },
-      className: activity.date.endsWith("01-01") ? "new-year" : "",
-      "data-tooltip-id": "react-tooltip",
-      "data-tooltip-html": `${activity.count} of session on ${activity.date.slice(0, 10)}`
-    })
 
   return (
     <div className={styles.calendarContainer}>
       <ActivityCalendar
         loading={loading || !activityData.length}
         colorScheme={darkMode ? "dark" : "light"}
-        renderBlock={renderBlock}
+        renderBlock={renderCalBlock}
         totalCount={activityAccCount}
         data={activityData}
         blockSize={16}
         theme={THEME}
+        maxLevel={8}
         ref={activityCalRef}
+        hideColorLegend
         hideTotalCount
       />
       <Tooltip id='react-tooltip' />
     </div>
   )
+}
+
+function renderCalBlock(block: BlockElement, activity: Activity) {
+  const { level: lv, count, date } = activity
+  const { style, x, y } = block.props
+  const [size, offset] =
+    lv === 0 ? [16, 0]
+    : lv === 1 ? [4, 6]
+    : lv === 2 ? [6, 5]
+    : lv === 3 ? [8, 4]
+    : lv === 4 ? [10, 3]
+    : lv === 5 ? [12, 2]
+    : lv === 6 ? [14, 1]
+    : [16, 0]
+  return cloneElement(block, {
+    style: { ...style, stroke: "var(--c-foreground)" },
+    className: date.endsWith("01-01") ? "new-year" : "",
+    fill: lv !== 0 ? "white" : "transparent",
+    strokeWidth: lv === 0 ? 1 : 0,
+    x: Number(x) + offset,
+    y: Number(y) + offset,
+    width: size,
+    height: size,
+    "data-tooltip-id": "react-tooltip",
+    "data-tooltip-html": `${count} of session on ${date.slice(0, 10)}`
+  })
 }
 
 function addYearsToCalendar(
@@ -92,4 +120,30 @@ function addYearsToCalendar(
     child.textContent = `Janʼ${year.toString().slice(2, 4)}`
     year += 1
   }
+}
+
+function addGradientToCalendar(activityCal: HTMLDivElement | null): void {
+  if (!activityCal) return
+
+  const svgNS = "http://www.w3.org/2000/svg"
+  const gradientFill = document.createElementNS(svgNS, "linearGradient")
+  gradientFill.setAttribute("id", "gradientFill")
+
+  const stop1 = document.createElementNS(svgNS, "stop")
+  stop1.setAttribute("offset", "0%")
+  stop1.setAttribute("stop-color", "#000")
+
+  const stop2 = document.createElementNS(svgNS, "stop")
+  stop2.setAttribute("offset", "100%")
+  stop2.setAttribute("stop-color", "#fff")
+
+  gradientFill.appendChild(stop1)
+  gradientFill.appendChild(stop2)
+
+  const svg = activityCal.querySelector("svg")
+  if (!svg) return
+  const defs =
+    svg.querySelector("defs") || document.createElementNS(svgNS, "defs")
+  defs.appendChild(gradientFill)
+  svg?.appendChild(defs)
 }

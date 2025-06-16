@@ -40,6 +40,23 @@
     min-width: 100%;
   }
 
+  :global(.react-activity-calendar__calendar) {
+    g > rect {
+      /* fill: linear-gradient(#e66465, #9198e5); */
+      /* fill: red; */
+      /* &:after {
+        content: ".";
+      } */
+    }
+  }
+
+  /* :global(.react-activity-calendar__legend-colors) {
+    svg:nth-of-type(1) > rect {
+      height: 2px !important;
+      width: 2px !important;
+    }
+  } */
+
   /* NOTE: in progress */
   /* TODO: complete */
   svg > g:has(:global(.new-year)) {

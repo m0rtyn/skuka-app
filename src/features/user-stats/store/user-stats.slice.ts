@@ -37,7 +37,8 @@ export const userStatsSlice = createSlice({
     setStats: (state, action: PayloadAction<UserStatsData>) => {
       state.stats = action.payload
     },
-    setChartData: (state, action: PayloadAction<DayData[]>) => {
+    setDaysData: (state, action: PayloadAction<DayData[]>) => {
+      // state.daysData = generateFakeDayData()
       state.daysData = action.payload
     },
     setAverageDuration: (state, action: PayloadAction<Minute>) => {

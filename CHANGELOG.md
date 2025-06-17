@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/m0rtyn/skuka-app/compare/v0.1.1...v0.1.2) (2025-06-17)
+
+
+### Features
+
+* add pwa functionality and logo ([a34274e](https://github.com/m0rtyn/skuka-app/commit/a34274ed3613410d99694a5a074f66f16dd8c477))
+
 ### [0.1.1](https://github.com/m0rtyn/skuka-app/compare/v0.1.0...v0.1.1) (2025-06-16)
 
 

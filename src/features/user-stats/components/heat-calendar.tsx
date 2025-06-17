@@ -5,7 +5,7 @@ import ActivityCalendar, {
   BlockElement
 } from "react-activity-calendar"
 import { Tooltip } from "react-tooltip"
-import { BLACK, MINS_IN_HOUR, WHITE } from "shared/constants"
+import { BLACK, MILLIS_IN_DAY, MINS_IN_HOUR, WHITE } from "shared/constants"
 import { DayData, Millisecond } from "shared/types"
 import { getYear } from "date-fns"
 import { useAppSelector } from "app/store"
@@ -74,27 +74,27 @@ export const HeatCalendar: FC<Props> = ({ dayData, loading }) => {
 
 function renderCalBlock(block: BlockElement, activity: Activity) {
   const { level: lv, count, date } = activity
-  const { style, x, y } = block.props
-  const [size, offset] =
-    lv === 0 ? [16, 0]
-    : lv === 1 ? [4, 6]
-    : lv === 2 ? [6, 5]
-    : lv === 3 ? [8, 4]
-    : lv === 4 ? [10, 3]
-    : lv === 5 ? [12, 2]
-    : lv === 6 ? [14, 1]
-    : [16, 0]
+  const { x, y } = block.props
+  const isLvZero = lv === 0
+  const isDateBeforeNow = Date.now() - +new Date(date) >= MILLIS_IN_DAY
+  const [size, offset, strokeWidth] = getComputedStyle(lv)
+
   return cloneElement(block, {
-    style: { ...style, stroke: "var(--c-foreground)" },
+    fill: !isLvZero ? "white" : "transparent",
+    style: {}, // NOTE: to rewrite default styles
+    stroke:
+      isLvZero && isDateBeforeNow ?
+        "var(--c-foreground)"
+      : "var(--c-background)",
+    strokeWidth,
+    strokeDasharray: isLvZero && isDateBeforeNow ? "1,3" : "0",
     className: date.endsWith("01-01") ? "new-year" : "",
-    fill: lv !== 0 ? "white" : "transparent",
-    strokeWidth: lv === 0 ? 1 : 0,
     x: Number(x) + offset,
     y: Number(y) + offset,
     width: size,
     height: size,
-    "data-tooltip-id": "react-tooltip",
-    "data-tooltip-html": `${count} of session on ${date.slice(0, 10)}`
+    "data-tooltip-html": `${count} of session on ${date.slice(0, 10)}`,
+    "data-tooltip-id": "react-tooltip"
   })
 }
 
@@ -146,4 +146,17 @@ function addGradientToCalendar(activityCal: HTMLDivElement | null): void {
     svg.querySelector("defs") || document.createElementNS(svgNS, "defs")
   defs.appendChild(gradientFill)
   svg?.appendChild(defs)
+}
+
+function getComputedStyle(lv: number): [number, number, number] {
+  return (
+    lv === 0 ? [16, 0, 1]
+    : lv === 1 ? [4, 6, 12]
+    : lv === 2 ? [6, 5, 10]
+    : lv === 3 ? [8, 4, 8]
+    : lv === 4 ? [10, 3, 6]
+    : lv === 5 ? [12, 2, 4]
+    : lv === 6 ? [14, 1, 2]
+    : [16, 0, 1]
+  )
 }

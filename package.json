@@ -1,19 +1,19 @@
 {
   "name": "skuka-app",
   "private": true,
-  "version": "0.1.2",
+  "version": "0.1.3",
   "type": "module",
   "scripts": {
     "start": "vite",
-    "dev": "yarn start",
-    "build": "vite build && yarn copy-changelog",
+    "dev": "npm run start",
+    "build": "npm run build && npm run copy-changelog",
     "serve": "vite preview",
     "test:debug": "vite --inspect-brk test --runInBand --no-cache",
     "test": "vite test",
     "format": "vite format",
     "build-functions": "cd functions && npm install && npm run build",
     "new-version": "standard-version",
-    "bump": "yarn new-version",
+    "bump": "npm run new-version",
     "analyze": "source-map-explorer 'dist/static/js/*.js'",
     "copy-changelog": "cp CHANGELOG.md dist/CHANGELOG.txt"
   },

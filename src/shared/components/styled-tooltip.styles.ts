@@ -41,7 +41,7 @@ export const StyledTooltip = styled.span.attrs<Props>(props => ({
     padding: 1rem;
     font-size: 1.5rem;
     background-color: var(--c-foreground);
-    color: var(--c-backgrounden-gray);
+    color: var(--c-background);
     border-radius: 1rem;
     z-index: 2;
     min-width: 10rem;

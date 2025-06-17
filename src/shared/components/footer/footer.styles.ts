@@ -23,7 +23,7 @@ export const StyledFooter = styled.footer`
 export const StyledFooterLink = styled(Link)`
   color: var(--c-foreground);
   font-size: 1.5rem;
-  background-color: var(--c-backgrounden-gray);
+  background-color: var(--c-background);
   border-radius: 50%;
   aspect-ratio: 1;
   display: flex;

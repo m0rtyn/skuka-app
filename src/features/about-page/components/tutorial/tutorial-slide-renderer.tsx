@@ -157,7 +157,7 @@ const TutorialFifthStep: React.FC = () => {
 //   display: flex;
 //   justify-content: center;
 //   padding: 5rem;
-//   border: 0.25rem solid var(--c-backgrounden-gray);
+//   border: 0.25rem solid var(--c-background);
 //   border-radius: 2rem;
 //   width: 100%;
 //   flex-direction: column;

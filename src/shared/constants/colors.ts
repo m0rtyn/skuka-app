@@ -17,7 +17,7 @@ export const WHITE = "#f5f5f5"
 
 export enum CSS_COLOR_VARIABLES {
   BACKGROUND = "--c-background",
-  DARKEN_GRAY = "--c-backgrounden-gray",
+  DARKEN_GRAY = "--c-background",
   DARK_GRAY = "--c-background",
   GRAY = "--c-gray",
   RED = "--c-red",

@@ -20,7 +20,7 @@ export const StyledSpinner = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 2rem;
-  background-color: var(--c-backgrounden-gray);
+  background-color: var(--c-background);
   position: relative;
   animation: ${fadeIn} 13s linear infinite;
 

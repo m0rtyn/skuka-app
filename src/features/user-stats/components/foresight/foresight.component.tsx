@@ -56,7 +56,7 @@ export const Foresight: React.FC<Props> = ({ totalHours, average }) => {
     "'at' dd MMM ‘yy"
   )
 
-  const progressTrialColor = "var(--c-backgrounden-gray)"
+  const progressTrialColor = "var(--c-background)"
   const progressStrokeColor = "var(--c-gray)"
 
   return (

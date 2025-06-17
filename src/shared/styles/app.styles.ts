@@ -22,7 +22,7 @@ export const StyledSwipeableView = styled.div`
 `
 
 export const StyledButton = styled.button`
-  background-color: var(--c-backgrounden-gray);
+  background-color: var(--c-background);
   font-size: inherit;
   color: inherit;
   cursor: pointer;

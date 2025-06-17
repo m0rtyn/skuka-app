@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import LogoWithName from "shared/assets/svgs/logo-with-name.svg?react"
+import Logo from "shared/assets/svgs/skuka.svg?react"
 import styles from "./about.module.css"
 import { Footer } from "shared/components/footer/footer.component"
 
@@ -7,7 +8,12 @@ export const About = () => {
   return (
     <div className={styles.aboutPageWrapper}>
       <div className={styles.aboutSection}>
-        <LogoWithName
+        {/* <LogoWithName
+          width='18rem'
+          height='18rem'
+          style={{ marginBottom: "1rem" }}
+        /> */}
+        <Logo
           width='18rem'
           height='18rem'
           style={{ marginBottom: "1rem" }}

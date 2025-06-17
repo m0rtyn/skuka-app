@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react"
 import viteTsconfigPaths from "vite-tsconfig-paths"
 import svgr from "vite-plugin-svgr"
 import { visualizer } from "rollup-plugin-visualizer"
+import { VitePWA } from "vite-plugin-pwa"
 
 export default defineConfig({
   base: "/",
@@ -16,6 +17,28 @@ export default defineConfig({
     visualizer({
       filename: "./dist/deps.html",
       open: false
+    }),
+    VitePWA({
+      includeAssets: ["./src/shared/assets/svgs/*.svg"],
+      manifest: {
+        name: "Skuka App",
+        short_name: "Skuka",
+        description: "Boring timer",
+        theme_color: "#ffffff",
+        icons: [
+          {
+            src: "skuka.svg",
+            type: "image/svg+xml"
+          },
+          {
+            src: "skuka-logo-512x512.png",
+            sizes: "512x512",
+            type: "image/png"
+          }
+        ]
+      },
+      strategies: "generateSW",
+      registerType: "prompt"
     })
   ],
   resolve: {

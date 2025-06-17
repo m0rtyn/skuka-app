@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "name": "Skuka App",
+  "short_name": "Skuka",
+  "description": "A boring timer",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "skuka-logo-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "skuka-logo-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

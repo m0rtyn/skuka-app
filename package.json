@@ -6,7 +6,7 @@
   "scripts": {
     "start": "vite",
     "dev": "npm run start",
-    "build": "vite build && npm run copy-changelog",
+    "build": "npm run inject-app-version && vite build && npm run copy-changelog",
     "serve": "vite preview",
     "test:debug": "vite --inspect-brk test --runInBand --no-cache",
     "test": "vite test",
@@ -15,7 +15,8 @@
     "new-version": "standard-version",
     "bump": "npm run new-version",
     "analyze": "source-map-explorer 'dist/static/js/*.js'",
-    "copy-changelog": "cp CHANGELOG.md dist/CHANGELOG.txt"
+    "copy-changelog": "cp CHANGELOG.md dist/CHANGELOG.txt",
+    "inject-app-version": "export VITE_VERSION=$npm_package_version && VITE_NAME=$npm_package_name"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",

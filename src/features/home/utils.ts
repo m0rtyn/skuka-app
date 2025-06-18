@@ -15,8 +15,11 @@ export const getColorFromCSSVar = (colorCSSVarName: string): ColorHex => {
 }
 
 export function skipSwipeOnCalendar(e: SwipeEventData, cb: () => void) {
+  if (e.absX < e.absY && e.absX < 50 && e.absY > 50) return
+
   const target = e.event.target as HTMLElement
   const currentTarget = e.event.currentTarget as HTMLElement
+
   const restrictedTags = ["svg", "rect"]
   const isHeatCalendar =
     restrictedTags.includes(target?.tagName) ||

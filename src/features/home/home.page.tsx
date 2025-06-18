@@ -12,6 +12,7 @@ import StatsIcon from "shared/assets/svgs/stats.icon.svg?react"
 import { StyledFooterLink } from "shared/components/footer/footer.styles"
 import { SwipeCallback, useSwipeable } from "react-swipeable"
 import { skipSwipeOnCalendar } from "./utils"
+import { ConfigurationOptions } from "react-swipeable/es/types"
 
 const Home: React.FC = () => {
   const navigate = useNavigate()
@@ -68,7 +69,7 @@ const LinkSwitcher: React.FC = () => {
   )
 }
 
-const SWIPE_CONFIG = {
+const SWIPE_CONFIG: ConfigurationOptions = {
   delta: 16, // min distance(px) before a swipe starts. *See Notes*
   preventScrollOnSwipe: false, // prevents scroll during swipe (*See Details*)
   trackTouch: true, // track touch input

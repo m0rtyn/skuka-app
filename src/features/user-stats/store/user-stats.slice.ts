@@ -3,6 +3,7 @@ import { DayData, Minute, UserStatsData } from "shared/types"
 import { FEATURE_NAME } from "../user-stats.constants"
 import { fetchChartDataThunk, fetchStatsThunk } from "./user-stats.thunks"
 import { DateRange, YearString } from "features/settings/settings.types"
+import { generateFakeDayData } from "../utils/generate-fake-day-data"
 
 export interface UserStatsState {
   daysData: DayData[]

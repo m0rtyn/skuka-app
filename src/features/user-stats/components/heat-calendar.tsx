@@ -77,24 +77,27 @@ function renderCalBlock(block: BlockElement, activity: Activity) {
   const { x, y } = block.props
   const isLvZero = lv === 0
   const isDateBeforeNow = Date.now() - +new Date(date) >= MILLIS_IN_DAY
-  const [size, offset, strokeWidth] = getComputedStyle(lv)
+  const [size, offset, strokeWidth, radius] = getComputedStyle(lv)
 
   return cloneElement(block, {
+    width: size,
+    height: size,
+    strokeWidth,
     fill: !isLvZero ? "white" : "transparent",
-    style: {}, // NOTE: to rewrite default styles
     stroke:
       isLvZero && isDateBeforeNow ?
         "var(--c-foreground)"
       : "var(--c-background)",
-    strokeWidth,
+    strokeLinecap: "round",
     strokeDasharray: isLvZero && isDateBeforeNow ? "1,3" : "0",
     className: date.endsWith("01-01") ? "new-year" : "",
     x: Number(x) + offset,
     y: Number(y) + offset,
-    width: size,
-    height: size,
+    rx: radius,
+    ry: radius,
     "data-tooltip-html": `${count} of session on ${date.slice(0, 10)}`,
-    "data-tooltip-id": "react-tooltip"
+    "data-tooltip-id": "react-tooltip",
+    style: {} // NOTE: to rewrite default styles
   })
 }
 
@@ -148,15 +151,17 @@ function addGradientToCalendar(activityCal: HTMLDivElement | null): void {
   svg?.appendChild(defs)
 }
 
-function getComputedStyle(lv: number): [number, number, number] {
+/** @returns {[number, number, number, number]} [size, offset, strokeWidth, radius] */
+function getComputedStyle(lv: number): [number, number, number, number] {
   return (
-    lv === 0 ? [16, 0, 1]
-    : lv === 1 ? [4, 6, 12]
-    : lv === 2 ? [6, 5, 10]
-    : lv === 3 ? [8, 4, 8]
-    : lv === 4 ? [10, 3, 6]
-    : lv === 5 ? [12, 2, 4]
-    : lv === 6 ? [14, 1, 2]
-    : [16, 0, 1]
+    lv === 0 ?
+      [16, 0, 1, 2] // empty block with border
+    : lv === 1 ? [10, 3, 6, 8]
+    : lv === 2 ? [11, 2.5, 5, 7]
+    : lv === 3 ? [12, 2, 4, 6]
+    : lv === 4 ? [13, 1.5, 3, 5]
+    : lv === 5 ? [14, 1, 2, 4]
+    : lv === 6 ? [15, 0.5, 1, 3]
+    : [16, 0, 0, 2]
   )
 }

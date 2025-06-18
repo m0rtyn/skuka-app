@@ -53,9 +53,12 @@ export function addRangeEdges(
 
 export function getLevelByDuration(count: number) {
   return (
-    count > 60 ? 4
-    : count > 40 ? 3
-    : count > 20 ? 2
+    count > 60 ? 7
+    : count > 50 ? 6
+    : count > 40 ? 5
+    : count > 30 ? 4
+    : count > 20 ? 3
+    : count > 10 ? 2
     : count > 0 ? 1
     : 0
   )

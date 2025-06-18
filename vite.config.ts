@@ -24,7 +24,7 @@ export default defineConfig({
         name: "Skuka App",
         short_name: "Skuka",
         description: "Boring timer",
-        theme_color: "#ffffff",
+        theme_color: "#000",
         icons: [
           {
             src: "skuka.svg",

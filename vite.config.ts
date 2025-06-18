@@ -10,8 +10,8 @@ console.log(`Vite config for ${pkg.name} v${pkg.version}`)
 export default defineConfig({
   base: "/",
   define: {
-    VITE_NAME: `"${pkg.name}"`,
-    VITE_VERSION: `"${pkg.version}"`
+    __VITE_NAME__: `"${pkg.name}"`,
+    __VITE_VERSION__: `"${pkg.version}"`
   },
   plugins: [
     react(),

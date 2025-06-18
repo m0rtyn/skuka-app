@@ -6,6 +6,7 @@ import { visualizer } from "rollup-plugin-visualizer"
 import { VitePWA } from "vite-plugin-pwa"
 import pkg from "./package.json"
 
+console.log(`Vite config for ${pkg.name} v${pkg.version}`)
 export default defineConfig({
   base: "/",
   define: {

@@ -7,6 +7,7 @@ import { Provider } from "react-redux"
 import { BrowserRouter } from "react-router-dom"
 import { ErrorBoundary } from "./error-boundary.tsx"
 import { store } from "./store.ts"
+import { showAppVersion } from "shared/utils/show-app-version.ts"
 
 createRoot(document.getElementById("root")!).render(
   <ErrorBoundary>
@@ -19,3 +20,5 @@ createRoot(document.getElementById("root")!).render(
     </React.StrictMode>
   </ErrorBoundary>
 )
+
+showAppVersion()

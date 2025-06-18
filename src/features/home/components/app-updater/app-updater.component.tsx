@@ -14,10 +14,7 @@ export const AppUpdater: React.FC = () => {
   const appVersion = useRef("")
 
   useEffect(() => {
-    const versionNumber = import.meta.env.VITE_VERSION
-    if (versionNumber) {
-      appVersion.current = `v${__VITE_VERSION__}`
-    }
+    appVersion.current = `v${__VITE_VERSION__}`
   }, [])
 
   const handleRefresh = useCallback((): void => {

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "vite",
     "dev": "npm run start",
-    "build": "npm run inject-app-version && vite build && npm run copy-changelog",
+    "build": "vite build && npm run copy-changelog",
     "serve": "vite preview",
     "test:debug": "vite --inspect-brk test --runInBand --no-cache",
     "test": "vite test",

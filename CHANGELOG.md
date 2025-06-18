@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.6](https://github.com/m0rtyn/skuka-app/compare/v0.1.5...v0.1.6) (2025-06-18)
+
+
+### Features
+
+* add special geometric stylization for activity calendar ([b1016dc](https://github.com/m0rtyn/skuka-app/commit/b1016dceb95c05b62eb5353b6763fc5f9bc636bf))
+* add styling for past days to activity calendar ([7085dc3](https://github.com/m0rtyn/skuka-app/commit/7085dc307b2245f46840ddf8a59faf5763f785e5))
+
+
+### Bug Fixes
+
+* add tabular nums to timer ([49dfe78](https://github.com/m0rtyn/skuka-app/commit/49dfe78231a983f71305b025566346db45210ce7))
+* init theme ([b15cce6](https://github.com/m0rtyn/skuka-app/commit/b15cce621f93b61614e477d3fdebd2851f7d5dd8))
+* remove vertical swipes ([9a60e85](https://github.com/m0rtyn/skuka-app/commit/9a60e85f59a3d9c55ce05985f42b7eaabd102d91))
+* wrong css var name ([74e40e3](https://github.com/m0rtyn/skuka-app/commit/74e40e3a7601896768443701e6f92df41826f075))
+
 ### [0.1.5](https://github.com/m0rtyn/skuka-app/compare/v0.1.4...v0.1.5) (2025-06-17)
 
 ### [0.1.4](https://github.com/m0rtyn/skuka-app/compare/v0.1.3...v0.1.4) (2025-06-17)

@@ -16,7 +16,7 @@
     "bump": "npm run new-version",
     "analyze": "source-map-explorer 'dist/static/js/*.js'",
     "copy-changelog": "cp CHANGELOG.md dist/CHANGELOG.txt",
-    "inject-app-version": "export VITE_VERSION=$npm_package_version && VITE_NAME=$npm_package_name"
+    "inject-app-version": "export VITE_VERSION=$npm_package_version && VITE_NAME=$npm_package_name && echo \"VITE_VERSION: $VITE_VERSION $npm_package_version\""
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",

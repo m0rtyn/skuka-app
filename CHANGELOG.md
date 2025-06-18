@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.7](https://github.com/m0rtyn/skuka-app/compare/v0.1.6...v0.1.7) (2025-06-18)
+
+
+### Features
+
+* add app version component ([3057cf2](https://github.com/m0rtyn/skuka-app/commit/3057cf24aff596f5b4d0574acb0f25cd6f71b96a))
+
 ### [0.1.6](https://github.com/m0rtyn/skuka-app/compare/v0.1.5...v0.1.6) (2025-06-18)
 
 

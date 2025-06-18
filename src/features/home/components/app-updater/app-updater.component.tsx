@@ -10,39 +10,46 @@ import { StyledUpdateButton, StyledAppVersion } from "./app-updater.styles"
 //   newServiceWorkerDetected,
 //   onLoadNewServiceWorkerAccept
 // }) => {
-//   const appVersion = useRef("")
+export const AppUpdater: React.FC = () => {
+  const appVersion = useRef("")
 
-//   useEffect(() => {
-//     const versionNumber = import.meta.env.VITE_VERSION
-//     if (versionNumber) {
-//       appVersion.current = `v${versionNumber}`
-//     }
-//   }, [])
+  useEffect(() => {
+    const versionNumber = import.meta.env.VITE_VERSION
+    if (versionNumber) {
+      appVersion.current = `v${versionNumber}`
+    }
+  }, [])
 
-//   const handleRefresh = useCallback((): void => {
-//     window?.location.reload()
-//   }, [])
+  const handleRefresh = useCallback((): void => {
+    window?.location.reload()
+  }, [])
 
-//   return (
-//     <>
-//       {newServiceWorkerDetected ?
-//         <StyledUpdateButton
-//           type='button'
-//           onClick={onLoadNewServiceWorkerAccept}
-//         >
-//           Update
-//         </StyledUpdateButton>
-//       : appVersion.current ?
-//         <StyledAppVersion
-//           type='button'
-//           onClick={handleRefresh}
-//         >
-//           {appVersion.current} ↻
-//         </StyledAppVersion>
-//       : null}
-//     </>
-//   )
-// }
+  return (
+    <>
+      <StyledAppVersion
+        type='button'
+        onClick={handleRefresh}
+      >
+        {appVersion.current}
+      </StyledAppVersion>
+      {/* {newServiceWorkerDetected ?
+        <StyledUpdateButton
+          type='button'
+          onClick={onLoadNewServiceWorkerAccept}
+        >
+          Update
+        </StyledUpdateButton>
+      : appVersion.current ?
+        <StyledAppVersion
+          type='button'
+          onClick={handleRefresh}
+        >
+          {appVersion.current} ↻
+        </StyledAppVersion>
+      : null} */}
+    </>
+  )
+}
 
 // export default withServiceWorkerUpdater(AppUpdater, {
 //   log: () => console.warn("App updated!"),

@@ -1,6 +1,5 @@
 import { auth } from "app/firebase-init"
 import { StyledTooltip } from "shared/components/styled-tooltip.styles"
-// import AppUpdater from "../app-updater/app-updater.component"
 import { IncognitoStatusIcon } from "../incognito-status"
 import { OfflineStatusIcon } from "../offline-status"
 import { SignOut } from "../sign-out"
@@ -9,6 +8,7 @@ import { useOnline } from "shared/hooks/use-online"
 import { useAppSelector } from "app/store"
 import { selectIsTimerStarted } from "features/home/store/main-screen.selectors"
 import { Link } from "react-router-dom"
+import { AppUpdater } from "../app-updater/app-updater.component"
 
 interface Props {}
 
@@ -45,6 +45,6 @@ export const Header: React.FC<Props> = () => {
           </Link>
           {/* Add other navigation links here if needed */}
         </nav>
-        {/* <AppUpdater /> */}
+        <AppUpdater />
       </StyledWrapper>
 }

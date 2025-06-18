@@ -2,6 +2,13 @@
   font-display: block;
   margin: 0;
   font-family: var(--font-mono);
+  font-feature-settings:
+    "tnum" on,
+    "zero" on,
+    "ss01" on,
+    "ss02" on,
+    "ss07" on,
+    "calt" on;
   font-size: 5.5rem;
   line-height: 1;
   cursor: help;

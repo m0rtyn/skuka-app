@@ -15,6 +15,10 @@ export const AppUpdater: React.FC = () => {
 
   useEffect(() => {
     const versionNumber = import.meta.env.VITE_VERSION
+    console.log(
+      "🚀 ~ file: app-updater.component.tsx ~ func: useEffect ~ var: versionNumber",
+      versionNumber
+    )
     if (versionNumber) {
       appVersion.current = `v${versionNumber}`
     }

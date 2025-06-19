@@ -28,7 +28,7 @@ export const StyledDiv = styled.div`
   column-gap: 2rem;
 `
 
-export const StyledConnectionDiv = styled.div`
+export const StyledStatusWrapper = styled.div`
   display: flex;
   align-items: center;
   column-gap: 2rem;

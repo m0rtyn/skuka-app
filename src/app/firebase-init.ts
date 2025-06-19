@@ -1,4 +1,4 @@
-import { createUserStats } from "features/home/create-user-stats"
+import { createUserStats } from "app/create-user-stats"
 import { initializeApp } from "firebase/app"
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { initializeFirestore } from "firebase/firestore"

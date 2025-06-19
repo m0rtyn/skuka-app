@@ -76,16 +76,25 @@ export const useCountdown = (seconds: Second) => {
         todayPracticeMinutes
       )
 
-      setSecondsRemain(secondsRemain)
-      setMinutesRemain(minutes)
+      return {
+        secondsRemain,
+        minutes
+      }
     },
     [progressionSecs, todayPracticeMinutes]
   )
 
   useEffect(() => {
     if (!seconds) return
-    convertTimerProgressToCountdown(seconds)
-  }, [seconds, convertTimerProgressToCountdown])
+    const { minutes, secondsRemain } = convertTimerProgressToCountdown(seconds)
+    setSecondsRemain(secondsRemain)
+    setMinutesRemain(minutes as Minute)
+
+    return () => {
+      setSecondsRemain(0 as Second)
+      setMinutesRemain(0 as Minute)
+    }
+  }, [seconds])
 
   useEffect(() => {
     if (seconds === 0) {

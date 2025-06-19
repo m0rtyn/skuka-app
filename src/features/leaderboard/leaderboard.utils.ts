@@ -10,8 +10,8 @@ function simpleHash(str: string): number {
   return Math.abs(hash)
 }
 
-export function getUserNicknameFromId(id: string): string {
-  if (!id) return "AnonymousUser"
+export function getUserNicknameFromId(id: string) {
+  if (!id) return null
 
   const hash = simpleHash(id)
   const adjIndex = hash % ADJECTIVES.length

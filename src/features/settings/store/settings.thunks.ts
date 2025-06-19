@@ -7,7 +7,7 @@ import { fetchSettings } from "../api/fetch-settings"
 import { firestore } from "app/firebase-init"
 import { collection, doc, setDoc } from "firebase/firestore"
 import { statsActions } from "features/user-stats/store/user-stats.slice"
-import { DateRange } from "../settings.types"
+import { DateRange, Settings } from "../settings.types"
 
 interface Payload {
   user: User
@@ -19,6 +19,7 @@ export const fetchSettingsThunk = createAsyncThunk<void, User, ThunkAPI>(
   `${FEATURE_NAME}/getSettings` as const,
   async (user, thunkAPI): Promise<void> => {
     const userSettings = await fetchSettings(user, firestore)
+
     userSettings.defaultDateRange =
       userSettings.defaultDateRange ||
       userSettings.defaultChartRange ||
@@ -31,7 +32,7 @@ export const fetchSettingsThunk = createAsyncThunk<void, User, ThunkAPI>(
 
 export const sendSettingsThunk = createAsyncThunk<
   void,
-  { userUid: string },
+  { settings: Settings; userUid: string },
   ThunkAPI
 >(
   `${FEATURE_NAME}/setSettings` as const,

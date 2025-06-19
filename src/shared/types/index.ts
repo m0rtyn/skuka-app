@@ -76,12 +76,10 @@ export interface UserStatsData extends BasicUserStatsData {
   firstSessionDate: Millisecond
   averageCount: Maybe<number>
   streak: Maybe<number>
-  lastSessionDate?: Maybe<Millisecond>
 }
 
 export interface ServerUserStatsData extends BasicUserStatsData {
   firstSessionDate: Timestamp
-  lastSessionDate?: Maybe<Timestamp>
 }
 
 export enum RequestStatus {

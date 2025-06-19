@@ -12,10 +12,10 @@ import { Millisecond, ServerUserStatsData, UserStatsData } from "shared/types"
 
 // eslint-disable-next-line max-statements
 export async function fetchStats(
-  user: User,
+  userUid: string,
   firestoreDB: Firestore
 ): Promise<UserStatsData | null> {
-  const statsColSnapshot = await getStatsColSnapshot(firestoreDB, user)
+  const statsColSnapshot = await getStatsColSnapshot(firestoreDB, userUid)
   const statsData = statsColSnapshot?.docs[0]?.data()
 
   if (!statsData) return null
@@ -30,7 +30,10 @@ export async function fetchStats(
   return userStatsData
 }
 
-export async function getStatsColSnapshot(firestoreDB: Firestore, user: User) {
+export async function getStatsColSnapshot(
+  firestoreDB: Firestore,
+  userUid: string
+) {
   const statsColRef = collection(
     firestoreDB,
     "stats"
@@ -38,7 +41,7 @@ export async function getStatsColSnapshot(firestoreDB: Firestore, user: User) {
 
   const statsQuery = query(
     statsColRef,
-    where("userId", "==", user.uid),
+    where("userId", "==", userUid),
     limit(1)
   )
   const statsColSnapshot = await getDocs(statsQuery)

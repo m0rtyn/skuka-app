@@ -35,14 +35,15 @@ const UserName = styled.span`
 const UserStats = styled.div`
   display: flex;
   align-items: center;
-  gap: 1rem;
-
-  p {
-    font-family: var(--font-mono, monospace);
-  }
+  gap: 2rem;
+  font-size: 1.5rem;
 
   & > div {
     display: flex;
+  }
+
+  p {
+    font-family: var(--font-mono, monospace);
   }
 `
 
@@ -64,7 +65,7 @@ const ErrorMessage = styled.p`
 
 export const LeaderboardPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
-  const users = useSelector(selectLeaderboardUsers)
+  const leaderboard = useSelector(selectLeaderboardUsers)
   const status = useSelector(selectLeaderboardStatus)
   const error = useSelector(selectLeaderboardError)
 
@@ -72,7 +73,6 @@ export const LeaderboardPage: React.FC = () => {
     if (status === "idle") {
       dispatch(fetchLeaderboardData())
     }
-    console.log(users)
   }, [status, dispatch])
 
   if (status === "loading" || status === "idle") {
@@ -86,19 +86,30 @@ export const LeaderboardPage: React.FC = () => {
   return (
     <LeaderboardContainer>
       <List>
-        {users.map((user, index) => (
-          <ListItem key={user.userId}>
-            <UserStats>
-              <Rank>{index + 1}</Rank>
-              <UserName>{getUserNicknameFromId(user.userId)}</UserName>
-              <div>
-                <p>Overall: {Math.round(user?.totalDuration)} mins</p>
-                <p>Count: {user?.count}</p>
-                {/* <p>Last Session: {user.lastSessionDate}</p> */}
-              </div>
-            </UserStats>
-          </ListItem>
-        ))}
+        {leaderboard
+          .filter(l => l.displayName)
+          .map((leader, index) => (
+            <ListItem key={leader.userId}>
+              <UserStats>
+                <Rank>{index + 1}</Rank>
+                <UserName>{leader.displayName}</UserName>
+                <div>
+                  <p className='totalDuration'>
+                    Overall: {Math.round(leader?.totalDuration)} mins
+                  </p>
+                  <p className='count'>Count: {leader?.count}</p>
+                  {leader.lastSessionTime ?
+                    <p className='lastSession'>
+                      Last Session:{" "}
+                      {new Date(leader.lastSessionTime)
+                        .toISOString()
+                        .slice(0, 10)}
+                    </p>
+                  : null}
+                </div>
+              </UserStats>
+            </ListItem>
+          ))}
       </List>
     </LeaderboardContainer>
   )

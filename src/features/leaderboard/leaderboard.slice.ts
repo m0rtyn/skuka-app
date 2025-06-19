@@ -1,62 +1,95 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import { LeaderboardState, LeaderboardUser } from "./leaderboard.types"
+import { LeaderboardData, LeaderboardState } from "./leaderboard.types"
 import {
   collection,
+  CollectionReference,
   getDocs,
   orderBy,
   query,
   Timestamp,
   where
 } from "firebase/firestore"
-import { User } from "firebase/auth"
 import { firestore } from "app/firebase-init"
-import { ServerDayData } from "shared/types"
+import { Minute, ServerDayData } from "shared/types"
+import { MILLIS_IN_QUARTER } from "shared/constants"
+import { getUserNicknameFromId } from "./leaderboard.utils"
 
 export const fetchLeaderboardData = createAsyncThunk<
-  ServerDayData[],
+  LeaderboardData[],
   void,
   { rejectValue: string }
 >("leaderboard/fetchData", async (_, thunkApi) => {
   try {
-    const daysColRef = collection(firestore, "days")
-    const quarterBefore = Timestamp.fromMillis(
-      Date.now() - 1000 * 60 * 60 * 24 * 90
-    )
+    const daysColRef = collection(firestore, "days") as CollectionReference<
+      ServerDayData,
+      ServerDayData
+    >
+    const quarterBefore = Timestamp.fromMillis(Date.now() - MILLIS_IN_QUARTER)
     const daysQuery = query(
       daysColRef,
       where("timestamp", ">=", quarterBefore),
       orderBy("timestamp", "desc")
     )
     const daysColSnapshot = await getDocs(daysQuery)
-    const daysWithSessions = daysColSnapshot.docs.map(snap =>
-      snap.data()
-    ) as ServerDayData[]
+    const daysWithSessions = daysColSnapshot.docs.map(snap => snap.data())
 
-    const leaderboard = daysWithSessions.reduce((acc, day) => {
-      if (!acc.has(day.userId)) acc.set(day.userId, day)
+    const leaderboardMap = daysWithSessions.reduce((acc, day) => {
+      const doesUserExist = acc.has(day.userId)
+      const leaderboardData = {
+        userId: day.userId,
+        count: day.count || day.sessions.length || 0,
+        totalDuration: day.totalDuration || 0,
+        displayName: null,
+        lastSessionTime: null
+      }
+      if (!doesUserExist) acc.set(day.userId, leaderboardData)
       else {
-        const existingDay = acc.get(day.userId)
-        if (!existingDay) return acc
-        // FIXME: bad unfixed untested code
-        existingDay.totalDuration +=
-          day.sessions.reduce(
-            (a, d) => ((existingDay.count += 1), a + d.duration),
-            0
-          ) || day.totalDuration
+        const accDay = acc.get(day.userId)
+        if (!accDay) return acc
+        const { count, total, lastTime } = countTotalsForExistingDay(
+          accDay,
+          day
+        )
+        accDay.totalDuration = total as Minute
+        accDay.count = count
+        accDay.displayName =
+          accDay.displayName || getUserNicknameFromId(leaderboardData.userId)
+        accDay.lastSessionTime = lastTime
       }
       return acc
-    }, new Map<string, ServerDayData>())
+    }, new Map<string, LeaderboardData>())
 
-    return Array.from(leaderboard.values())
+    const leaderboard = Array.from(leaderboardMap.values())
       .toSorted((a, b) => b.totalDuration - a.totalDuration)
       .slice(0, 9)
+    return leaderboard
   } catch (error: any) {
     return thunkApi.rejectWithValue(error.message)
   }
 })
 
+function countTotalsForExistingDay(
+  accDay: LeaderboardData,
+  day: ServerDayData
+) {
+  const total = accDay.totalDuration || 0
+  const count = accDay.count || 0
+  const lastTime = 0
+
+  const newTotal = (total + day.totalDuration ||
+    total + day.sessions.reduce((a, d) => a + d.duration, 0)) as Minute
+  const newCount = (accDay.count =
+    day.count + count || count + day.sessions.reduce(a => a + 1, 0))
+  const newLastTime = day.sessions.reduce(
+    (a, d) => Math.max(a, new Date(d.timestamp).getTime()),
+    lastTime
+  )
+
+  return { count: newCount, total: newTotal, lastTime: newLastTime }
+}
+
 const initialState: LeaderboardState = {
-  users: [] as LeaderboardUser[],
+  leaderboard: [] as LeaderboardData[],
   status: "idle",
   error: null
 }
@@ -64,7 +97,11 @@ const initialState: LeaderboardState = {
 const leaderboardSlice = createSlice({
   name: "leaderboard",
   initialState,
-  reducers: {},
+  reducers: {
+    setLeaderboard: (state, action) => {
+      state.leaderboard = action.payload
+    }
+  },
   extraReducers: builder => {
     builder
       .addCase(fetchLeaderboardData.pending, state => {
@@ -72,7 +109,7 @@ const leaderboardSlice = createSlice({
       })
       .addCase(fetchLeaderboardData.fulfilled, (state, action) => {
         state.status = "succeeded"
-        state.users = action.payload
+        state.leaderboard = action.payload
       })
       .addCase(fetchLeaderboardData.rejected, (state, action) => {
         state.status = "failed"

@@ -1,15 +1,15 @@
 import { Maybe } from "shared/types"
 
-export interface LeaderboardUser {
+export interface LeaderboardData {
   userId: string
   count: number
   totalDuration: number // in minutes
-  displayName: string
-  lastSessionDate: Maybe<string>
+  displayName: Maybe<string>
+  lastSessionTime: Maybe<number>
 }
 
 export interface LeaderboardState {
-  users: LeaderboardUser[]
+  leaderboard: LeaderboardData[]
   status: "idle" | "loading" | "succeeded" | "failed"
   error: string | null | undefined
 }

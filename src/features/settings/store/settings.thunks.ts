@@ -29,13 +29,17 @@ export const fetchSettingsThunk = createAsyncThunk<void, User, ThunkAPI>(
   }
 )
 
-export const sendSettingsThunk = createAsyncThunk<void, Payload, ThunkAPI>(
+export const sendSettingsThunk = createAsyncThunk<
+  void,
+  { userUid: string },
+  ThunkAPI
+>(
   `${FEATURE_NAME}/setSettings` as const,
   // eslint-disable-next-line max-statements
-  async ({ user }, thunkAPI) => {
+  async ({ userUid }, thunkAPI) => {
     const settings = thunkAPI.getState().settings
     const statsColRef = collection(firestore, "settings")
-    const settingsRef = doc(statsColRef, user.uid)
+    const settingsRef = doc(statsColRef, userUid)
 
     try {
       await setDoc(settingsRef, settings)

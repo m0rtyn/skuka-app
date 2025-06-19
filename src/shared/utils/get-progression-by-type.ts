@@ -2,8 +2,7 @@ import { ProgressionType } from "features/settings/settings.types"
 import {
   EXPONENTIAL_STAGES,
   FIBONACCI_STAGES,
-  LINEAR_STAGE_RATIOS,
-  SECS_IN_MIN
+  LINEAR_STAGE_RATIOS
 } from "shared/constants"
 import { getProgressionSecsByAverage } from "./get-progression-by-average"
 import { Minute, Second } from "shared/types"
@@ -16,11 +15,6 @@ export const getProgressionByType = (
   const average = options?.average
   const ratio = options?.ratio
 
-  if (type === ProgressionType.ByAverage) {
-    const progression = getProgressionSecsByAverage(average ?? (1 as Minute))
-    return progression
-  }
-
   switch (type) {
     case ProgressionType.Default:
       return EXPONENTIAL_STAGES
@@ -28,8 +22,11 @@ export const getProgressionByType = (
       return FIBONACCI_STAGES
     case ProgressionType.Linear:
       return LINEAR_STAGE_RATIOS.map(num => (num * (ratio || 5)) as Second)
-
+    case ProgressionType.ByAverage: {
+      return getProgressionSecsByAverage(average ?? (1 as Minute))
+    }
     default:
-      return LINEAR_STAGE_RATIOS.map(num => (num * 1) as Second)
+      // return LINEAR_STAGE_RATIOS.map(num => (num * 1) as Second)
+      return getProgressionSecsByAverage(average ?? (1 as Minute))
   }
 }

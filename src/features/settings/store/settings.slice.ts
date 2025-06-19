@@ -42,14 +42,14 @@ export const settingsSlice = createSlice({
     ) => {
       state.progressionRatio = action.payload
     },
-    setSettings: (state, action: PayloadAction<SettingsState>) => {
-      state.darkMode = action.payload.darkMode
-      state.timerBlinking = action.payload.timerBlinking
-      state.sound = action.payload.sound
-      state.defaultDateRange = action.payload.defaultDateRange
+    setSettings: (state, { payload }: PayloadAction<SettingsState>) => {
+      state.darkMode = payload.darkMode
+      state.timerBlinking = payload.timerBlinking
+      state.sound = payload.sound
+      state.defaultDateRange = payload.defaultDateRange
 
-      state.progression = action.payload.progression
-      state.progressionRatio = action.payload.progressionRatio
+      state.progression = payload.progression
+      state.progressionRatio = payload.progressionRatio
     }
   }
 })

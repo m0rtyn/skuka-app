@@ -26,7 +26,7 @@ export const fetchStatsThunk = createAsyncThunk(
   // eslint-disable-next-line max-statements
   async (user: User, thunkAPI) => {
     try {
-      const statsData = await fetchStats(user, firestore)
+      const statsData = await fetchStats(user.uid, firestore)
 
       if (!statsData) return thunkAPI.rejectWithValue(null)
 

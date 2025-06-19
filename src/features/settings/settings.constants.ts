@@ -4,7 +4,7 @@ export const FEATURE_NAME = "settings"
 export const defaultSettings = {
   darkMode: true,
   timerBlinking: true,
-  progression: ProgressionType.Default,
+  progression: ProgressionType.ByAverage,
   sound: true,
   progressionRatio: 5
 }

@@ -15,10 +15,10 @@ interface Payload {
 const { setSettings } = settingsActions
 const { setDateRange } = statsActions
 
-export const fetchSettingsThunk = createAsyncThunk<void, User, ThunkAPI>(
+export const fetchSettingsThunk = createAsyncThunk<void, string, ThunkAPI>(
   `${FEATURE_NAME}/getSettings` as const,
-  async (user, thunkAPI): Promise<void> => {
-    const userSettings = await fetchSettings(user, firestore)
+  async (userUid, thunkAPI): Promise<void> => {
+    const userSettings = await fetchSettings(userUid, firestore)
 
     userSettings.defaultDateRange =
       userSettings.defaultDateRange ||
@@ -30,14 +30,10 @@ export const fetchSettingsThunk = createAsyncThunk<void, User, ThunkAPI>(
   }
 )
 
-export const sendSettingsThunk = createAsyncThunk<
-  void,
-  { settings: Settings; userUid: string },
-  ThunkAPI
->(
+export const sendSettingsThunk = createAsyncThunk<void, string, ThunkAPI>(
   `${FEATURE_NAME}/setSettings` as const,
   // eslint-disable-next-line max-statements
-  async ({ userUid }, thunkAPI) => {
+  async (userUid, thunkAPI) => {
     const settings = thunkAPI.getState().settings
     const statsColRef = collection(firestore, "settings")
     const settingsRef = doc(statsColRef, userUid)

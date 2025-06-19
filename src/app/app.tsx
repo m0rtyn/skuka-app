@@ -20,7 +20,7 @@ export const App = () => {
   useEffect(() => {
     if (!user || user.isAnonymous) return
 
-    dispatch(fetchSettingsThunk(user))
+    dispatch(fetchSettingsThunk(user.uid))
     dispatch(fetchDaysDataThunk(user))
     dispatch(fetchStatsThunk(user))
   }, [dispatch, user])

@@ -16,7 +16,7 @@ export const SettingsPage = () => {
   useEffect(() => {
     if (!user) return
     return () => {
-      dispatch(sendSettingsThunk({ userUid: user.uid }))
+      dispatch(sendSettingsThunk(user.uid))
     }
   }, [])
 

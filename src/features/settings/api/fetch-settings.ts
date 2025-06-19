@@ -13,13 +13,16 @@ import {
 } from "firebase/firestore"
 
 // eslint-disable-next-line max-statements
-export const fetchSettings = async (user: User, firestoreDB: Firestore) => {
+export const fetchSettings = async (
+  userUid: string,
+  firestoreDB: Firestore
+) => {
   const settingsColRef = collection(
     firestoreDB,
     FEATURE_NAME
   ) as CollectionReference<Settings>
 
-  const settingsRef = await doc(settingsColRef, user.uid)
+  const settingsRef = await doc(settingsColRef, userUid)
   const settingsData = (await getDoc(settingsRef)).data()
 
   if (!settingsData) {

@@ -20,15 +20,19 @@ import { auth } from "app/firebase-init"
 const Timer: React.FC = () => {
   const [timerDiff, setTimerDiff] = useState<Second>(0 as Second)
   const [currentTimerId, setCurrentTimerId] = useState<number | null>(null)
-
-  const [user, authLoading] = useAuthState(auth)
-  const dispatch = useAppDispatch()
-
   const isTimerStarted = useAppSelector(selectIsTimerStarted)
 
-  useNoSleep(isTimerStarted)
+  const dispatch = useAppDispatch()
 
+  const [user, authLoading] = useAuthState(auth)
+  useNoSleep(isTimerStarted)
   useTimerSound(timerDiff)
+
+  useCallback(() => {
+    return () => {
+      finishTimer(timerDiff)
+    }
+  }, [])
 
   const finishTimer = useCallback(
     // eslint-disable-next-line max-statements

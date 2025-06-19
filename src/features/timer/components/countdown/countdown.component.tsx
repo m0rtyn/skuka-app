@@ -1,11 +1,5 @@
 import { useAppSelector } from "app/store"
-import { StyledCountdown } from "./countdown.styles"
-import { CYAN, GREEN, RED, YELLOW } from "shared/constants"
 import { useCountdown } from "features/timer/hooks/use-countdown"
-import { useTimerSound } from "features/timer/hooks/use-timer-sound"
-import useSound from "use-sound"
-import { useEffect } from "react"
-import bellSfx from "shared/assets/sounds/session-bell-sound.mp3"
 import styles from "./countdown.module.css"
 import classnames from "classnames"
 import { Second } from "shared/types"
@@ -38,18 +32,14 @@ export const Countdown: React.FC<Props> = ({
   //   : status === 'loading' ? YELLOW
   //   : 'var(--c-foreground)'
 
-  return (
-    <div
-      className={classnames(styles.countdown, {
-        [styles.countdownAnimation]: isBlinking,
-        [styles.loading]: status === "loading",
-        [styles.error]: status === "error",
-        [styles.loaded]: status === "loaded"
-      })}
-    >
-      {timeRemain}
-    </div>
-  )
+  const countdownClassnames = classnames(styles.countdown, {
+    [styles.countdownAnimation]: isBlinking,
+    [styles.loading]: status === "loading",
+    [styles.error]: status === "error",
+    [styles.loaded]: status === "loaded"
+  })
+
+  return <div className={countdownClassnames}>{timeRemain}</div>
 }
 
 interface Props {

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.11](https://github.com/m0rtyn/skuka-app/compare/v0.1.10...v0.1.11) (2025-06-19)
+
+
+### Features
+
+* improve and refactor leaderboard ([d0e9b19](https://github.com/m0rtyn/skuka-app/commit/d0e9b19a131783f4e2ea2fa620e38da8dac05d58))
+
 ### [0.1.10](https://github.com/m0rtyn/skuka-app/compare/v0.1.9...v0.1.10) (2025-06-19)
 
 

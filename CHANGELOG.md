@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.10](https://github.com/m0rtyn/skuka-app/compare/v0.1.9...v0.1.10) (2025-06-19)
+
+
+### Bug Fixes
+
+* set proper default progression ([0807e6f](https://github.com/m0rtyn/skuka-app/commit/0807e6f21ed0ddda6590bc6e55d5df75a9b55d8e))
+
 ### [0.1.9](https://github.com/m0rtyn/skuka-app/compare/v0.1.8...v0.1.9) (2025-06-18)
 
 

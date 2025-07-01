@@ -1,5 +1,13 @@
 import styles from "./activity.module.css"
-import { FC, cloneElement, useEffect, useMemo, useRef } from "react"
+import {
+  Attributes,
+  FC,
+  HTMLAttributes,
+  cloneElement,
+  useEffect,
+  useMemo,
+  useRef
+} from "react"
 import ActivityCalendar, {
   Activity,
   BlockElement
@@ -78,27 +86,27 @@ function renderCalBlock(block: BlockElement, activity: Activity) {
   const isLvZero = lv === 0
   const isDateBeforeNow = Date.now() - +new Date(date) >= MILLIS_IN_DAY
   const [size, offset, strokeWidth, radius] = getComputedStyle(lv)
-
-  return cloneElement(block, {
-    width: size,
-    height: size,
-    strokeWidth,
-    fill: !isLvZero ? "white" : "transparent",
-    stroke:
-      isLvZero && isDateBeforeNow ?
-        "var(--c-foreground)"
-      : "var(--c-background)",
-    strokeLinecap: "round",
-    strokeDasharray: isLvZero && isDateBeforeNow ? "1,3" : "0",
+  const stroke =
+    isLvZero && isDateBeforeNow ? "var(--c-foreground)" : "var(--c-background)"
+  const blockParams = {
+    strokeDasharray: isLvZero && isDateBeforeNow ? "0.1,3" : "0",
     className: date.endsWith("01-01") ? "new-year" : "",
+    style: {}, // NOTE: to rewrite default styles
+    fill: !isLvZero ? "white" : "transparent",
     x: Number(x) + offset,
     y: Number(y) + offset,
+    width: size,
+    height: size,
     rx: radius,
     ry: radius,
     "data-tooltip-html": `${count} of session on ${date.slice(0, 10)}`,
     "data-tooltip-id": "react-tooltip",
-    style: {} // NOTE: to rewrite default styles
-  })
+    strokeLinecap: "round" as const,
+    strokeWidth,
+    stroke
+  }
+
+  return cloneElement(block, blockParams)
 }
 
 function addYearsToCalendar(
@@ -154,14 +162,16 @@ function addGradientToCalendar(activityCal: HTMLDivElement | null): void {
 /** @returns {[number, number, number, number]} [size, offset, strokeWidth, radius] */
 function getComputedStyle(lv: number): [number, number, number, number] {
   return (
-    lv === 0 ?
-      [16, 0, 1, 2] // empty block with border
+    // [size, offset, strokeWidth, radius]
+    // zero level: empty bordered circle
+    lv === 0 ? [15, 0.5, 1, 8]
     : lv === 1 ? [10, 3, 6, 8]
     : lv === 2 ? [11, 2.5, 5, 7]
     : lv === 3 ? [12, 2, 4, 6]
     : lv === 4 ? [13, 1.5, 3, 5]
     : lv === 5 ? [14, 1, 2, 4]
     : lv === 6 ? [15, 0.5, 1, 3]
+      // max level: full filled square
     : [16, 0, 0, 2]
   )
 }

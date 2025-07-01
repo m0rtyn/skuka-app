@@ -4,7 +4,7 @@ import { countMaxStreak, countStreak } from "../utils/get-streak"
 import { getDaysDataByDateRange } from "../utils/get-days-data-by-date-range"
 import {
   getAverageCountPerDay,
-  getAverageSessionPerDay
+  calcAverageSessionPerDay
 } from "../utils/user-stats.utils"
 import { DateRange, YearString } from "features/settings/settings.types"
 import { Hour, Minute } from "shared/types"
@@ -38,10 +38,11 @@ export const selectMaxStreak = createSelector(
     selectActiveDays
   ],
   (maxStreak, days) =>
-    maxStreak ?
-      isNaN(maxStreak) ? countMaxStreak(days)
-      : maxStreak
-    : countMaxStreak(days)
+    maxStreak
+      ? isNaN(maxStreak)
+        ? countMaxStreak(days)
+        : maxStreak
+      : countMaxStreak(days)
 )
 
 export const selectFirstSessionDate = (state: RootState) =>
@@ -59,8 +60,8 @@ export const selectFirstSessionDateByRange = createSelector(
 export const selectTotalDuration = createSelector(
   [selectUserStats, selectDaysByDateRange, selectDateRange],
   (stats, days, range) => {
-    return range === DateRange.AllTime ?
-        (stats?.totalDuration ?? (0 as Minute))
+    return range === DateRange.AllTime
+      ? (stats?.totalDuration ?? (0 as Minute))
       : calcTotalDuration(days)
   }
 )
@@ -76,9 +77,9 @@ export const selectAverageCount = createSelector(
 export const selectAverageDuration = createSelector(
   [selectFirstSessionDateByRange, selectTotalDuration],
   (firstSessionDate, totalDuration) =>
-    firstSessionDate ?
-      getAverageSessionPerDay(firstSessionDate, totalDuration)
-    : null
+    firstSessionDate
+      ? calcAverageSessionPerDay(firstSessionDate, totalDuration)
+      : null
 )
 
 export const selectTotalHours = createSelector(selectTotalDuration, total => {

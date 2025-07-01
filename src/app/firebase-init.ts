@@ -1,6 +1,11 @@
 import { createUserStats } from "app/create-user-stats"
 import { initializeApp } from "firebase/app"
-import { getAuth, onAuthStateChanged } from "firebase/auth"
+import {
+  browserLocalPersistence,
+  getAuth,
+  onAuthStateChanged,
+  setPersistence
+} from "firebase/auth"
 import { initializeFirestore } from "firebase/firestore"
 
 const apiKey = import.meta.env.VITE_FIREBASE_API_KEY
@@ -21,6 +26,5 @@ export const firestore = initializeFirestore(firebaseApp, {
 })
 
 export const auth = getAuth(firebaseApp)
+setPersistence(auth, browserLocalPersistence)
 onAuthStateChanged(auth, createUserStats)
-
-// onAuthStateChanged(auth, createUserStats)

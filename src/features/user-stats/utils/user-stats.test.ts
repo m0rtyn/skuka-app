@@ -11,17 +11,17 @@ import {
 import {
   exportToCSV,
   getAverageCountPerDay,
-  getAverageSessionPerDay,
+  calcAverageSessionPerDay,
   getTotalDurationsAsAxisData
 } from "./user-stats.utils"
 import { startOfToday } from "date-fns"
 
-describe("getAverageSessionPerDay", () => {
+describe("calcAverageSessionDuration", () => {
   it("should return Infinity if there are no days diff", () => {
     const firstSessionDate = startOfToday().getTime() as Millisecond
     const totalDuration = 100 as Minute
 
-    expect(getAverageSessionPerDay(firstSessionDate, totalDuration)).toBe(
+    expect(calcAverageSessionPerDay(firstSessionDate, totalDuration)).toBe(
       Infinity
     )
   })
@@ -39,7 +39,7 @@ describe("getAverageSessionPerDay", () => {
 
     totalDurationList.map((totalDuration, index) =>
       expect(
-        getAverageSessionPerDay(
+        calcAverageSessionPerDay(
           firstSessionDateList[index] as Millisecond,
           totalDuration as Minute
         )
@@ -71,6 +71,7 @@ describe("getTotalDurationsAsAxisData", () => {
     expect(result).toEqual(expectedTotalDurationsAxisData)
   })
 })
+
 describe("getAverageCountPerDay", () => {
   const dayDataMock: DayData = {
     timestamp: 0 as Millisecond,

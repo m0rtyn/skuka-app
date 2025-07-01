@@ -17,7 +17,7 @@ import { FEATURE_NAME } from "../user-stats.constants"
 import { fetchDays } from "../api/fetch-days"
 import { fetchStats } from "../api/fetch-stats"
 import { roundToHundredth } from "shared/utils"
-import { getAverageSessionPerDay as calcAverageSessionPerDay } from "../utils/user-stats.utils"
+import { calcAverageSessionPerDay as calcAverageSessionPerDay } from "../utils/user-stats.utils"
 import { sendStats } from "../api/stats"
 import { ThunkAPI } from "app/store"
 
@@ -88,9 +88,9 @@ export const sendUserStatsThunk = createAsyncThunk<void, Payload, ThunkAPI>(
     )
 
     const newMaxStreak =
-      dayData.sessions.length === 0 && maxStreak ?
-        maxStreak // FIXME: this is a bug
-      : Math.max(maxStreak, streak || 1)
+      dayData.sessions.length === 0 && maxStreak
+        ? maxStreak // FIXME: this is a bug
+        : Math.max(maxStreak, streak || 1)
 
     const newUserStats: ServerUserStatsData = {
       userId: dayData.userId,

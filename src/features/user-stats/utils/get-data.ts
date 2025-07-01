@@ -1,5 +1,5 @@
 import { DayData, MockDayData, UserStatsData } from "shared/types"
-import { getAverageSessionPerDay, getPseudoDayData } from "./user-stats.utils"
+import { calcAverageSessionPerDay, getPseudoDayData } from "./user-stats.utils"
 
 // TODO: refactor this method
 // eslint-disable-next-line max-statements
@@ -14,7 +14,7 @@ export function getForesightDaysData(
 
   const averageSessionDuration =
     stats.averageDuration ??
-    getAverageSessionPerDay(stats.firstSessionDate, stats.totalDuration)
+    calcAverageSessionPerDay(stats.firstSessionDate, stats.totalDuration)
 
   const additionalDaysData: MockDayData[] = new Array(additionalDataLength)
     .fill(null)

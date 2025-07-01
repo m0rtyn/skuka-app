@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.13](https://github.com/m0rtyn/skuka-app/compare/v0.1.12...v0.1.13) (2025-07-01)
+
+
+### Features
+
+* add persistance for login state ([2881403](https://github.com/m0rtyn/skuka-app/commit/28814031f267d9d742011719878eed30a6cbec38))
+* update logo and add favicon ([063010c](https://github.com/m0rtyn/skuka-app/commit/063010ca8c3958e3e9a12400f9ff4a428901d83f))
+
 ### [0.1.12](https://github.com/m0rtyn/skuka-app/compare/v0.1.11...v0.1.12) (2025-06-19)
 
 

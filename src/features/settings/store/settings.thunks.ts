@@ -35,7 +35,7 @@ export const sendSettingsThunk = createAsyncThunk<void, string, ThunkAPI>(
   // eslint-disable-next-line max-statements
   async (userUid, thunkAPI) => {
     const settings = thunkAPI.getState().settings
-    const statsColRef = collection(firestore, "settings")
+    const statsColRef = collection(firestore, FEATURE_NAME)
     const settingsRef = doc(statsColRef, userUid)
 
     try {

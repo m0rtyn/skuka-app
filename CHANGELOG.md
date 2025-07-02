@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.14](https://github.com/m0rtyn/skuka-app/compare/v0.1.13...v0.1.14) (2025-07-02)
+
+
+### Bug Fixes
+
+* wrong function name after refactoring ([5798f33](https://github.com/m0rtyn/skuka-app/commit/5798f3347255c0d1f5ef31f79e306a5620a4ac40))
+
 ### [0.1.13](https://github.com/m0rtyn/skuka-app/compare/v0.1.12...v0.1.13) (2025-07-01)
 
 

@@ -1,3 +1,6 @@
+### Version 0.7.3
+- build: add manuil chunking for bundle
+
 ### Version 0.7.2
 
 ### Version 0.7.0

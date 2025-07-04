@@ -1,10 +1,8 @@
 ### Version 0.8.0
-- build: add manuil chunking for bundle
-- Bumped version to 0.7.3
 - feat: merge activity calendar into project
 
 ### Version 0.7.3
-- build: add manuil chunking for bundle
+- build: add manual chunking for bundle
 
 ### Version 0.7.2
 

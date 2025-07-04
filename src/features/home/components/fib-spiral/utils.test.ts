@@ -1,6 +1,7 @@
 /* eslint-disable max-statements */
 import { EXPONENTIAL_STAGES, SECS_IN_MIN, FIB_NUMS } from "shared/constants"
 import { getCurrentStageProgress, getSpiralProgress } from "./utils"
+import { describe, it, beforeEach, afterEach, expect } from "vitest"
 
 describe("getSpiralProgress", () => {
   it("should calculate properly values for each stage", () => {

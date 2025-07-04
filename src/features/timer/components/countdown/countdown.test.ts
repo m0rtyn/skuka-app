@@ -1,7 +1,8 @@
-import { render, unmountComponentAtNode } from 'react-dom'
-import { act } from 'react-dom/test-utils'
-import getRemainTime from './get-remain-time'
-import { EXPONENTIAL_STAGES } from 'shared/constants'
+import { render, unmountComponentAtNode } from "react-dom"
+import { act } from "react-dom/test-utils"
+import getRemainTime from "./get-remain-time"
+import { EXPONENTIAL_STAGES } from "shared/constants"
+import { describe, it, beforeEach, afterEach, expect } from "vitest"
 
 // describe("Countdown", () => {
 //   let container = null
@@ -110,16 +111,16 @@ import { EXPONENTIAL_STAGES } from 'shared/constants'
 //   })
 // })
 
-describe('getRemainTime', () => {
-  it('should return 00:59 when 1 second is passed', () => {
+describe("getRemainTime", () => {
+  it("should return 00:59 when 1 second is passed", () => {
     const result = getRemainTime(0, 1, EXPONENTIAL_STAGES)
     expect(result).toBe({ minutes: 0, seconds: 59 })
   })
-  it('should return 00:01 when 59 seconds is passed', () => {
+  it("should return 00:01 when 59 seconds is passed", () => {
     const result = getRemainTime(0, 59, EXPONENTIAL_STAGES)
     expect(result).toBe({ minutes: 0, seconds: 1 })
   })
-  it('should return 03:30 when 1 minute and 50 seconds is passed', () => {
+  it("should return 03:30 when 1 minute and 50 seconds is passed", () => {
     const result = getRemainTime(1, 30, EXPONENTIAL_STAGES)
     expect(result).toBe({ minutes: 3, seconds: 30 })
   })

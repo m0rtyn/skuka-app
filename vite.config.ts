@@ -1,3 +1,5 @@
+/// <reference types="vitest" />
+
 import { defineConfig } from "vite"
 import react from "@vitejs/plugin-react"
 import viteTsconfigPaths from "vite-tsconfig-paths"
@@ -6,13 +8,14 @@ import { visualizer } from "rollup-plugin-visualizer"
 import { VitePWA } from "vite-plugin-pwa"
 import pkg from "./package.json"
 
-console.log(`Vite config for ${pkg.name} v${pkg.version}`)
+// console.log(`Vite config for ${pkg.name} v${pkg.version}`)
 export default defineConfig({
   base: "/",
   define: {
     __VITE_NAME__: `"${pkg.name}"`,
     __VITE_VERSION__: `"${pkg.version}"`
   },
+  test: {},
   plugins: [
     react(),
     viteTsconfigPaths(),

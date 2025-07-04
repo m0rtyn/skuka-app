@@ -1,4 +1,6 @@
+import { Second } from "shared/types"
 import { createSessionData } from "shared/utils"
+import { describe, it, beforeEach, afterEach, expect } from "vitest"
 
 describe("getSessionData", () => {
   it("should return properly values", () => {
@@ -8,7 +10,7 @@ describe("getSessionData", () => {
 
     // eslint-disable-next-line max-nested-callbacks
     secondsArray.forEach((seconds, i) => {
-      const result = createSessionData(userId, seconds)
+      const result = createSessionData(userId, seconds as Second)
       expect(result.duration).toEqual(expected[i])
     })
   })

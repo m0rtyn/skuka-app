@@ -8,9 +8,10 @@
     "dev": "npm run start",
     "build": "vite build && npm run copy-changelog",
     "serve": "vite preview",
-    "test:debug": "vite --inspect-brk test --runInBand --no-cache",
-    "test": "vite test",
     "format": "vite format",
+    "test": "vitest",
+    "test:debug": "vitest --debug",
+    "coverage": "vitest run --coverage",
     "build-functions": "cd functions && npm install && npm run build",
     "new-version": "standard-version",
     "bump": "npm run new-version",
@@ -59,6 +60,7 @@
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.30.1",
     "vite": "^6.3.5",
+    "vitest": "^3.2.4",
     "web-vitals": "^0.2.4"
   }
 }

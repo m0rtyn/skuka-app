@@ -1,6 +1,8 @@
 import { EXPONENTIAL_STAGES } from "shared/constants"
 import { getClosestProgressionDiscrete } from "."
 import getRemainTime from "features/timer/components/countdown/get-remain-time"
+import { describe, it, beforeEach, afterEach, expect } from "vitest"
+import { Second } from "shared/types"
 
 // describe("getFloorFibDiscrete", () => {
 //   it("should return properly values", () => {
@@ -31,7 +33,7 @@ describe("getClosestProgressionDiscrete", () => {
     ]
     // eslint-disable-next-line max-nested-callbacks
     const results = inputValues.map(n =>
-      getClosestProgressionDiscrete(n, EXPONENTIAL_STAGES)
+      getClosestProgressionDiscrete(n as Second, EXPONENTIAL_STAGES)
     )
 
     expect(results).toEqual(EXPONENTIAL_STAGES)
@@ -41,11 +43,32 @@ describe("getClosestProgressionDiscrete", () => {
 describe("getRemainTime", () => {
   // eslint-disable-next-line max-statements
   it("should return properly values", () => {
-    const result1 = getRemainTime(EXPONENTIAL_STAGES[1], 1, EXPONENTIAL_STAGES)
-    const result2 = getRemainTime(EXPONENTIAL_STAGES[2], 1, EXPONENTIAL_STAGES)
-    const result3 = getRemainTime(EXPONENTIAL_STAGES[3], 1, EXPONENTIAL_STAGES)
-    const result4 = getRemainTime(EXPONENTIAL_STAGES[4], 1, EXPONENTIAL_STAGES)
-    const result5 = getRemainTime(EXPONENTIAL_STAGES[5], 1, EXPONENTIAL_STAGES)
+    const one = 1 as Second
+    const result1 = getRemainTime(
+      EXPONENTIAL_STAGES[1],
+      one,
+      EXPONENTIAL_STAGES
+    )
+    const result2 = getRemainTime(
+      EXPONENTIAL_STAGES[2],
+      one,
+      EXPONENTIAL_STAGES
+    )
+    const result3 = getRemainTime(
+      EXPONENTIAL_STAGES[3],
+      one,
+      EXPONENTIAL_STAGES
+    )
+    const result4 = getRemainTime(
+      EXPONENTIAL_STAGES[4],
+      one,
+      EXPONENTIAL_STAGES
+    )
+    const result5 = getRemainTime(
+      EXPONENTIAL_STAGES[5],
+      one,
+      EXPONENTIAL_STAGES
+    )
 
     expect.hasAssertions()
     expect(result1).toBe({ seconds: 59, minutes: 0 })

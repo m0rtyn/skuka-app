@@ -1,3 +1,6 @@
+### Version 0.1.17
+- chore: rewrite changelog
+
 # Changelog
 
 All notable changes to this project will be documented in this file.

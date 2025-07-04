@@ -1,17 +1,14 @@
 import styles from "./activity.module.css"
 import {
-  Attributes,
   FC,
-  HTMLAttributes,
+  Suspense,
   cloneElement,
+  lazy,
   useEffect,
   useMemo,
   useRef
 } from "react"
-import ActivityCalendar, {
-  Activity,
-  BlockElement
-} from "react-activity-calendar"
+import { Activity, BlockElement, Skeleton } from "features/activity-calendar"
 import { Tooltip } from "react-tooltip"
 import { BLACK, MILLIS_IN_DAY, MINS_IN_HOUR, WHITE } from "shared/constants"
 import { DayData, Millisecond } from "shared/types"
@@ -19,6 +16,8 @@ import { getYear } from "date-fns"
 import { useAppSelector } from "app/store"
 import { addRangeEdges, mapDaysToActivity } from "../utils/add-range-edges"
 import { selectFirstSessionDateByRange } from "../store/user-stats.selectors"
+
+const ActivityCalendar = lazy(() => import("features/activity-calendar"))
 
 const THEME = {
   dark: [WHITE, WHITE],
@@ -62,20 +61,22 @@ export const HeatCalendar: FC<Props> = ({ dayData, loading }) => {
 
   return (
     <div className={styles.calendarContainer}>
-      <ActivityCalendar
-        loading={loading || !activityData.length}
-        colorScheme={darkMode ? "dark" : "light"}
-        renderBlock={renderCalBlock}
-        totalCount={activityAccCount}
-        data={activityData}
-        blockSize={16}
-        theme={THEME}
-        maxLevel={8}
-        ref={activityCalRef}
-        hideColorLegend
-        hideTotalCount
-      />
-      <Tooltip id='react-tooltip' />
+      <Suspense fallback={<Skeleton />}>
+        <ActivityCalendar
+          loading={loading || !activityData.length}
+          colorScheme={darkMode ? "dark" : "light"}
+          renderBlock={renderCalBlock}
+          totalCount={activityAccCount}
+          data={activityData}
+          blockSize={16}
+          theme={THEME}
+          maxLevel={8}
+          ref={activityCalRef}
+          hideColorLegend
+          hideTotalCount
+        />
+        <Tooltip id='react-tooltip' />
+      </Suspense>
     </div>
   )
 }

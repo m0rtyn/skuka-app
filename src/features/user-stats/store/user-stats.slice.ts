@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { DayData, Minute, UserStatsData } from "shared/types"
 import { FEATURE_NAME } from "../user-stats.constants"
-import { fetchChartDataThunk, fetchStatsThunk } from "./user-stats.thunks"
+import { fetchActivityDataThunk, fetchStatsThunk } from "./user-stats.thunks"
 import { DateRange, YearString } from "features/settings/settings.types"
 import { generateFakeDayData } from "../utils/generate-fake-day-data"
 
@@ -75,13 +75,13 @@ export const userStatsSlice = createSlice({
       .addCase(fetchStatsThunk.rejected, (state, action) => {
         state.status = "error"
       })
-      .addCase(fetchChartDataThunk.pending, (state, action) => {
+      .addCase(fetchActivityDataThunk.pending, (state, action) => {
         state.status = "loading"
       })
-      .addCase(fetchChartDataThunk.fulfilled, (state, action) => {
+      .addCase(fetchActivityDataThunk.fulfilled, (state, action) => {
         state.status = "loaded"
       })
-      .addCase(fetchChartDataThunk.rejected, (state, action) => {
+      .addCase(fetchActivityDataThunk.rejected, (state, action) => {
         console.error(action.error)
         state.status = "error"
         state.errorMessage = action.error.message ?? null

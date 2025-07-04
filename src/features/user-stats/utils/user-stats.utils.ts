@@ -26,7 +26,6 @@ export const calcAverageSessionPerDay = (
   firstSessionDate: Millisecond,
   totalDuration: Minute
 ) => {
-  // console.trace(firstSessionDate, totalDuration)
   if (!firstSessionDate) throw new Error("there are no user statistics yet")
 
   const statsMillisecondsDiff = (Date.now() - firstSessionDate) as Millisecond

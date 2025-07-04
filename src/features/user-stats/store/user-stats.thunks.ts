@@ -45,7 +45,7 @@ export const fetchStatsThunk = createAsyncThunk(
   }
 )
 
-export const fetchChartDataThunk = createAsyncThunk(
+export const fetchActivityDataThunk = createAsyncThunk(
   `${FEATURE_NAME}/getChartData` as const,
   // TODO: refactor this method
   async (user: User, thunkAPI) => {
@@ -88,9 +88,9 @@ export const sendUserStatsThunk = createAsyncThunk<void, Payload, ThunkAPI>(
     )
 
     const newMaxStreak =
-      dayData.sessions.length === 0 && maxStreak
-        ? maxStreak // FIXME: this is a bug
-        : Math.max(maxStreak, streak || 1)
+      dayData.sessions.length === 0 && maxStreak ?
+        maxStreak // FIXME: this is a bug
+      : Math.max(maxStreak, streak || 1)
 
     const newUserStats: ServerUserStatsData = {
       userId: dayData.userId,

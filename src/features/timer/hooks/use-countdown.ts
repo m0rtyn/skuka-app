@@ -10,6 +10,7 @@ import {
   getNextProgressionStage
 } from "shared/utils"
 import { remainTimeToDigitClock } from "../components/countdown/remainTimeToDigitClock"
+import { selectAverageDuration } from "features/user-stats/store/user-stats.selectors"
 
 // eslint-disable-next-line max-statements
 export const useCountdown = (seconds: Second) => {
@@ -18,9 +19,7 @@ export const useCountdown = (seconds: Second) => {
   const [minutesRemain, setMinutesRemain] = useState<Minute>(0 as Minute)
   const [isBlinkingStarted, setIsAnimationEnabled] = useState(false)
 
-  const averageDuration = useAppSelector(
-    state => state.userStats.stats?.averageDuration
-  )
+  const averageDuration = useAppSelector(selectAverageDuration)
 
   const isTimerBlinking = useAppSelector(state => state.settings.timerBlinking)
   const progressionType = useAppSelector(state => state.settings.progression)

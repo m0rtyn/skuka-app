@@ -1,7 +1,7 @@
 import { AppRouter } from "app/app-router"
 import { auth } from "app/firebase-init"
 import {
-  fetchChartDataThunk as fetchDaysDataThunk,
+  fetchActivityDataThunk,
   fetchStatsThunk
 } from "features/user-stats/store/user-stats.thunks"
 import { useEffect } from "react"
@@ -21,7 +21,7 @@ export const App = () => {
     if (!user || user.isAnonymous) return
 
     dispatch(fetchSettingsThunk(user.uid))
-    dispatch(fetchDaysDataThunk(user))
+    dispatch(fetchActivityDataThunk(user))
     dispatch(fetchStatsThunk(user))
   }, [dispatch, user])
 

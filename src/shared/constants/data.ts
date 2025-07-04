@@ -7,7 +7,7 @@ import {
   UserStatsData
 } from "shared/types"
 
-export const INIT_SERVER_USER_STATS: ServerUserStatsData = {
+export const INIT_SERVER_STATS: ServerUserStatsData = {
   firstSessionDate: Timestamp.fromDate(new Date()),
   totalDuration: 0 as Minute,
   count: 0,

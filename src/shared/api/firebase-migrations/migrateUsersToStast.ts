@@ -5,9 +5,9 @@ import {
   QueryDocumentSnapshot,
   setDoc
 } from "@firebase/firestore"
-import { firestore } from "features/home/firebase-init"
+import { firestore } from "app/firebase-init"
 import { doc, getDocs, query } from "firebase/firestore"
-import { INIT_SERVER_USER_STATS } from "shared/constants"
+import { INIT_SERVER_STATS } from "shared/constants"
 import { SkukaSession } from "shared/types"
 
 interface UserData {
@@ -40,7 +40,7 @@ export const migrateUserToStats = async (
 
       const newUserStatsRef = doc(userStatsColRef)
       const newUserStatsData = {
-        ...INIT_SERVER_USER_STATS,
+        ...INIT_SERVER_STATS,
         userId
       }
 

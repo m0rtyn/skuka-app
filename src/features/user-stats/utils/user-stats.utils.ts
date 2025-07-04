@@ -54,7 +54,7 @@ export const getMedianSessionDuration = (daysData: DayData[]): Minute => {
       allDurations[mid]
     : (allDurations[mid - 1] + allDurations[mid]) / 2
 
-  return median as Minute
+  return roundToTenth(median) as Minute
 }
 
 export const getAverageCountPerDay = (dayDataList: DayData[]) => {

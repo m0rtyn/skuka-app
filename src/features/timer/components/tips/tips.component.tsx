@@ -15,6 +15,7 @@ import { Minute, Second } from "shared/types"
 import { useAppSelector } from "app/store"
 import { getTimerProgressToMinutes } from "./timer-progress-to-minutes"
 import { StyledTooltip } from "shared/components/styled-tooltip.styles"
+import { selectAverageDuration } from "features/user-stats/store/user-stats.selectors"
 
 interface Props {
   second: Second
@@ -26,9 +27,7 @@ export const Tips: React.FC<Props> = React.memo(
   ({ second, isTimerStarted }) => {
     const [currentStage, setCurrentStage] = useState<Second>(0 as Second)
     const progressionType = useAppSelector(state => state.settings.progression)
-    const average =
-      useAppSelector(state => state.userStats.stats?.averageDuration) ??
-      (1 as Minute)
+    const average = useAppSelector(selectAverageDuration) ?? (1 as Minute)
 
     const progressionSecs = getProgressionByType(progressionType, {
       average

@@ -15,6 +15,13 @@ export default defineConfig({
     __VITE_NAME__: `"${pkg.name}"`,
     __VITE_VERSION__: `"${pkg.version}"`
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks
+      }
+    }
+  },
   test: {},
   plugins: [
     react(),
@@ -75,3 +82,36 @@ export default defineConfig({
     port: 3000
   }
 })
+
+const HEAVY_PACKAGES = ["react-activity-calendar"]
+
+function manualChunks(id: string) {
+  if (id.includes("@firebase")) {
+    return splitFirebase(id)
+  }
+
+  if (isReactRouterDependency(id)) {
+    return "@react-router"
+  }
+
+  for (const pkg of HEAVY_PACKAGES) {
+    if (id.includes(`node_modules/${pkg}`)) return pkg
+  }
+}
+
+function isReactRouterDependency(id: string) {
+  return id.includes("react-router-dom") || id.includes("react-router")
+}
+
+function splitFirebase(id: string) {
+  if (id.includes("firestore")) return "firebase/firestore"
+  if (id.includes("auth")) return "firebase/auth"
+  if (id.includes("storage")) return "firebase/storage"
+  if (id.includes("functions")) return "firebase/functions"
+  if (id.includes("performance")) return "firebase/performance"
+  if (id.includes("remote-config")) return "firebase/remote-config"
+  if (id.includes("app-check")) return "firebase/app-check"
+  if (id.includes("in-app-messaging")) return "firebase/in-app-messaging"
+
+  return "firebase"
+}

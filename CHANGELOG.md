@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.15](https://github.com/m0rtyn/skuka-app/compare/v0.1.14...v0.1.15) (2025-07-04)
+
+
+### Features
+
+* add median metric ([e8de79e](https://github.com/m0rtyn/skuka-app/commit/e8de79ea80ad9a14b76c635bddc4a530c5aaa039))
+
+
+### Bug Fixes
+
+* different average duration on different screens ([82d4777](https://github.com/m0rtyn/skuka-app/commit/82d47776265da510b735049e18768f3380088867))
+
 ### [0.1.14](https://github.com/m0rtyn/skuka-app/compare/v0.1.13...v0.1.14) (2025-07-02)
 
 

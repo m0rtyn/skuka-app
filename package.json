@@ -1,7 +1,7 @@
 {
   "name": "skuka-app",
   "private": true,
-  "version": "0.1.17",
+  "version": "0.7.1",
   "type": "module",
   "scripts": {
     "start": "vite",

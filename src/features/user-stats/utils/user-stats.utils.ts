@@ -35,6 +35,28 @@ export const calcAverageSessionPerDay = (
   return average
 }
 
+export const getMedianSessionDuration = (daysData: DayData[]): Minute => {
+  const allDurations = daysData
+    .flatMap(({ sessions }) =>
+      sessions.length === 0 ?
+        [0 as Minute]
+      : sessions.map(session => session.duration)
+    )
+    .sort((a, b) => a - b)
+
+  if (allDurations.length === 0) {
+    return 0 as Minute
+  }
+
+  const mid = Math.floor(allDurations.length / 2)
+  const median =
+    allDurations.length % 2 !== 0 ?
+      allDurations[mid]
+    : (allDurations[mid - 1] + allDurations[mid]) / 2
+
+  return median as Minute
+}
+
 export const getAverageCountPerDay = (dayDataList: DayData[]) => {
   if (dayDataList.length === 0) return null
 

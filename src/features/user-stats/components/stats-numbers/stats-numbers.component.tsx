@@ -2,17 +2,25 @@ import {
   selectActiveDays,
   selectAverageCount,
   selectAverageDuration,
+  selectDaysByDateRange,
   selectMaxStreak,
   selectStreak,
   selectTotalHours
 } from "features/user-stats/store/user-stats.selectors"
 import { useAppSelector } from "app/store"
 import { Foresight } from "../foresight/foresight.component"
-import { StyledStat, StyledStatNumber, Wrapper } from "./stats-numbers.styles"
+import {
+  StyledStat,
+  StyledStatNumber,
+  StyledStatUnit,
+  Wrapper
+} from "./stats-numbers.styles"
 import { getStreakLevel } from "features/user-stats/utils/get-streak"
+import { getMedianSessionDuration } from "features/user-stats/utils/user-stats.utils"
 
 export const StatsNumbers: React.FC = () => {
   const activeDays = useAppSelector(selectActiveDays)
+  const allDays = useAppSelector(selectDaysByDateRange)
   const maxStreak = useAppSelector(selectMaxStreak)
   const averageDuration = useAppSelector(selectAverageDuration)
   const averageCount = useAppSelector(selectAverageCount)
@@ -20,6 +28,7 @@ export const StatsNumbers: React.FC = () => {
   const streak = useAppSelector(selectStreak)
 
   const streakLevel = getStreakLevel(streak)
+  const medianDuration = getMedianSessionDuration(allDays)
 
   const isTotalHoursExist = totalHours !== null && totalHours > 0
   const isAverageDurationExist = averageDuration !== null && averageDuration > 0
@@ -77,20 +86,35 @@ export const StatsNumbers: React.FC = () => {
       <StyledStat>
         {isAverageDurationExist && (
           <>
-            <StyledStatNumber>{averageDuration}</StyledStatNumber>
-            <span> avg.&nbsp;mins&nbsp;per&nbsp;day </span>
+            <StyledStatNumber>
+              {averageDuration}
+              <StyledStatUnit>min</StyledStatUnit>
+            </StyledStatNumber>
+            <span> average&nbsp;per&nbsp;day </span>
           </>
         )}
       </StyledStat>
 
       <StyledStat>
+        {medianDuration && (
+          <>
+            <StyledStatNumber>
+              {medianDuration}
+              <StyledStatUnit>min</StyledStatUnit>
+            </StyledStatNumber>
+            <span> median&nbsp;per&nbsp;day </span>
+          </>
+        )}
+      </StyledStat>
+
+      {/* <StyledStat>
         {averageCount && (
           <>
             <StyledStatNumber>{averageCount}</StyledStatNumber>
             <span> avg.&nbsp;times&nbsp;per&nbsp;day </span>
           </>
         )}
-      </StyledStat>
+      </StyledStat> */}
     </Wrapper>
   )
 }

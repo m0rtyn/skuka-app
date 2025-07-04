@@ -33,9 +33,21 @@ export const StyledStatNumber = styled.span`
   font-size: 3rem;
   line-height: 1;
   color: var(--c-foreground);
+  font-family: var(--font-mono);
 
   @media screen and (hover: hover) {
     font-size: 4rem;
+  }
+`
+export const StyledStatUnit = styled.span`
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--c-foreground);
+  font-family: var(--font-mono);
+  padding-left: 0.5rem;
+
+  @media screen and (hover: hover) {
+    font-size: 2rem;
   }
 `
 

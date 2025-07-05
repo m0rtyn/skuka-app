@@ -1,9 +1,9 @@
 import {
-  selectActiveDays,
+  selectActiveDaysByRange,
   selectAverageCount,
   selectAverageDuration,
   selectDaysByDateRange,
-  selectMaxStreak,
+  selectMaxStreakByRange,
   selectStreak,
   selectTotalHours
 } from "features/user-stats/store/user-stats.selectors"
@@ -19,9 +19,9 @@ import { getStreakLevel } from "features/user-stats/utils/get-streak"
 import { getMedianSessionDuration } from "features/user-stats/utils/user-stats.utils"
 
 export const StatsNumbers: React.FC = () => {
-  const activeDays = useAppSelector(selectActiveDays)
+  const activeDays = useAppSelector(selectActiveDaysByRange)
   const allDays = useAppSelector(selectDaysByDateRange)
-  const maxStreak = useAppSelector(selectMaxStreak)
+  const maxStreak = useAppSelector(selectMaxStreakByRange)
   const averageDuration = useAppSelector(selectAverageDuration)
   const averageCount = useAppSelector(selectAverageCount)
   const totalHours = useAppSelector(selectTotalHours)

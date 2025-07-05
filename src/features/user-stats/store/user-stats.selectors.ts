@@ -22,8 +22,9 @@ export const selectDaysByDateRange = createSelector(
   [selectDaysData, selectDateRange],
   (days, dateRange) => getDaysDataByDateRange(days, dateRange)
 )
-export const selectActiveDays = createSelector(selectDaysByDateRange, days =>
-  days.filter(d => d.sessions.length > 0 || d.totalDuration > 0)
+export const selectActiveDaysByRange = createSelector(
+  selectDaysByDateRange,
+  days => days.filter(d => d.sessions.length > 0 || d.totalDuration > 0)
 )
 
 const { AllTime, Quarter, Year } = DateRange
@@ -32,17 +33,17 @@ export const selectStreak = createSelector(
   (days, dateRange) =>
     checkForCurrentYear(dateRange) ? countStreak(days) : null
 )
-export const selectMaxStreak = createSelector(
-  [
-    (state: RootState) => state.userStats.stats?.maxStreak || null,
-    selectActiveDays
-  ],
-  (maxStreak, days) =>
-    maxStreak
-      ? isNaN(maxStreak)
-        ? countMaxStreak(days)
-        : maxStreak
-      : countMaxStreak(days)
+
+export const selectMaxStreak = (state: RootState) =>
+  state.userStats.stats?.maxStreak || null
+export const selectMaxStreakByRange = createSelector(
+  [selectMaxStreak, selectActiveDaysByRange],
+  (maxStreak, days) => countMaxStreak(days)
+  // FIXME: find a way to use maxStreak from state
+  // maxStreak !== null ?
+  //   isNaN(maxStreak) ? countMaxStreak(days)
+  //   : maxStreak
+  // : countMaxStreak(days)
 )
 
 export const selectFirstSessionDate = (state: RootState) =>
@@ -60,8 +61,8 @@ export const selectFirstSessionDateByRange = createSelector(
 export const selectTotalDuration = createSelector(
   [selectUserStats, selectDaysByDateRange, selectDateRange],
   (stats, days, range) => {
-    return range === DateRange.AllTime
-      ? (stats?.totalDuration ?? (0 as Minute))
+    return range === DateRange.AllTime ?
+        (stats?.totalDuration ?? (0 as Minute))
       : calcTotalDuration(days)
   }
 )
@@ -77,9 +78,9 @@ export const selectAverageCount = createSelector(
 export const selectAverageDuration = createSelector(
   [selectFirstSessionDateByRange, selectTotalDuration],
   (firstSessionDate, totalDuration) =>
-    firstSessionDate
-      ? calcAverageSessionPerDay(firstSessionDate, totalDuration)
-      : null
+    firstSessionDate ?
+      calcAverageSessionPerDay(firstSessionDate, totalDuration)
+    : null
 )
 
 export const selectTotalHours = createSelector(selectTotalDuration, total => {

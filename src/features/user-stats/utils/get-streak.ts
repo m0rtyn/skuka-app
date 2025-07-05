@@ -1,10 +1,12 @@
 import { MILLIS_IN_DAY } from "shared/constants"
 import { DayData } from "shared/types"
+import { isSameDay, differenceInCalendarDays } from "date-fns"
 
 const checkIsDayEmpty = (d: DayData) =>
   d.sessions.length === 0 && d.totalDuration === 0
 
 export const countMaxStreak = (daysWithSession: DayData[]) => {
+  console.trace(daysWithSession)
   if (daysWithSession.length === 0) return 0
 
   if (daysWithSession.some(d => checkIsDayEmpty(d)))
@@ -12,56 +14,57 @@ export const countMaxStreak = (daysWithSession: DayData[]) => {
 
   let maxStreak = 0
   let currentStreak = 0
-  const lastIdx = daysWithSession.length - 1
 
-  for (let i = 0; i <= lastIdx; i++) {
-    const day = daysWithSession[i]
-    const prevDay = i > 0 ? daysWithSession[i - 1] : null
-    const dayDiff =
-      prevDay && (day.timestamp - prevDay?.timestamp) / MILLIS_IN_DAY
-
-    const isDayIdentical = dayDiff === 0
-    const isDiffMoreThanOne = dayDiff !== null && dayDiff > 1
-
-    if (isDayIdentical) continue
-    if (isDiffMoreThanOne) {
-      maxStreak = Math.max(maxStreak, currentStreak)
+  for (let i = 0; i < daysWithSession.length; i++) {
+    if (i === 0) {
       currentStreak = 1
-      continue
-    }
+    } else {
+      const day = daysWithSession[i].timestamp
+      const prevDay = daysWithSession[i - 1].timestamp
 
-    currentStreak += 1
-    if (i === lastIdx) maxStreak = Math.max(maxStreak, currentStreak)
+      if (isSameDay(day, prevDay)) {
+        continue // Same day, streak doesn't change
+      }
+
+      if (differenceInCalendarDays(day, prevDay) === 1) {
+        currentStreak++
+      } else {
+        // Streak is broken
+        maxStreak = Math.max(maxStreak, currentStreak)
+        currentStreak = 1
+      }
+    }
   }
 
-  return maxStreak
+  return Math.max(maxStreak, currentStreak)
 }
 
 export const countStreak = (daysWithSession: DayData[]) => {
   if (daysWithSession.length === 0) return 0
-  if (daysWithSession.length === 1) return 1
+
+  if (daysWithSession.some(d => checkIsDayEmpty(d)))
+    throw new Error("Days with no sessions are not allowed")
+
+  let currentStreak = 1
   const lastIdx = daysWithSession.length - 1
 
-  let streak = 0
-
   for (let i = lastIdx; i > 0; i--) {
-    const day = daysWithSession[i]
-    const nextDay = i > 0 ? daysWithSession[i + 1] : null
+    const day = daysWithSession[i].timestamp
+    const prevDay = daysWithSession[i - 1].timestamp
 
-    const dayDiff =
-      nextDay && (nextDay?.timestamp - day.timestamp) / MILLIS_IN_DAY
-    const isDiffExist = dayDiff !== null
+    if (isSameDay(day, prevDay)) {
+      continue
+    }
 
-    const isDayIdentical = isDiffExist && Math.round(dayDiff) === 0
-    const isDiffMoreThanOne = isDiffExist && dayDiff > 1
-
-    if (isDayIdentical) continue
-    if (isDiffMoreThanOne) break
-
-    streak += 1
+    if (differenceInCalendarDays(day, prevDay) === 1) {
+      currentStreak++
+    } else {
+      // Streak is broken
+      break
+    }
   }
 
-  return streak
+  return currentStreak
 }
 
 export function getStreakLevel(streak: number | null) {

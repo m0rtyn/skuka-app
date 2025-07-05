@@ -1,3 +1,7 @@
+### Version 0.8.1
+- fix: minor text corrections
+- fix: add simple skeleton
+
 ### Version 0.8.0
 - feat: merge activity calendar into project
 

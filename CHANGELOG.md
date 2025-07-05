@@ -1,3 +1,6 @@
+### Version 0.8.2
+- fix: broken styles after merging of activity calendar
+
 ### Version 0.8.1
 - fix: minor text corrections
 - fix: add simple skeleton

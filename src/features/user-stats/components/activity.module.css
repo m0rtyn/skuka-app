@@ -35,12 +35,12 @@
   max-width: 100%;
   grid-area: calendar;
 
-  & :global(.react-activity-calendar.react-activity-calendar) {
+  & :global(.activity-calendar.activity-calendar) {
     direction: rtl;
     min-width: 100%;
   }
 
-  :global(.react-activity-calendar__calendar) {
+  :global(.activity-calendar__calendar) {
     g > rect {
       /* fill: linear-gradient(#e66465, #9198e5); */
       /* fill: red; */
@@ -50,7 +50,7 @@
     }
   }
 
-  /* :global(.react-activity-calendar__legend-colors) {
+  /* :global(.activity-calendar__legend-colors) {
     svg:nth-of-type(1) > rect {
       height: 2px !important;
       width: 2px !important;

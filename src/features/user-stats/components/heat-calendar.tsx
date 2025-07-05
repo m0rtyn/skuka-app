@@ -116,7 +116,7 @@ function addYearsToCalendar(
 ) {
   if (!activityCal) return
   const legendDiv = activityCal.getElementsByClassName(
-    "react-activity-calendar__legend-month"
+    "activity-calendar__legend-month"
   )[0]
 
   if (!legendDiv) return

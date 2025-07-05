@@ -5,8 +5,8 @@ import {
   parseISO,
   endOfYear
 } from "date-fns"
+import { Activity } from "features/activity-calendar"
 import { DateRange, YearString } from "features/settings/settings.types"
-import { Activity } from "react-activity-calendar"
 import { DayData, Minute } from "shared/types"
 import { roundToTenth } from "shared/utils"
 

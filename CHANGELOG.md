@@ -1,3 +1,6 @@
+### Version 0.8.4
+- chore: extract devDeps
+
 ### Version 0.8.3
 - fix: wrong max-streak calculation
 - build: reinstall deps
@@ -6,6 +9,7 @@
 - fix: broken styles after merging of activity calendar
 
 ### Version 0.8.1
+
 - fix: minor text corrections
 - fix: add simple skeleton
 

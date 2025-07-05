@@ -11,6 +11,7 @@ import { useAppSelector } from "app/store"
 import { Foresight } from "../foresight/foresight.component"
 import {
   StyledStat,
+  StyledStatIcon,
   StyledStatNumber,
   StyledStatUnit,
   Wrapper
@@ -67,7 +68,7 @@ export const StatsNumbers: React.FC = () => {
           <>
             <StyledStatNumber>
               {streak}
-              {streakLevel}
+              <StyledStatIcon>{streakLevel}</StyledStatIcon>
             </StyledStatNumber>
             <span> streak </span>
           </>

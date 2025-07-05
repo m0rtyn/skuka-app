@@ -51,6 +51,17 @@ export const StyledStatUnit = styled.span`
   }
 `
 
+export const StyledStatIcon = styled.span`
+  font-size: 2rem;
+  line-height: 1;
+  filter: brightness(4) contrast(2) grayscale(1);
+  padding-left: 0.5rem;
+
+  @media screen and (hover: hover) {
+    font-size: 3rem;
+  }
+`
+
 export const StyledStat = styled.span`
   display: flex;
   font-size: 1.5rem;

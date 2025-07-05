@@ -1,3 +1,7 @@
+### Version 0.8.3
+- fix: wrong max-streak calculation
+- build: reinstall deps
+
 ### Version 0.8.2
 - fix: broken styles after merging of activity calendar
 

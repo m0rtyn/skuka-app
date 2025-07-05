@@ -1,3 +1,7 @@
+### Version 0.8.5
+
+- fix: add monochrome emojis
+
 ### Version 0.8.4
 - chore: extract devDeps
 

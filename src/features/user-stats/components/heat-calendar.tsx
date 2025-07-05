@@ -8,7 +8,7 @@ import {
   useMemo,
   useRef
 } from "react"
-import { Activity, BlockElement, Skeleton } from "features/activity-calendar"
+import { Activity, BlockElement } from "features/activity-calendar"
 import { Tooltip } from "react-tooltip"
 import { BLACK, MILLIS_IN_DAY, MINS_IN_HOUR, WHITE } from "shared/constants"
 import { DayData, Millisecond } from "shared/types"
@@ -61,9 +61,9 @@ export const HeatCalendar: FC<Props> = ({ dayData, loading }) => {
 
   return (
     <div className={styles.calendarContainer}>
-      <Suspense fallback={<Skeleton />}>
+      <Suspense fallback={<AsciiSkeleton />}>
         <ActivityCalendar
-          loading={loading || !activityData.length}
+          loading={loading || !activityData?.length}
           colorScheme={darkMode ? "dark" : "light"}
           renderBlock={renderCalBlock}
           totalCount={activityAccCount}
@@ -176,3 +176,14 @@ function getComputedStyle(lv: number): [number, number, number, number] {
     : [16, 0, 0, 2]
   )
 }
+
+const asciiSkeleton = `0000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000`
+const AsciiSkeleton = () => (
+  <pre className={styles.asciiSkeleton}>{asciiSkeleton}</pre>
+)

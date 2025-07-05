@@ -87,3 +87,9 @@
     }
   }
 }
+
+.asciiSkeleton {
+  font-family: var(--font-mono);
+  white-space: pre;
+  margin: 0;
+}

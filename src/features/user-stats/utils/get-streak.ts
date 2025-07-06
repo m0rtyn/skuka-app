@@ -42,9 +42,6 @@ export const countMaxStreak = (daysWithSession: DayData[]) => {
 export const countStreak = (daysWithSession: DayData[]) => {
   if (daysWithSession.length === 0) return 0
 
-  if (daysWithSession.some(d => checkIsDayEmpty(d)))
-    throw new Error("Days with no sessions are not allowed")
-
   let currentStreak = 1
   const lastIdx = daysWithSession.length - 1
 

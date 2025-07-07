@@ -18,7 +18,6 @@ export const useTimerSound = (progress: Second) => {
 
   const progression = getProgressionByType(progressionType, { average })
 
-  // TODO: remake in custom hook instead of component
   React.useEffect(() => {
     if (progress === 0) return
 

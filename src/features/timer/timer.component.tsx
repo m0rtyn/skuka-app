@@ -6,7 +6,7 @@ import { mainScreenActions } from "../home/store/main-screen.slice"
 import { setSessionThunk } from "../home/store/main-screen.thunks"
 import { TimerButton } from "./components/timer-button/timer-button.component"
 import { Countdown } from "./components/countdown/countdown.component"
-import { useTimerSound } from "./hooks/use-timer-sound"
+// import { useTimerSound } from "./hooks/use-timer-sound"
 import { Tips } from "./components/tips"
 import { BottomTextWrapper, Wrapper } from "./timer.styles"
 import { Second } from "shared/types"
@@ -26,7 +26,7 @@ const Timer: React.FC = () => {
 
   const [user, authLoading] = useAuthState(auth)
   useNoSleep(isTimerStarted)
-  useTimerSound(timerDiff)
+  // useTimerSound(timerDiff)
 
   useCallback(() => {
     return () => {

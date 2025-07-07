@@ -44,7 +44,7 @@ export const StageWrapper = styled.div`
   }
 `
 
-export const StageNumber = styled.code`
+export const StyledStageNumber = styled.code`
   grid-row: 1 / 3;
   grid-area: number;
   font-size: 6rem;
@@ -78,7 +78,7 @@ export const StyledTriangle = styled.span`
   }
 `
 
-export const StyledPercent = styled.span`
+export const StyledRatio = styled.span`
   grid-area: percent;
   color: var(--c-gray);
   text-decoration: underline;

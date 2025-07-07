@@ -50,6 +50,18 @@ ${CSSCustomProperties}
 html {
   height: 100%;
   font-size: 8px;
+  font-family: var(--font-mono);
+  font-display: swap;
+  font-feature-settings:
+    "liga" on,
+    "case" on,
+    "tnum" on,
+    "zero" on,
+    "ss01" on,
+    "ss02" on,
+    "ss07" on,
+    "ss08" on,
+    "calt" on;
 }
 
 body {

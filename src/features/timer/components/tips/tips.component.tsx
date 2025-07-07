@@ -1,10 +1,10 @@
 import React, { useState } from "react"
 import { getNextProgressionStage, getProgressionByType } from "shared/utils"
 import {
-  StageNumber,
+  StyledStageNumber,
   StageWrapper,
   StyledDesc,
-  StyledPercent,
+  StyledRatio,
   StyledTip,
   StyledTriangle,
   StyledUnits,
@@ -72,22 +72,23 @@ export const Tips: React.FC<Props> = React.memo(
 
     return (
       <Wrapper>
-        {isTimerStarted ?
+        {/* {isTimerStarted ? */}
+        {true ?
           <>
             <StyledTriangle />
 
             <StageWrapper>
-              <StageNumber>{nextStageInMinutes}</StageNumber>
+              <StyledStageNumber>{nextStageInMinutes}</StyledStageNumber>
               <StyledUnits>{timerUnits}</StyledUnits>
               <StyledDesc>{articleForm}&nbsp;up&nbsp;next</StyledDesc>
             </StageWrapper>
 
             {resultRatio ?
-              <StyledPercent>
+              <StyledRatio>
                 <StyledTooltip content='Current session multiplier'>
                   x{resultRatio}
                 </StyledTooltip>
-              </StyledPercent>
+              </StyledRatio>
             : null}
           </>
         : <StyledTip>Hold the button to start</StyledTip>}

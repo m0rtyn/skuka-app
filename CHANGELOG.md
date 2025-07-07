@@ -1,3 +1,7 @@
+### Version 0.8.8
+
+- fix: set common font
+
 ### Version 0.8.7
 
 - build: improve code splitting

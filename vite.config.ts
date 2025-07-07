@@ -94,6 +94,10 @@ function manualChunks(id: string) {
     return "@react-router"
   }
 
+  if (isReactDependency(id)) {
+    return "@react"
+  }
+
   for (const pkg of HEAVY_PACKAGES) {
     if (id.includes(`node_modules/${pkg}`)) return pkg
   }
@@ -101,6 +105,15 @@ function manualChunks(id: string) {
 
 function isReactRouterDependency(id: string) {
   return id.includes("react-router-dom") || id.includes("react-router")
+}
+
+function isReactDependency(id: string) {
+  return (
+    id.includes("react") ||
+    id.includes("react-dom") ||
+    id.includes("react-redux") ||
+    id.includes("react-firebase-hooks")
+  )
 }
 
 function splitFirebase(id: string) {

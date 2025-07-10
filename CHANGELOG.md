@@ -1,3 +1,7 @@
+### Version 0.9.0
+
+- feat!: rewrite leaderboard && fix bugs && add some ux&ui improvements
+
 ### Version 0.8.8
 
 - fix: set common font

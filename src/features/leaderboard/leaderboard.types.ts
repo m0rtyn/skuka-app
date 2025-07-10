@@ -6,6 +6,7 @@ export interface LeaderboardData {
   totalDuration: number // in minutes
   displayName: Maybe<string>
   lastSessionTime: Maybe<number>
+  maxStreak: Maybe<number>
 }
 
 export interface LeaderboardState {

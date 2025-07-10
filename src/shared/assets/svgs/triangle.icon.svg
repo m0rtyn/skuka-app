@@ -1,0 +1,30 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 20 20"
+>
+  <defs>
+    <pattern
+      id="diagonalHatch"
+      patternUnits="userSpaceOnUse"
+      width="1"
+      height="1"
+      patternTransform="rotate(45)"
+    >
+      <line
+        x1="0"
+        y1="0"
+        x2="0"
+        y2="10"
+        stroke="white"
+        stroke-width="0.1"
+      />
+    </pattern>
+  </defs>
+
+  <polygon
+    points="0,20 10,0 20,20"
+    fill="url(#diagonalHatch)"
+    stroke="white"
+    stroke-width="0.1"
+  />
+</svg>

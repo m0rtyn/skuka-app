@@ -10,11 +10,11 @@ import {
   where
 } from "firebase/firestore"
 import { firestore } from "app/firebase-init"
-import { Minute, ServerDayData } from "shared/types"
+import { Minute, ServerDayData, ServerUserStatsData } from "shared/types"
 import { MILLIS_IN_QUARTER } from "shared/constants"
 import { getUserNicknameFromId } from "./leaderboard.utils"
 
-export const fetchLeaderboardData = createAsyncThunk<
+export const getLeaderboardThunk = createAsyncThunk<
   LeaderboardData[],
   void,
   { rejectValue: string }
@@ -33,6 +33,21 @@ export const fetchLeaderboardData = createAsyncThunk<
     const daysColSnapshot = await getDocs(daysQuery)
     const daysWithSessions = daysColSnapshot.docs.map(snap => snap.data())
 
+    const statsColRef = collection(firestore, "stats") as CollectionReference<
+      ServerUserStatsData,
+      ServerUserStatsData
+    >
+    const statsQuery = query(
+      statsColRef,
+      where(
+        "userId",
+        "in",
+        daysWithSessions.map(d => d.userId)
+      )
+    )
+    const statsColSnapshot = await getDocs(statsQuery)
+    const stats = statsColSnapshot.docs.map(snap => snap.data())
+
     const leaderboardMap = daysWithSessions.reduce((acc, day) => {
       const doesUserExist = acc.has(day.userId)
       const leaderboardData = {
@@ -40,7 +55,8 @@ export const fetchLeaderboardData = createAsyncThunk<
         count: day.count || day.sessions.length || 0,
         totalDuration: day.totalDuration || 0,
         displayName: null,
-        lastSessionTime: null
+        lastSessionTime: null,
+        maxStreak: stats.find(s => s.userId === day.userId)?.maxStreak || null
       }
       if (!doesUserExist) acc.set(day.userId, leaderboardData)
       else {
@@ -54,7 +70,7 @@ export const fetchLeaderboardData = createAsyncThunk<
         accDay.count = count
         accDay.displayName =
           accDay.displayName || getUserNicknameFromId(leaderboardData.userId)
-        accDay.lastSessionTime = lastTime
+        accDay.lastSessionTime = Math.max(lastTime, accDay.lastSessionTime || 0)
       }
       return acc
     }, new Map<string, LeaderboardData>())
@@ -104,14 +120,14 @@ const leaderboardSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(fetchLeaderboardData.pending, state => {
+      .addCase(getLeaderboardThunk.pending, state => {
         state.status = "loading"
       })
-      .addCase(fetchLeaderboardData.fulfilled, (state, action) => {
+      .addCase(getLeaderboardThunk.fulfilled, (state, action) => {
         state.status = "succeeded"
         state.leaderboard = action.payload
       })
-      .addCase(fetchLeaderboardData.rejected, (state, action) => {
+      .addCase(getLeaderboardThunk.rejected, (state, action) => {
         state.status = "failed"
         state.error = action.payload
       })

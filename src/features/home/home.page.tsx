@@ -9,19 +9,30 @@ import { selectIsTimerStarted } from "./store/main-screen.selectors"
 import { Outlet, useLocation, useNavigate } from "react-router-dom"
 import TimerIcon from "shared/assets/svgs/timer.icon.svg?react"
 import StatsIcon from "shared/assets/svgs/stats.icon.svg?react"
+import LeaderboardIcon from "shared/assets/svgs/leaderboard.icon.svg?react"
 import { StyledFooterLink } from "shared/components/footer/footer.styles"
 import { SwipeCallback, useSwipeable } from "react-swipeable"
 import { skipSwipeOnCalendar } from "./utils"
 import { ConfigurationOptions } from "react-swipeable/es/types"
 
+const PATHS = ["/timer", "/user-stats", "/leaderboard"]
+
 const Home: React.FC = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const [user, loading] = useAuthState(auth)
-  const pathTo = location.pathname === "/timer" ? "/user-stats" : "/timer"
 
-  const onSwiped: SwipeCallback = e =>
-    skipSwipeOnCalendar(e, () => navigate(pathTo))
+  const isTimerStarted = useAppSelector(selectIsTimerStarted)
+
+  const onSwiped: SwipeCallback = e => {
+    if (loading || isTimerStarted) return
+    const isBack = e.dir === "Right"
+    const nextPathIndex =
+      (PATHS.indexOf(location.pathname) + (isBack ? -1 : 1) + PATHS.length) %
+      PATHS.length
+    const pathTo = PATHS[nextPathIndex]
+    return skipSwipeOnCalendar(e, () => navigate(pathTo))
+  }
 
   const handlers = useSwipeable({
     ...SWIPE_CONFIG,
@@ -29,7 +40,6 @@ const Home: React.FC = () => {
   })
 
   const isUserExist = !user?.isAnonymous
-  const isTimerStarted = useAppSelector(selectIsTimerStarted)
 
   return (
     <Wrapper {...handlers}>
@@ -51,19 +61,17 @@ const Home: React.FC = () => {
 const LinkSwitcher: React.FC = () => {
   const { pathname } = useLocation()
 
-  const linkRoute = pathname === "/timer" ? "/user-stats" : "/timer"
-  const linkText = pathname === "/timer" ? "to Timer" : "to Stats"
-  const LinkIcon = pathname === "/timer" ? StatsIcon : TimerIcon
+  const { route, text, Icon } = getLinkData(pathname)
 
   return (
     <StyledFooterLink
-      to={linkRoute}
-      title={linkText}
+      to={route}
+      title={text}
     >
-      <LinkIcon
+      →
+      <Icon
         width='3rem'
         height='3rem'
-        title={linkText}
       />
     </StyledFooterLink>
   )
@@ -80,3 +88,22 @@ const SWIPE_CONFIG: ConfigurationOptions = {
 }
 
 export default Home
+
+function getLinkData(pathname: string): {
+  route: string
+  text: string
+  Icon: React.FC<React.SVGProps<SVGSVGElement>>
+} {
+  const curIndex = PATHS.indexOf(pathname)
+  const nextIndex = (curIndex + 1) % PATHS.length
+  const route = PATHS[nextIndex]
+  const text =
+    pathname === "/timer" ? "to User Stats"
+    : pathname === "/user-stats" ? "to Leaderboard"
+    : "to Timer"
+  const Icon =
+    pathname === "/timer" ? StatsIcon
+    : pathname === "/user-stats" ? LeaderboardIcon
+    : TimerIcon
+  return { route, text, Icon }
+}

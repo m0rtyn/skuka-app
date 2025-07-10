@@ -22,10 +22,6 @@ export const sendSessionToServer = async (
   firestoreDB: Firestore,
   sessionData: SkukaSession
 ) => {
-  console.log(
-    "🚀 ~ file: write-session-to-server.ts ~ var: sessionData",
-    sessionData
-  )
   const userId = sessionData.userId
   const daysColRef = collection(firestoreDB, "days")
   const dayTimestamp = Timestamp.fromMillis(

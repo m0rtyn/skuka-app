@@ -44,7 +44,7 @@ export const StageWrapper = styled.div`
   }
 `
 
-export const StyledStageNumber = styled.code`
+export const StyledStageNumber = styled.span`
   grid-row: 1 / 3;
   grid-area: number;
   font-size: 6rem;

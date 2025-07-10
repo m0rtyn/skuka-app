@@ -1,0 +1,10 @@
+/* .mountain:after { */
+.mountain {
+  position: absolute;
+  max-width: 95%;
+  aspect-ratio: 1 / 1;
+  transform: scaleY(2);
+  transform-origin: center;
+  z-index: 0;
+  stroke-width: 1;
+}

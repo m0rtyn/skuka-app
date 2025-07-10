@@ -10,6 +10,7 @@ export const StyledFooter = styled.footer`
   font-size: 1rem;
   color: var(--c-gray);
   min-height: 7.5rem;
+  z-index: 10;
 
   @media screen and (hover: hover) {
     padding: 0 4rem;
@@ -22,13 +23,19 @@ export const StyledFooter = styled.footer`
 
 export const StyledFooterLink = styled(Link)`
   color: var(--c-foreground);
-  font-size: 1.5rem;
+  font-weight: bold;
+  font-size: 2rem;
   background-color: var(--c-background);
   border-radius: 50%;
   aspect-ratio: 1;
   display: flex;
+  gap: 0.25rem;
   justify-content: center;
   align-items: center;
   background-image: none;
   height: 5rem;
+
+  &:hover {
+    text-decoration: none;
+  }
 `

@@ -12,18 +12,6 @@ export const Header: React.FC = () => {
       <StyledWrapper />
     : <StyledWrapper>
         <StatusContainer />
-
-        {/* TODO: temp nav, move it to the main nav */}
-        <nav>
-          <Link
-            to='/leaderboard'
-            style={{ marginRight: "1rem" }}
-          >
-            Leaderboard
-          </Link>
-          {/* Add other navigation links here if needed */}
-        </nav>
-
         <AppUpdater />
       </StyledWrapper>
 }

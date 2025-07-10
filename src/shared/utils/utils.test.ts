@@ -29,9 +29,10 @@ import { Second } from "shared/types"
 describe("getClosestProgressionDiscrete", () => {
   it("should return properly values", () => {
     const inputValues = [
-      1, 31, 99, 144, 250, 480, 700, 999, 2000, 3333, 5000, 8000
-    ]
-    // eslint-disable-next-line max-nested-callbacks
+      //// 0, 1,  3,   5,   8,   13,  20,  30,   50,   80,   130
+      //// 0, 60, 180, 300, 480, 780, 1200,1800, 3000, 4800, 7800
+      /**/ 1, 31, 121, 244, 490, 980, 1199, 1799, 2999, 3901, 6888
+    ] as Second[]
     const results = inputValues.map(n =>
       getClosestProgressionDiscrete(n as Second, EXPONENTIAL_STAGES)
     )
@@ -70,11 +71,12 @@ describe("getRemainTime", () => {
       EXPONENTIAL_STAGES
     )
 
+    // 1, 3, 5, 8, 13, 20
     expect.hasAssertions()
-    expect(result1).toBe({ seconds: 59, minutes: 0 })
-    expect(result2).toBe({ seconds: 59, minutes: 0 })
-    expect(result3).toBe({ seconds: 59, minutes: 0 })
-    expect(result4).toBe({ seconds: 59, minutes: 0 })
-    expect(result5).toBe({ seconds: 59, minutes: 0 })
+    expect(result1).toEqual({ seconds: 59, minutes: 0 })
+    expect(result2).toEqual({ seconds: 59, minutes: 2 })
+    expect(result3).toEqual({ seconds: 59, minutes: 4 })
+    expect(result4).toEqual({ seconds: 59, minutes: 7 })
+    expect(result5).toEqual({ seconds: 59, minutes: 12 })
   })
 })

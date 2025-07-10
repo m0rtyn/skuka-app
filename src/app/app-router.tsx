@@ -13,11 +13,7 @@ import { StyledSpinner } from "shared/components/styled-spinner.styles"
 const HomeLazy = lazy(() => import("features/home"))
 const TimerLazy = lazy(() => import("features/timer/timer.component"))
 const UserStatsLazy = lazy(() => import("features/user-stats"))
-const LeaderboardPageLazy = lazy(() =>
-  import("features/leaderboard/leaderboard.page").then(module => ({
-    default: module.LeaderboardPage
-  }))
-)
+const LeaderboardPageLazy = lazy(() => import("features/leaderboard"))
 
 export const AppRouter = () => {
   return (

@@ -8,7 +8,6 @@ import { visualizer } from "rollup-plugin-visualizer"
 import { VitePWA } from "vite-plugin-pwa"
 import pkg from "./package.json"
 
-// console.log(`Vite config for ${pkg.name} v${pkg.version}`)
 export default defineConfig({
   base: "/",
   define: {
@@ -94,6 +93,10 @@ function manualChunks(id: string) {
     return "@react-router"
   }
 
+  if (id.includes("react-dom")) {
+    return "@react-dom"
+  }
+
   if (isReactDependency(id)) {
     return "@react"
   }
@@ -101,6 +104,8 @@ function manualChunks(id: string) {
   for (const pkg of HEAVY_PACKAGES) {
     if (id.includes(`node_modules/${pkg}`)) return pkg
   }
+
+  console.warn("😅😅😅 ", id)
 }
 
 function isReactRouterDependency(id: string) {
@@ -117,14 +122,27 @@ function isReactDependency(id: string) {
 }
 
 function splitFirebase(id: string) {
-  if (id.includes("firestore")) return "firebase/firestore"
-  if (id.includes("auth")) return "firebase/auth"
-  if (id.includes("storage")) return "firebase/storage"
-  if (id.includes("functions")) return "firebase/functions"
-  if (id.includes("performance")) return "firebase/performance"
-  if (id.includes("remote-config")) return "firebase/remote-config"
-  if (id.includes("app-check")) return "firebase/app-check"
-  if (id.includes("in-app-messaging")) return "firebase/in-app-messaging"
+  const commonPrefix = "@firebase/"
+  const firebaseModules = [
+    // "app",
+    // "util",
+    // "logger",
+    "firestore",
+    "auth",
+    "storage",
+    "functions",
+    "performance",
+    "remote-config",
+    "app-check",
+    "in-app-messaging",
+    "webchannel"
+  ]
+
+  for (const module of firebaseModules) {
+    if (id.includes(`${commonPrefix}${module}`)) {
+      return `${commonPrefix}${module}`
+    }
+  }
 
   return "firebase"
 }

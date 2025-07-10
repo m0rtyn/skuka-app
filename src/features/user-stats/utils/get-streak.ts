@@ -6,7 +6,6 @@ const checkIsDayEmpty = (d: DayData) =>
   d.sessions.length === 0 && d.totalDuration === 0
 
 export const countMaxStreak = (daysWithSession: DayData[]) => {
-  console.trace(daysWithSession)
   if (daysWithSession.length === 0) return 0
 
   if (daysWithSession.some(d => checkIsDayEmpty(d)))

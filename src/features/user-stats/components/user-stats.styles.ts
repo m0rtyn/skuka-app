@@ -109,7 +109,6 @@ export const StyledDateRangeButton = styled(StyledButton)`
   color: var(--c-foreground);
   display: flex;
   align-items: center;
-  font-family: monospace;
 
   &::after {
     display: none;
@@ -129,4 +128,5 @@ export const StyledDateRangeSelect = styled.select`
   font-size: 2rem;
   padding: 0.5rem 1.5rem;
   color: var(--c-foreground);
+  border: 1px solid var(--c-foreground);
 `

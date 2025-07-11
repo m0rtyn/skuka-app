@@ -17,7 +17,7 @@ import {
   Wrapper
 } from "./stats-numbers.styles"
 import { getStreakLevel } from "features/user-stats/utils/get-streak"
-import { getMedianSessionDuration } from "features/user-stats/utils/user-stats.utils"
+import { getMedianDayDuration } from "features/user-stats/utils/user-stats.utils"
 
 export const StatsNumbers: React.FC = () => {
   const activeDays = useAppSelector(selectActiveDaysByRange)
@@ -29,7 +29,7 @@ export const StatsNumbers: React.FC = () => {
   const streak = useAppSelector(selectStreak)
 
   const streakLevel = getStreakLevel(streak)
-  const medianDuration = getMedianSessionDuration(allDays)
+  const medianDuration = getMedianDayDuration(allDays)
 
   const isTotalHoursExist = totalHours !== null && totalHours > 0
   const isAverageDurationExist = averageDuration !== null && averageDuration > 0

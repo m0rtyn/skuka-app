@@ -1,3 +1,7 @@
+### Version 0.9.1
+
+- fix: change the wrong way to count a median
+
 ### Version 0.9.0
 
 - feat!: rewrite leaderboard && fix bugs && add some ux&ui improvements

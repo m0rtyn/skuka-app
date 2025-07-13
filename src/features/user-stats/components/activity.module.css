@@ -32,7 +32,8 @@
 
 .calendarContainer {
   min-width: 25rem;
-  max-width: 100%;
+  width: 100%;
+  max-width: 50rem;
   grid-area: calendar;
 
   & :global(.activity-calendar.activity-calendar) {

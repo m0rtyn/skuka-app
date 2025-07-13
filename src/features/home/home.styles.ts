@@ -12,7 +12,8 @@ const fadeIn = keyframes`
 
 export const Wrapper = styled.div`
   display: grid;
-  grid-template-rows: minmax(8rem, 1fr) minmax(60%, auto) minmax(8rem, 1fr);
+  grid-template-rows: max-content minmax(60%, auto) max-content;
+  grid-template-columns: 1fr;
   text-align: center;
   justify-content: center;
   flex-direction: column;

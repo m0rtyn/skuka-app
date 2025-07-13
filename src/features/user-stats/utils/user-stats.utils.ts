@@ -42,11 +42,6 @@ export const getMedianDayDuration = (daysData: DayData[]): Minute => {
         d.totalDuration ??
         d.sessions.reduce((acc, session) => acc + session.duration, 0)
     )
-    // .flatMap(({ sessions }) =>
-    //   sessions.length === 0 ?
-    //     [0 as Minute]
-    //   : sessions.map(session => session.duration)
-    // )
     .sort((a, b) => a - b)
 
   if (allDurations.length === 0) {

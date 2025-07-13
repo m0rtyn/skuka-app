@@ -22,7 +22,7 @@ export const StatsPage: React.FC = () => {
   const daysDataByDateRange = useAppSelector(selectDaysByDateRange)
 
   return (
-    <StyledWrapper>
+    <>
       <StatsWithCalWrapper>
         <ChartRangeSwitcher />
 
@@ -44,6 +44,6 @@ export const StatsPage: React.FC = () => {
         Count Stats
         </button>
       )} */}
-    </StyledWrapper>
+    </>
   )
 }

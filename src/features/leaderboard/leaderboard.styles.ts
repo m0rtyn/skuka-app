@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 export const LeaderboardContainer = styled.div`
-  padding: 3rem;
+  padding: 1rem 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,7 +41,6 @@ export const ListItem = styled.li<{ isCurrentUser?: boolean }>`
   flex-shrink: 1;
   gap: 1rem;
   font-size: 1.3rem;
-  min-height: 8rem;
   ${props => props.isCurrentUser && `filter: invert(1);`}
 
   & > .stats {

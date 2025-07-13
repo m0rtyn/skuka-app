@@ -1,4 +1,3 @@
-import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
 import "./index.css"
 import { App } from "./app.tsx"
@@ -8,6 +7,7 @@ import { BrowserRouter } from "react-router-dom"
 import { ErrorBoundary } from "./error-boundary.tsx"
 import { store } from "./store.ts"
 import { showAppVersion } from "shared/utils/show-app-version.ts"
+import reportWebVitals from "./report-web-vitals.ts"
 
 createRoot(document.getElementById("root")!).render(
   <ErrorBoundary>
@@ -22,3 +22,5 @@ createRoot(document.getElementById("root")!).render(
 )
 
 showAppVersion()
+
+reportWebVitals(console.info)

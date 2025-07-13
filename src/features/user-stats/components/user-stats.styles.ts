@@ -42,6 +42,7 @@ export const StatsWithCalWrapper = styled.div`
     "calendar";
   grid-template-rows: min-content min-content auto;
   gap: 4rem;
+  box-sizing: border-box;
 
   @media screen and (hover: none) and (orientation: landscape) {
     grid-template-areas:

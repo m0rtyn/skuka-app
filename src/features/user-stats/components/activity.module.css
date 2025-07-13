@@ -33,12 +33,19 @@
 .calendarContainer {
   min-width: 25rem;
   width: 100%;
-  max-width: 50rem;
   grid-area: calendar;
 
   & :global(.activity-calendar.activity-calendar) {
     direction: rtl;
     min-width: 100%;
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    font-size: 1.5rem;
+    border: 1px dashed var(--c-foreground);
+    border-radius: 3rem;
+    padding: 1.5rem;
   }
 
   :global(.activity-calendar__calendar) {

@@ -84,10 +84,9 @@ export const StyledStats = styled.div`
 `
 
 export const Rank = styled.span`
-  grid-area: rank;
-  font-size: 3.5rem;
-  font-weight: bold;
-  line-height: 1;
+  margin-right: auto;
+  position: absolute;
+  left: 1rem;
 `
 
 export const LoadingMessage = styled.p`

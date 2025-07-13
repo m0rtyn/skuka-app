@@ -19,9 +19,9 @@ export const LeaderboardItem: React.FC<{
 
   return (
     <ListItem isCurrentUser={isCurrentUser}>
-      {/* <Rank>{place}</Rank> */}
       <UserName>
-        {leader.displayName}
+        <Rank>#{place}</Rank>
+        {leader.displayName || "Let's join the leaderboard!"}
         {isCurrentUser && " (You)"}
       </UserName>
 

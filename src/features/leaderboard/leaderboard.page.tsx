@@ -52,14 +52,22 @@ const LeaderboardPage: React.FC = () => {
   return (
     <LeaderboardContainer>
       <StyledList>
-        {leaderboard.map((leader, index) => (
-          <LeaderboardItem
-            leader={leader}
-            place={index + 1}
-            key={leader.userId || index}
-            isCurrentUser={leader.userId === user?.uid}
-          />
-        ))}
+        {leaderboard.map((leader, index, list) => {
+          if (
+            leader.displayName === null &&
+            list.at(index - 1)?.displayName === null
+          )
+            return
+
+          return (
+            <LeaderboardItem
+              leader={leader}
+              place={index + 1}
+              key={leader.userId || index}
+              isCurrentUser={leader.userId === user?.uid}
+            />
+          )
+        })}
       </StyledList>
 
       <div className={styles.mountain}>

@@ -260,7 +260,7 @@ button {
   font-size: large;
 
   transition: transform 0.1s;
-  background-color: var(--c-blue);
+  background-color: var(--c-background);
 }
 
 button::before {
@@ -311,7 +311,7 @@ button[aria-busy="true"][tabindex="-1"] {
 }
 
 button[type="submit"] {
-  background-color: var(--c-green);
+  background-color: var(--c-foreground);
 }
 
 button[type="submit"]::after,
@@ -322,7 +322,7 @@ button:not([type])::after {
 }
 
 button[type="reset"] {
-  background-color: var(--c-red);
+  background-color: var(--c-foreground);
 }
 
 button[type="reset"]::after {
@@ -394,6 +394,7 @@ label > br ~ * {
 input,
 select {
   color: var(--c-foreground);
+  border: 1px solid var(--c-foreground);
 }
 
 input[aria-busy="true"] {
@@ -412,9 +413,9 @@ input[type="tel"],
 select,
 textarea {
   display: inline-block;
-  background-color: var(--c-darken-gray);
-  border: none;
-  border-radius: 5px;
+  background-color: var(--c-background);
+  border: 1px solid var(--c-foreground);
+  border-radius: 0.5rem;
   padding: 0.5rem 1rem;
   font-size: medium;
   transition: box-shadow 0.3s;
@@ -445,7 +446,7 @@ input[type="number"]:focus,
 input[type="date"]:focus,
 input[type="tel"]:focus,
 input[type="color"]:focus,
-select:focus,
+/* select:focus, */
 textarea:focus,
 input[type="text"]:active,
 input[type="email"]:active,
@@ -460,8 +461,8 @@ textarea:active {
   outline: none;
   transition-duration: 0s;
   box-shadow:
-    inset 0 0 0 1px rgba(0, 0, 0, 0.09),
-    0 0 0 4px var(--c-blue-focus);
+    0 0 0 8px var(--c-background),
+    0 0 0 10px var(--c-foreground);
 }
 
 input:disabled,
@@ -476,7 +477,7 @@ input[type="checkbox"] {
 }
 
 fieldset {
-  background-color: var(--c-darken-gray);
+  background-color: var(--c-background);
   border: none;
   border-radius: 5px;
   margin-inline-start: 0;

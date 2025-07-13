@@ -63,7 +63,7 @@ export const SettingsControls: React.FC = () => {
       />
 
       <StyledLabel>
-        <span>Default date range (Stats)</span>
+        <span>Default date range for Stats</span>
         <StyledSelect
           value={dateRange}
           onChange={({ target: { value } }) =>

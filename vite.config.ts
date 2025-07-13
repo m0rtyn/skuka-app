@@ -105,7 +105,7 @@ function manualChunks(id: string) {
     if (id.includes(`node_modules/${pkg}`)) return pkg
   }
 
-  console.warn("😅😅😅 ", id)
+  // console.warn("😅😅😅 ", id)
 }
 
 function isReactRouterDependency(id: string) {

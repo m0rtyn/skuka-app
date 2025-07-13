@@ -2,7 +2,6 @@
 import { SignInPage } from "features/sign-in-page/sign-in-page"
 import { Link, Navigate, Route, Routes } from "react-router-dom"
 import { RequireAuth } from "shared/components/require-auth"
-import { AboutPage } from "features/about-page/about-page"
 import { Tutorial } from "features/about-page/components/tutorial/tutorial.component"
 import { HowItWorks } from "features/about-page/components/how-it-works/how-it-works.component"
 import { About } from "features/about-page/components/about.component"
@@ -72,20 +71,20 @@ export const AppRouter = () => {
 
       <Route
         path='/about'
-        element={<AboutPage />}
+        element={<MainLayoutLazy />}
       >
         <Route
           path=''
           element={<About />}
-        ></Route>
+        />
         <Route
           path='tutorial'
           element={<Tutorial />}
-        ></Route>
+        />
         <Route
           path='how-it-works'
           element={<HowItWorks />}
-        ></Route>
+        />
       </Route>
 
       <Route

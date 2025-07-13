@@ -11,10 +11,6 @@ export const HowItWorks = () => {
         <SecondStep />
         <ThirdStep />
       </div>
-      <Footer
-        isUserExist={true}
-        showLinks={true}
-      />
     </>
   )
 }

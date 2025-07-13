@@ -1,8 +1,14 @@
 .aboutPageWrapper {
+  align-content: center;
   /* Add styles for AboutPageWrapper here */
 }
 
 .aboutSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
   /* Add styles for AboutSection here */
 }
 
@@ -12,5 +18,8 @@
 }
 
 .styledList {
+  & > li {
+    text-align: start;
+  }
   /* Add styles for StyledList here */
 }

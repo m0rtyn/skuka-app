@@ -32,19 +32,6 @@ export const Tutorial = () => {
           resistance
         /> */}
       </PageWrapper>
-
-      <Footer
-        isUserExist={true}
-        showSwitcher={true}
-        showLinks={true}
-      >
-        <ViewsSwitcher
-          slideIndex={slideIndex}
-          slidesCount={SLIDES_COUNT}
-          setSlideIndex={setSlideIndex}
-          autoFocus
-        />
-      </Footer>
     </>
   )
 }

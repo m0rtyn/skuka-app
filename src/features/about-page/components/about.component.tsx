@@ -19,7 +19,7 @@ export const About = () => {
           style={{ marginBottom: "1rem" }}
         />
         <small style={{ marginBottom: "1rem", color: "var(--c-gray)" }}>
-          Session for impulsive minds
+          Boredom tracker for creative minds
         </small>
 
         <p style={{ marginBottom: "0" }}>
@@ -45,11 +45,11 @@ export const About = () => {
           </li>
         </ul>
       </div>
-      <Footer
+      {/* <Footer
         isUserExist={true}
         showSwitcher={false}
         showLinks={true}
-      ></Footer>
+      ></Footer> */}
     </div>
   )
 }

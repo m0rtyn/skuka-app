@@ -4,6 +4,17 @@
   --c-foreground: var(--c-white);
   --c-background: var(--c-black);
 
+  --bg-stripes: linear-gradient(
+    -45deg,
+    var(--c-foreground) 2%,
+    transparent 2%,
+    transparent 48%,
+    var(--c-foreground) 48%,
+    var(--c-foreground) 52%,
+    transparent 52%,
+    transparent 98%
+  );
+
   /* Listing of all features */
   /* aalt Access All Alternates */
   /* c2sc Small Capitals From Capitals */
@@ -534,4 +545,29 @@ input[type="file"] {
 svg[viewBox="0 0 24 24"] {
   width: 3rem;
   height: 3rem;
+}
+
+/* // NOTE: styled components require a $ prefix */
+[data-empty-state] {
+  &:empty {
+    /* min-height: 12rem;
+    min-width: 50rem; */
+    width: 100%;
+    height: 100%;
+    background-image: var(--bg-stripes);
+    background-size: 8px 8px;
+    background-repeat: repeat;
+    background-position: center;
+    animation: moving-stripes 10s linear infinite;
+    border-radius: 2rem;
+  }
+}
+
+@keyframes moving-stripes {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
 }

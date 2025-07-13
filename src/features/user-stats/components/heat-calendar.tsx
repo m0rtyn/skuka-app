@@ -1,23 +1,20 @@
 import styles from "./activity.module.css"
-import {
-  FC,
-  Suspense,
-  cloneElement,
-  lazy,
-  useEffect,
-  useMemo,
-  useRef
-} from "react"
-import { Activity, BlockElement } from "features/activity-calendar"
+import { FC, cloneElement, memo, useEffect, useMemo, useRef } from "react"
+import ActivityCalendar, {
+  Activity,
+  BlockElement
+} from "features/activity-calendar"
 import { Tooltip } from "react-tooltip"
 import { BLACK, MILLIS_IN_DAY, MINS_IN_HOUR, WHITE } from "shared/constants"
-import { DayData, Millisecond } from "shared/types"
+import { Millisecond } from "shared/types"
 import { getYear } from "date-fns"
 import { useAppSelector } from "app/store"
 import { addRangeEdges, mapDaysToActivity } from "../utils/add-range-edges"
-import { selectFirstSessionDateByRange } from "../store/user-stats.selectors"
-
-const ActivityCalendar = lazy(() => import("features/activity-calendar"))
+import {
+  selectDaysByDateRange,
+  selectFirstSessionDateByRange,
+  selectIsLoading
+} from "../store/user-stats.selectors"
 
 const THEME = {
   dark: [WHITE, WHITE],
@@ -25,22 +22,24 @@ const THEME = {
 }
 
 interface Props {
-  dayData: DayData[]
-  loading: boolean
+  // dayData: DayData[]
+  // loading: boolean
 }
-export const HeatCalendar: FC<Props> = ({ dayData, loading }) => {
+export const HeatCalendar: FC<Props> = memo(({}) => {
   const activityCalRef = useRef<HTMLDivElement>(null)
 
+  const isDataLoading = useAppSelector(selectIsLoading)
+  const daysDataByDateRange = useAppSelector(selectDaysByDateRange)
   const darkMode = useAppSelector(state => state.settings.darkMode)
   const dateRange = useAppSelector(state => state.userStats.dateRange)
   const firstDateByRange = useAppSelector(selectFirstSessionDateByRange)
 
   const activityData: Activity[] = useMemo(() => {
-    const activity = mapDaysToActivity(dayData)
+    const activity = mapDaysToActivity(daysDataByDateRange)
     return addRangeEdges(activity, dateRange)
-  }, [dayData])
+  }, [daysDataByDateRange, dateRange])
 
-  const activityAccCount = useMemo(
+  const activityCount = useMemo(
     () =>
       Math.round(
         activityData.reduce((acc, { count }) => acc + count, 0) / MINS_IN_HOUR
@@ -50,23 +49,23 @@ export const HeatCalendar: FC<Props> = ({ dayData, loading }) => {
 
   useEffect(() => {
     addYearsToCalendar(activityCalRef.current, firstDateByRange)
-    // addGradientToCalendar(activityCalRef.current)
-    return () => {
-      const gradientFill = document.getElementById("gradientFill")
-      if (gradientFill) {
-        gradientFill.remove()
-      }
-    }
   }, [activityCalRef.current, firstDateByRange])
 
+  const isSkeletonVisible = useMemo(
+    () => isDataLoading || !activityData.length,
+    [isDataLoading, activityData.length]
+  )
+
   return (
-    <div className={styles.calendarContainer}>
-      <Suspense fallback={<AsciiSkeleton />}>
+    <div
+      className={styles.calendarContainer}
+      data-empty-state
+    >
+      {isSkeletonVisible ? null : (
         <ActivityCalendar
-          loading={loading || !activityData?.length}
           colorScheme={darkMode ? "dark" : "light"}
           renderBlock={renderCalBlock}
-          totalCount={activityAccCount}
+          totalCount={activityCount}
           data={activityData}
           blockSize={16}
           theme={THEME}
@@ -75,11 +74,11 @@ export const HeatCalendar: FC<Props> = ({ dayData, loading }) => {
           hideColorLegend
           hideTotalCount
         />
-        <Tooltip id='react-tooltip' />
-      </Suspense>
+      )}
+      <Tooltip id='react-tooltip' />
     </div>
   )
-}
+})
 
 function renderCalBlock(block: BlockElement, activity: Activity) {
   const { level: lv, count, date } = activity
@@ -176,14 +175,3 @@ function getComputedStyle(lv: number): [number, number, number, number] {
     : [16, 0, 0, 2]
   )
 }
-
-const asciiSkeleton = `0000000000000000000000000000000000000000000000
-0000000000000000000000000000000000000000000000
-0000000000000000000000000000000000000000000000
-0000000000000000000000000000000000000000000000
-0000000000000000000000000000000000000000000000
-0000000000000000000000000000000000000000000000
-0000000000000000000000000000000000000000000000`
-const AsciiSkeleton = () => (
-  <pre className={styles.asciiSkeleton}>{asciiSkeleton}</pre>
-)

@@ -25,7 +25,7 @@ export const StyledList = styled.ul`
   overflow: hidden;
 `
 
-export const ListItem = styled.li<{ isCurrentUser?: boolean }>`
+export const ListItem = styled.li<{ $isCurrentUser?: boolean }>`
   border-radius: var(--b-radius, 1rem);
   background-color: var(--c-background);
   display: grid;
@@ -41,7 +41,7 @@ export const ListItem = styled.li<{ isCurrentUser?: boolean }>`
   flex-shrink: 1;
   gap: 1rem;
   font-size: 1.3rem;
-  ${props => props.isCurrentUser && `filter: invert(1);`}
+  ${props => props.$isCurrentUser && `filter: invert(1);`}
 
   & > .stats {
     display: grid;

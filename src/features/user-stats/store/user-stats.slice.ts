@@ -38,7 +38,7 @@ export const userStatsSlice = createSlice({
     setStats: (state, action: PayloadAction<UserStatsData>) => {
       state.stats = action.payload
     },
-    setDaysData: (state, action: PayloadAction<DayData[]>) => {
+    setActivityData: (state, action: PayloadAction<DayData[]>) => {
       // state.daysData = generateFakeDayData()
       state.daysData = action.payload
     },

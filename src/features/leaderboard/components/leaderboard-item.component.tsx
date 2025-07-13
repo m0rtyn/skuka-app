@@ -18,7 +18,7 @@ export const LeaderboardItem: React.FC<{
   const total = Math.round(leader?.totalDuration) || null
 
   return (
-    <ListItem isCurrentUser={isCurrentUser}>
+    <ListItem $isCurrentUser={isCurrentUser}>
       <UserName>
         <Rank>#{place}</Rank>
         {leader.displayName || "Let's join the leaderboard!"}

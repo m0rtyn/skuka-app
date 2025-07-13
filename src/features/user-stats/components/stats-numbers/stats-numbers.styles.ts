@@ -72,4 +72,9 @@ export const StyledStat = styled.span`
   @media screen and (hover: hover) {
     font-size: 2rem;
   }
+
+  &:empty {
+    min-height: 7rem;
+    min-width: 10rem;
+  }
 `

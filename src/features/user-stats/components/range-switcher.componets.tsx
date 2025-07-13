@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "app/store"
 import { DateRange, YearString } from "features/settings/settings.types"
-import { FC } from "react"
+import { FC, memo } from "react"
 import {
   StyledChartRangeSwitcher,
   StyledDateRangeButton,
@@ -15,7 +15,7 @@ import {
   selectFirstSessionDate
 } from "../store/user-stats.selectors"
 
-export const ChartRangeSwitcher: FC = () => {
+export const ChartRangeSwitcher: FC = memo(() => {
   const dispatch = useAppDispatch()
   const dateRange = useAppSelector(selectDateRange)
   const firstSessionDateMs = useAppSelector(selectFirstSessionDate)
@@ -67,4 +67,5 @@ export const ChartRangeSwitcher: FC = () => {
       </StyledDateRangeSelect>
     </StyledChartRangeSwitcher>
   )
-}
+})
+ChartRangeSwitcher.displayName = "ChartRangeSwitcher"

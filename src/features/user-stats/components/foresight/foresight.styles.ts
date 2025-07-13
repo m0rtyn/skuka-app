@@ -11,6 +11,11 @@ export const Wrapper = styled.div`
     "progress progress";
   display: grid;
   grid-gap: 1rem;
+
+  &:empty {
+    min-height: 12rem;
+    min-width: 50rem;
+  }
 `
 
 export const StyledStatDate = styled(StyledStatNumber)`

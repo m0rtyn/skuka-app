@@ -3,6 +3,7 @@ import {
   selectAverageCount,
   selectAverageDuration,
   selectDaysByDateRange,
+  selectIsLoading,
   selectMaxStreakByRange,
   selectStreak,
   selectTotalHours
@@ -27,25 +28,26 @@ export const StatsNumbers: React.FC = () => {
   const averageCount = useAppSelector(selectAverageCount)
   const totalHours = useAppSelector(selectTotalHours)
   const streak = useAppSelector(selectStreak)
+  const isLoading = useAppSelector(selectIsLoading)
 
   const streakLevel = getStreakLevel(streak)
   const medianDuration = getMedianDayDuration(allDays)
 
   const isTotalHoursExist = totalHours !== null && totalHours > 0
+  const isActiveDaysExist = activeDays?.length > 0
   const isAverageDurationExist = averageDuration !== null && averageDuration > 0
   const isStreakExist = streak !== null && streak > 0
   const isMaxStreakExist = maxStreak !== null && maxStreak > 0
+  const isMedianDurationExist = isActiveDaysExist && medianDuration > 0
 
   return (
     <Wrapper>
-      {isTotalHoursExist && isAverageDurationExist && (
-        <Foresight
-          totalHours={totalHours}
-          average={averageDuration}
-        />
-      )}
+      <Foresight
+        totalHours={totalHours}
+        average={averageDuration}
+      />
 
-      <StyledStat>
+      <StyledStat data-empty-state>
         {isTotalHoursExist && (
           <>
             <StyledStatNumber>{totalHours}</StyledStatNumber>{" "}
@@ -54,8 +56,8 @@ export const StatsNumbers: React.FC = () => {
         )}
       </StyledStat>
 
-      <StyledStat>
-        {activeDays && (
+      <StyledStat data-empty-state>
+        {isActiveDaysExist && (
           <>
             <StyledStatNumber>{activeDays.length}</StyledStatNumber>{" "}
             active&nbsp;days
@@ -63,7 +65,7 @@ export const StatsNumbers: React.FC = () => {
         )}
       </StyledStat>
 
-      <StyledStat>
+      <StyledStat data-empty-state>
         {isStreakExist && (
           <>
             <StyledStatNumber>
@@ -75,7 +77,7 @@ export const StatsNumbers: React.FC = () => {
         )}
       </StyledStat>
 
-      <StyledStat>
+      <StyledStat data-empty-state>
         {isMaxStreakExist && (
           <>
             <StyledStatNumber>{maxStreak}</StyledStatNumber>
@@ -84,7 +86,7 @@ export const StatsNumbers: React.FC = () => {
         )}
       </StyledStat>
 
-      <StyledStat>
+      <StyledStat data-empty-state>
         {isAverageDurationExist && (
           <>
             <StyledStatNumber>
@@ -96,8 +98,8 @@ export const StatsNumbers: React.FC = () => {
         )}
       </StyledStat>
 
-      <StyledStat>
-        {medianDuration && (
+      <StyledStat data-empty-state>
+        {isMedianDurationExist && (
           <>
             <StyledStatNumber>
               {medianDuration}
@@ -108,7 +110,7 @@ export const StatsNumbers: React.FC = () => {
         )}
       </StyledStat>
 
-      {/* <StyledStat>
+      {/* <StyledStat data-empty-state>="true">>
         {averageCount && (
           <>
             <StyledStatNumber>{averageCount}</StyledStatNumber>

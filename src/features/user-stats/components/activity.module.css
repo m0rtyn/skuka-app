@@ -35,6 +35,11 @@
   width: 100%;
   grid-area: calendar;
 
+  &:empty {
+    height: 28rem;
+    min-width: 50rem;
+  }
+
   & :global(.activity-calendar.activity-calendar) {
     direction: rtl;
     min-width: 100%;

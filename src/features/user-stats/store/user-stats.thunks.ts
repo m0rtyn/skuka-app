@@ -46,7 +46,7 @@ export const fetchStatsThunk = createAsyncThunk(
 )
 
 export const fetchActivityDataThunk = createAsyncThunk(
-  `${FEATURE_NAME}/getChartData` as const,
+  `${FEATURE_NAME}/getActivityData` as const,
   // TODO: refactor this method
   async (user: User, thunkAPI) => {
     const daysWithSessions = await fetchDays(user, firestore)
@@ -58,7 +58,7 @@ export const fetchActivityDataThunk = createAsyncThunk(
 
     const daysDataFullRange = getFullRange(shallowDaysWithSessions)
 
-    const setChartDataAction = statsActions.setDaysData(daysDataFullRange)
+    const setChartDataAction = statsActions.setActivityData(daysDataFullRange)
     thunkAPI.dispatch(setChartDataAction)
   }
 )

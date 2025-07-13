@@ -10,9 +10,9 @@ import { SettingsPage } from "features/settings"
 import { lazy, Suspense } from "react"
 import { StyledSpinner } from "shared/components/styled-spinner.styles"
 
-const HomeLazy = lazy(() => import("features/home"))
-const TimerLazy = lazy(() => import("features/timer/timer.component"))
-const UserStatsLazy = lazy(() => import("features/user-stats"))
+const MainLayoutLazy = lazy(() => import("features/home"))
+const TimerPageLazy = lazy(() => import("features/timer/timer.component"))
+const StatsPageLazy = lazy(() => import("features/user-stats"))
 const LeaderboardPageLazy = lazy(() => import("features/leaderboard"))
 
 export const AppRouter = () => {
@@ -27,7 +27,7 @@ export const AppRouter = () => {
         element={
           <RequireAuth>
             <Suspense fallback={"Loading..."}>
-              <HomeLazy />
+              <MainLayoutLazy />
             </Suspense>
           </RequireAuth>
         }
@@ -41,7 +41,7 @@ export const AppRouter = () => {
           path='timer'
           element={
             <Suspense fallback={"Loading..."}>
-              <TimerLazy />
+              <TimerPageLazy />
             </Suspense>
           }
         />
@@ -50,7 +50,7 @@ export const AppRouter = () => {
           path='user-stats'
           element={
             <Suspense fallback={<StyledSpinner />}>
-              <UserStatsLazy />
+              <StatsPageLazy />
             </Suspense>
           }
         />

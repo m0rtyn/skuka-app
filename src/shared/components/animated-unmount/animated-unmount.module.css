@@ -1,0 +1,34 @@
+.animatedContent {
+  /* Default state for the component when mounted */
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.3s ease-out,
+    transform 0.3s ease-out; /* Optional: for enter animation or general smooth updates */
+}
+
+/* State for when the component is exiting */
+.animatedContent.exiting {
+  /* This ensures the animation applies when the 'exiting' class is present */
+  animation: fadeOut 0.5s forwards; /* 'forwards' keeps the final state of the animation */
+}
+
+/* Keyframes for the unmount animation */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px); /* Example: fade out while moving down */
+  }
+}
+
+/* Optional: Example for a simple enter animation */
+/* For a true enter animation, you'd typically apply an "entering" class
+   on mount, and then remove it after a short delay (e.g., using requestAnimationFrame
+   or setTimeout) to trigger the transition.
+   For simplicity, if your default `.animated-content` is the final 'entered' state,
+   and you only want an exit animation, the above is sufficient.
+*/

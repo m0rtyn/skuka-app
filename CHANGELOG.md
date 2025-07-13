@@ -1,3 +1,9 @@
+### Version 0.10.0
+
+- fix: adaptivity for mobile devices of stat page
+- fix: improve UI layout for leaderboard
+- feat: add loading skeletons for empty components && improve initial performance
+
 ### Version 0.9.1
 
 - fix: change the wrong way to count a median

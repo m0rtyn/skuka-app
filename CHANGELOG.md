@@ -1,3 +1,7 @@
+### Version 0.10.1
+
+- perf: add web-vitals monitoring
+
 ### Version 0.10.0
 
 - fix: adaptivity for mobile devices of stat page

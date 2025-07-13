@@ -1,3 +1,7 @@
+### Version 0.10.2
+
+- fix: about page and changelog generation
+
 ### Version 0.10.1
 
 - perf: add web-vitals monitoring

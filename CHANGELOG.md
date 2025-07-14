@@ -1,3 +1,7 @@
+### Version 0.10.3
+
+- fix: set global tooltip provider and make tips smaller
+
 ### Version 0.10.2
 
 - fix: about page and changelog generation

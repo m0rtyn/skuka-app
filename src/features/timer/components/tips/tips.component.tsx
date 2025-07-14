@@ -6,7 +6,7 @@ import {
   StyledDesc,
   StyledRatio,
   StyledTip,
-  StyledTriangle,
+  StyledCevron,
   StyledUnits,
   Wrapper
 } from "./tips.styles"
@@ -72,15 +72,20 @@ export const Tips: React.FC<Props> = React.memo(
 
     return (
       <Wrapper>
-        {/* {isTimerStarted ? */}
-        {true ?
+        {isTimerStarted ?
           <>
-            <StyledTriangle />
+            <StyledCevron />
 
             <StageWrapper>
-              <StyledStageNumber>{nextStageInMinutes}</StyledStageNumber>
-              <StyledUnits>{timerUnits}</StyledUnits>
-              <StyledDesc>{articleForm}&nbsp;up&nbsp;next</StyledDesc>
+              <StyledStageNumber
+                data-tooltip-place='bottom'
+                data-tooltip-html='this is your average daily session length in minutes'
+                data-tooltip-id='react-tooltip'
+              >
+                {nextStageInMinutes}
+              </StyledStageNumber>
+              {/* <StyledUnits>{timerUnits}</StyledUnits>
+              <StyledDesc>{articleForm}&nbsp;up&nbsp;next</StyledDesc> */}
             </StageWrapper>
 
             {resultRatio ?

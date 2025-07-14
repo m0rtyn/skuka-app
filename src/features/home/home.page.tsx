@@ -14,6 +14,7 @@ import { StyledFooterLink } from "shared/components/footer/footer.styles"
 import { SwipeCallback, useSwipeable } from "react-swipeable"
 import { skipSwipeOnCalendar } from "./utils"
 import { ConfigurationOptions } from "react-swipeable/es/types"
+import { Tooltip } from "react-tooltip"
 
 const PATHS = ["/timer", "/user-stats", "/leaderboard"]
 
@@ -54,6 +55,8 @@ const Home: React.FC = () => {
       >
         <LinkSwitcher />
       </Footer>
+
+      <Tooltip id='react-tooltip' />
     </Wrapper>
   )
 }

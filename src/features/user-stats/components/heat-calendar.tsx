@@ -4,7 +4,6 @@ import ActivityCalendar, {
   Activity,
   BlockElement
 } from "features/activity-calendar"
-import { Tooltip } from "react-tooltip"
 import { BLACK, MILLIS_IN_DAY, MINS_IN_HOUR, WHITE } from "shared/constants"
 import { Millisecond } from "shared/types"
 import { getYear } from "date-fns"
@@ -21,11 +20,7 @@ const THEME = {
   light: [BLACK, BLACK]
 }
 
-interface Props {
-  // dayData: DayData[]
-  // loading: boolean
-}
-export const HeatCalendar: FC<Props> = memo(({}) => {
+export const HeatCalendar: FC = memo(() => {
   const activityCalRef = useRef<HTMLDivElement>(null)
 
   const isDataLoading = useAppSelector(selectIsLoading)
@@ -75,7 +70,6 @@ export const HeatCalendar: FC<Props> = memo(({}) => {
           hideTotalCount
         />
       )}
-      <Tooltip id='react-tooltip' />
     </div>
   )
 })

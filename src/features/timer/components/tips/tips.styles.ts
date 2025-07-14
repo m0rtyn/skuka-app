@@ -34,7 +34,6 @@ export const StageWrapper = styled.div`
   grid-column-gap: 1rem;
   display: grid;
   width: 100%;
-  font-size: 2rem;
   line-height: 1.5;
   text-align: left;
   align-items: center;
@@ -47,7 +46,7 @@ export const StageWrapper = styled.div`
 export const StyledStageNumber = styled.span`
   grid-row: 1 / 3;
   grid-area: number;
-  font-size: 6rem;
+  font-size: 3rem;
   line-height: 1;
 `
 
@@ -67,14 +66,14 @@ export const StyledDesc = styled.span`
   }
 `
 
-export const StyledTriangle = styled.span`
+export const StyledCevron = styled.span`
   display: flex;
   justify-content: center;
   align-items: center;
 
   &::after {
     content: "❯";
-    font-size: 3rem;
+    font-size: 2rem;
   }
 `
 

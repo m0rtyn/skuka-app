@@ -14,11 +14,11 @@ export const Wrapper = styled.div`
   justify-content: center;
   justify-items: center;
   padding: 0 1rem;
-  row-gap: 3rem;
+  row-gap: 1rem;
 
-  @media screen and (hover: none) and (orientation: landscape) {
-    row-gap: 1rem;
-  }
+  // @media screen and (hover: none) and (orientation: landscape) {
+  //   row-gap: 1rem;
+  // }
 `
 
 export const BottomTextWrapper = styled.div`

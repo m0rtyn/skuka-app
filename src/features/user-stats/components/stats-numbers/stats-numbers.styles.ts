@@ -34,6 +34,8 @@ export const StyledStatNumber = styled.span`
   line-height: 1;
   color: var(--c-foreground);
   font-family: var(--font-mono);
+  display: inline-flex;
+  align-items: center;
 
   @media screen and (hover: hover) {
     font-size: 4rem;

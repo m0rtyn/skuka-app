@@ -1,3 +1,7 @@
+### Version 0.10.4
+
+- fix: stat aligning
+
 ### Version 0.10.3
 
 - fix: set global tooltip provider and make tips smaller

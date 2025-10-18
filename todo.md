@@ -1,0 +1,3 @@
+- fix resetting of stats on disconnect
+    - the root cause — stats re-creation on disconnect
+    - 

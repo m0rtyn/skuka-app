@@ -1,74 +1,8 @@
-### Version 0.10.4
+# Changelog
 
-- fix: stat aligning
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### Version 0.10.3
-
-- fix: set global tooltip provider and make tips smaller
-
-### Version 0.10.2
-
-- fix: about page and changelog generation
-
-### Version 0.10.1
-
-- perf: add web-vitals monitoring
-
-### Version 0.10.0
-
-- fix: adaptivity for mobile devices of stat page
-- fix: improve UI layout for leaderboard
-- feat: add loading skeletons for empty components && improve initial performance
-
-### Version 0.9.1
-
-- fix: change the wrong way to count a median
-
-### Version 0.9.0
-
-- feat!: rewrite leaderboard && fix bugs && add some ux&ui improvements
-
-### Version 0.8.8
-
-- fix: set common font
-
-### Version 0.8.7
-
-- build: improve code splitting
-
-### Version 0.8.6
-
-- fix: remove excessive throwing of error
-
-### Version 0.8.5
-
-- fix: add monochrome emojis
-
-### Version 0.8.4
-- chore: extract devDeps
-
-### Version 0.8.3
-- fix: wrong max-streak calculation
-- build: reinstall deps
-
-### Version 0.8.2
-- fix: broken styles after merging of activity calendar
-
-### Version 0.8.1
-
-- fix: minor text corrections
-- fix: add simple skeleton
-
-### Version 0.8.0
-- feat: merge activity calendar into project
-
-### Version 0.7.3
-- build: add manual chunking for bundle
-
-### Version 0.7.2
-
-### Version 0.7.0
-- chore: rewrite changelog
+### [0.10.5](https://github.com/m0rtyn/skuka-app/compare/v0.10.4...v0.10.5) (2025-10-18)
 
 ## [0.6.0] - 2025-07-04
 

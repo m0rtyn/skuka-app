@@ -41,7 +41,7 @@ export const setSessionThunk = createAsyncThunk<void, Payload, AppThunkAPI>(
       thunkAPI.dispatch(statsActions.updateDay({ dayData, index }))
     }
 
-    thunkAPI.dispatch(sendUserStatsThunk({ dayData, user }))
+    thunkAPI.dispatch(sendUserStatsThunk({ dayData, userId: user.uid }))
 
     setTimeout(
       () => thunkAPI.dispatch(mainScreenActions.setRequestStatus("idle")),

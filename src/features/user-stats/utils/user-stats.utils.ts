@@ -8,7 +8,7 @@ import {
   Minute,
   MockDayData,
   SkukaChartData,
-  UserStatsData
+  AppStatsData
 } from "shared/types"
 import {
   INIT_TOTAL_DURATION,
@@ -110,7 +110,7 @@ export const getPseudoDayData = (
 
 export const getUserChartData = (
   userDaysData: DayData[],
-  userStatistics: UserStatsData
+  userStatistics: AppStatsData
 ) => {
   const foresightChartData =
     getForesightDaysData(userDaysData, userStatistics, DAYS_IN_MONTH) ?? []

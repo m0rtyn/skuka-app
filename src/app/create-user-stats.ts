@@ -10,6 +10,7 @@ import {
 } from "firebase/firestore"
 import { INIT_SERVER_STATS } from "shared/constants"
 import { firestore } from "app/firebase-init"
+import { COLL_STATS } from "features/user-stats/user-stats.constants"
 
 // eslint-disable-next-line max-statements
 export const createUserStats = async (user: User | null) => {
@@ -18,7 +19,7 @@ export const createUserStats = async (user: User | null) => {
     return
   }
 
-  const statsColRef = collection(firestore, "stats")
+  const statsColRef = collection(firestore, COLL_STATS)
   const q = query(statsColRef, where("userId", "==", user.uid), limit(1))
   const querySnapshot = await getDocs(q)
 

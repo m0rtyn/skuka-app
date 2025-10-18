@@ -1,3 +1,4 @@
+import { COLL_DAYS } from "features/home/main-screen.constants"
 import {
   collection,
   doc,
@@ -12,13 +13,14 @@ import {
   where
 } from "firebase/firestore"
 import { DayData } from "shared/types"
+import { COLL_STATS } from "../user-stats.constants"
 
 // NOTE: this is a one-time script to populate the stats collection
 // eslint-disable-next-line max-statements
 export const getStatsForUser = async (firestoreDB: Firestore) => {
   const userId = "" // NOTE: for manual pasting
   const daysQ = query(
-    collection(firestoreDB, "days"),
+    collection(firestoreDB, COLL_DAYS),
     where("userId", "==", userId),
     orderBy("timestamp", "asc")
   )
@@ -31,7 +33,7 @@ export const getStatsForUser = async (firestoreDB: Firestore) => {
   const firstSessionDate = (daysDocs?.[0]?.data() as DayData)?.timestamp || null
 
   const statsQ = query(
-    collection(firestoreDB, "stats"),
+    collection(firestoreDB, COLL_STATS),
     where("userId", "==", userId),
     limit(1)
   )

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import { FEATURE_NAME } from "../settings.constants"
+import { FEAT_SETTINGS, COLL_SETTINGS } from "../settings.constants"
 import { AppThunkAPI } from "app/store"
 import { User } from "firebase/auth"
 import { settingsActions } from "./settings.slice"
@@ -16,7 +16,7 @@ const { setSettings } = settingsActions
 const { setDateRange } = statsActions
 
 export const fetchSettingsThunk = createAsyncThunk<void, string, AppThunkAPI>(
-  `${FEATURE_NAME}/getSettings` as const,
+  `${FEAT_SETTINGS}/getSettings` as const,
   async (userUid, thunkAPI): Promise<void> => {
     const userSettings = await fetchSettings(userUid, firestore)
 
@@ -31,11 +31,11 @@ export const fetchSettingsThunk = createAsyncThunk<void, string, AppThunkAPI>(
 )
 
 export const sendSettingsThunk = createAsyncThunk<void, string, AppThunkAPI>(
-  `${FEATURE_NAME}/setSettings` as const,
+  `${FEAT_SETTINGS}/setSettings` as const,
   // eslint-disable-next-line max-statements
   async (userUid, thunkAPI) => {
     const settings = thunkAPI.getState().settings
-    const statsColRef = collection(firestore, FEATURE_NAME)
+    const statsColRef = collection(firestore, COLL_SETTINGS)
     const settingsRef = doc(statsColRef, userUid)
 
     try {

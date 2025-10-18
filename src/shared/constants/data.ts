@@ -3,11 +3,11 @@ import {
   Millisecond,
   Minute,
   PseudoDayData,
-  ServerUserStatsData,
-  UserStatsData
+  DbStatsData,
+  AppStatsData
 } from "shared/types"
 
-export const INIT_SERVER_STATS: ServerUserStatsData = {
+export const INIT_SERVER_STATS: DbStatsData = {
   firstSessionDate: Timestamp.fromDate(new Date()),
   totalDuration: 0 as Minute,
   count: 0,
@@ -17,7 +17,7 @@ export const INIT_SERVER_STATS: ServerUserStatsData = {
   updatedAt: null
 }
 
-export const INIT_STATS: UserStatsData = {
+export const INIT_STATS: AppStatsData = {
   firstSessionDate: new Date().getTime() as Millisecond,
   totalDuration: 0 as Minute,
   count: 0,

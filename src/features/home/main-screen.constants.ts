@@ -1,4 +1,5 @@
 export const FEATURE_NAME = "mainScreen"
+export const COLL_DAYS = "days"
 
 export const SLIDES_COUNT = 2
 export const swipeableViewsRootStyles = {

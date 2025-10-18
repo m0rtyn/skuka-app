@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { DEFAULT_SETTINGS, FEATURE_NAME } from "../settings.constants"
+import { DEFAULT_SETTINGS, FEAT_SETTINGS } from "../settings.constants"
 import { DateRange, SettingsState } from "../settings.types"
 
 const initialState: SettingsState = DEFAULT_SETTINGS
 
 export const settingsSlice = createSlice({
-  name: FEATURE_NAME,
+  name: FEAT_SETTINGS,
   initialState,
   reducers: {
     toggleDarkMode: state => {

@@ -3,8 +3,8 @@ import {
   FirestoreRefPath,
   Millisecond,
   ServerDayData,
-  ServerUserStatsData,
-  UserStatsData
+  DbStatsData,
+  AppStatsData
 } from "shared/types"
 
 export const serverDayDataToStoreAdapter = (
@@ -18,14 +18,16 @@ export const serverDayDataToStoreAdapter = (
 }
 
 export const serverStatsDataToStoreAdapter = (
-  statsData: ServerUserStatsData
-): UserStatsData => {
+  statsData: DbStatsData,
+  statsId?: FirestoreRefPath
+): AppStatsData => {
   return {
     ...statsData,
     // TODO: remove from server all nullable firstSessionDate values
     firstSessionDate: statsData.firstSessionDate?.toMillis() as Millisecond,
     averageDuration: statsData.averageDuration ?? null,
     averageCount: null,
-    streak: null
+    streak: null,
+    statsId
   }
 }

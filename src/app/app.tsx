@@ -21,7 +21,7 @@ export const App = () => {
     if (!user || user.isAnonymous) return
 
     dispatch(fetchSettingsThunk(user.uid))
-    dispatch(fetchActivityDataThunk(user))
+    dispatch(fetchActivityDataThunk(user.uid))
     dispatch(fetchStatsThunk(user))
   }, [dispatch, user])
 

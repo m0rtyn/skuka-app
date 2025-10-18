@@ -1,11 +1,11 @@
-import { DayData, MockDayData, UserStatsData } from "shared/types"
+import { DayData, MockDayData, AppStatsData } from "shared/types"
 import { calcAverageSessionPerDay, getPseudoDayData } from "./user-stats.utils"
 
 // TODO: refactor this method
 // eslint-disable-next-line max-statements
 export function getForesightDaysData(
   daysData: DayData[],
-  stats: UserStatsData,
+  stats: AppStatsData,
   additionalDataLength: number
 ) {
   const lastData = daysData[daysData.length - 1]

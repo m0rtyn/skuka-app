@@ -62,7 +62,7 @@ export type Hour = Brand<number, "Hour">
 
 export type DateString = Brand<string, "DateString">
 
-interface BasicUserStatsData {
+interface BasicStatsData {
   maxStreak: number
   count: number
   totalDuration: Minute
@@ -72,13 +72,15 @@ interface BasicUserStatsData {
   displayName?: Maybe<string>
 }
 
-export interface UserStatsData extends BasicUserStatsData {
+export interface AppStatsData extends BasicStatsData {
   firstSessionDate: Millisecond
   averageCount: Maybe<number>
   streak: Maybe<number>
+  maxStreak: number
+  statsId?: string
 }
 
-export interface ServerUserStatsData extends BasicUserStatsData {
+export interface DbStatsData extends BasicStatsData {
   firstSessionDate: Timestamp
 }
 

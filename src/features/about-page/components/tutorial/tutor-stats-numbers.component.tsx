@@ -5,11 +5,11 @@ import {
   Wrapper
 } from "../../../user-stats/components/stats-numbers/stats-numbers.styles"
 import { getStreakLevel } from "features/user-stats/utils/get-streak"
-import { Hour, UserStatsData } from "shared/types"
+import { Hour, AppStatsData } from "shared/types"
 import { MINS_IN_HOUR } from "shared/constants"
 
 interface Props {
-  statsData?: UserStatsData
+  statsData?: AppStatsData
 }
 export const TutorStatsNumbers: React.FC<Props> = ({
   statsData: fakeStats

@@ -38,12 +38,14 @@ export const selectMaxStreak = (state: RootState) =>
   state.userStats.stats?.maxStreak || null
 export const selectMaxStreakByRange = createSelector(
   [selectMaxStreak, selectActiveDaysByRange],
-  (maxStreak, days) => countMaxStreak(days)
-  // FIXME: find a way to use maxStreak from state
-  // maxStreak !== null ?
-  //   isNaN(maxStreak) ? countMaxStreak(days)
-  //   : maxStreak
-  // : countMaxStreak(days)
+  (maxStreak, days) => (
+    console.log(maxStreak),
+    // FIXME: find a way to use maxStreak from state
+    maxStreak !== null ?
+      isNaN(maxStreak) ? countMaxStreak(days)
+      : maxStreak
+    : countMaxStreak(days)
+  )
 )
 
 export const selectFirstSessionDate = (state: RootState) =>

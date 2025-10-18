@@ -1,4 +1,4 @@
-import { User } from "firebase/auth"
+import { COLL_DAYS } from "features/home/main-screen.constants"
 import {
   Firestore,
   collection,
@@ -10,13 +10,13 @@ import {
 import { ServerDayData } from "shared/types"
 
 export async function fetchDays(
-  user: User,
+  userId: string,
   firestoreDB: Firestore
 ): Promise<ServerDayData[]> {
-  const daysColRef = collection(firestoreDB, "days")
+  const daysColRef = collection(firestoreDB, COLL_DAYS)
   const daysQuery = query(
     daysColRef,
-    where("userId", "==", user.uid),
+    where("userId", "==", userId),
     orderBy("timestamp", "desc")
   )
   const daysColSnapshot = await getDocs(daysQuery)

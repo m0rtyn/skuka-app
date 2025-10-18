@@ -4,11 +4,12 @@ import {
   DocumentData,
   QueryDocumentSnapshot,
   setDoc
-} from "@firebase/firestore"
+} from "firebase/firestore"
 import { firestore } from "app/firebase-init"
 import { doc, getDocs, query } from "firebase/firestore"
 import { INIT_SERVER_STATS } from "shared/constants"
 import { SkukaSession } from "shared/types"
+import { COLL_STATS } from "features/user-stats/user-stats.constants"
 
 interface UserData {
   email: string
@@ -36,7 +37,7 @@ export const migrateUserToStats = async (
       const userData = userSnapshot.data() as UserData
       const userId = userData.uid
 
-      const userStatsColRef = collection(firestore, "stats")
+      const userStatsColRef = collection(firestore, COLL_STATS)
 
       const newUserStatsRef = doc(userStatsColRef)
       const newUserStatsData = {

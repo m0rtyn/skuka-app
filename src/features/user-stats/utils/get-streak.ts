@@ -72,3 +72,22 @@ export function getStreakLevel(streak: number | null) {
     : null
   )
 }
+
+export function getNewMaxStreak(
+  streak: number | null = null,
+  lastMaxStreak: number | null = null,
+  daysData: DayData[] = [],
+): number {
+  const isMaxStreakExist =
+    lastMaxStreak !== null && !isNaN(lastMaxStreak) && lastMaxStreak > 0
+  const isStreakExist = streak !== null && !isNaN(streak) && streak > 0
+  if (!isMaxStreakExist || !isStreakExist || lastMaxStreak < streak)
+    return countMaxStreak(daysData)
+
+  const dayData = daysData.at(-1)
+  const isFirstSessionToday = dayData && dayData.sessions.length === 1
+  if (!dayData || dayData.sessions.length === 0 || !isFirstSessionToday)
+    return lastMaxStreak
+
+  return Math.max(lastMaxStreak + 1, streak || 1)
+}

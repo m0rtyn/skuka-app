@@ -1,6 +1,8 @@
 import { DateRange, ProgressionType, Settings } from "./settings.types"
 
-export const FEATURE_NAME = "settings"
+export const FEAT_SETTINGS = "settings"
+export const COLL_SETTINGS = FEAT_SETTINGS
+
 export const defaultSettings = {
   darkMode: true,
   timerBlinking: true,

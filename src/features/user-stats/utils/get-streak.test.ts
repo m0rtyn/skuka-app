@@ -1,5 +1,5 @@
 import { DayData } from "shared/types"
-import { countMaxStreak, countStreak } from "./get-streak"
+import { countMaxStreak, countStreak, getNewMaxStreak } from "./get-streak"
 import { describe, it, expect } from "vitest"
 import { startOfDay } from "date-fns"
 
@@ -7,7 +7,8 @@ const createDay = (date: Date, duration = 1000): DayData => ({
   timestamp: date.getTime(),
   totalDuration: duration,
   count: 1,
-  sessions: [{ id: "1", duration, startedAt: date.getTime() }]
+  sessions:
+    duration > 0 ? [{ id: "1", duration, startedAt: date.getTime() }] : []
 })
 
 const today = startOfDay(new Date())
@@ -118,5 +119,104 @@ describe("countStreak", () => {
       createDay(today)
     ]
     expect(countStreak(daysData)).toBe(3)
+  })
+})
+
+describe("getNewMaxStreak", () => {
+  it("should return the current max streak if the last day has no sessions", () => {
+    const daysData = [
+      createDay(fourDaysAgo),
+      createDay(threeDaysAgo),
+      createDay(twoDaysAgo),
+      createDay(yesterday, 0)
+    ]
+    expect(getNewMaxStreak(daysData, 3, 3)).toBe(3)
+  })
+
+  it("should return a proper max streak if the last day has sessions, but current max streak is null", () => {
+    const daysData = [
+      createDay(fourDaysAgo),
+      createDay(threeDaysAgo),
+      createDay(twoDaysAgo),
+      createDay(yesterday),
+      createDay(today)
+    ]
+    expect(getNewMaxStreak(daysData, null, null)).toBe(5)
+  })
+
+  it("should return the current max streak if the last day has sessions", () => {
+    const daysData = [
+      createDay(fourDaysAgo),
+      createDay(threeDaysAgo),
+      createDay(twoDaysAgo),
+      createDay(yesterday),
+      createDay(today)
+    ]
+    expect(getNewMaxStreak(daysData, 4, 4)).toBe(5)
+  })
+
+  it("should return the current max streak if the last day has sessions and current max streak is NaN", () => {
+    const daysData = [
+      createDay(fourDaysAgo),
+      createDay(threeDaysAgo),
+      createDay(twoDaysAgo),
+      createDay(yesterday),
+      createDay(today)
+    ]
+    expect(getNewMaxStreak(daysData, NaN, 4)).toBe(5)
+  })
+
+  it("should return the current max streak if the last day has sessions and current max streak is 0", () => {
+    const daysData = [
+      createDay(fourDaysAgo),
+      createDay(threeDaysAgo),
+      createDay(twoDaysAgo),
+      createDay(yesterday),
+      createDay(today)
+    ]
+    expect(getNewMaxStreak(daysData, 0, 4)).toBe(5)
+  })
+
+  it("should return a proper max streak if the last day has sessions and current max streak is less than the streak", () => {
+    const daysData = [
+      createDay(fourDaysAgo),
+      createDay(threeDaysAgo),
+      createDay(twoDaysAgo),
+      createDay(yesterday),
+      createDay(today)
+    ]
+    expect(getNewMaxStreak(daysData, 1, 4)).toBe(5)
+  })
+
+  it("should return the current max streak if the last day has sessions and current max streak is greater than the streak", () => {
+    const daysData = [
+      createDay(fourDaysAgo),
+      createDay(threeDaysAgo),
+      createDay(twoDaysAgo),
+      createDay(yesterday),
+      createDay(today)
+    ]
+    expect(getNewMaxStreak(daysData, 6, 4)).toBe(7)
+  })
+
+  it("should return the current max streak if the last day has sessions and current max streak is equal to the streak", () => {
+    const daysData = [
+      createDay(fourDaysAgo),
+      createDay(threeDaysAgo),
+      createDay(twoDaysAgo),
+      createDay(yesterday),
+      createDay(today)
+    ]
+    expect(getNewMaxStreak(daysData, 5, 5)).toBe(6)
+  })
+
+  it("should return a proper max streak if sessions are rare", () => {
+    const daysData = [
+      createDay(new Date("2024-01-01T10:00:00Z")),
+      createDay(new Date("2025-01-02T10:00:00Z")),
+      createDay(new Date("2025-01-03T10:00:00Z")),
+      createDay(today)
+    ]
+    expect(getNewMaxStreak(daysData, 2, 1)).toBe(2)
   })
 })

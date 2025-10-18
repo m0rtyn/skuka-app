@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { DayData, Minute, UserStatsData } from "shared/types"
-import { FEATURE_NAME } from "../user-stats.constants"
-import { fetchActivityDataThunk, fetchStatsThunk } from "./user-stats.thunks"
+import { DayData, Minute, AppStatsData } from "shared/types"
+import { FEAT_STATS } from "../user-stats.constants"
+import { fetchActivityDataThunk, fetchStatsThunk, sendUserStatsThunk } from "./user-stats.thunks"
 import { DateRange, YearString } from "features/settings/settings.types"
 import { generateFakeDayData } from "../utils/generate-fake-day-data"
 
 export interface UserStatsState {
   daysData: DayData[]
-  stats: UserStatsData | null
+  stats: AppStatsData | null
   status: "idle" | "loading" | "error" | "loaded"
   errorMessage: string | null
   dateRange: DateRange | YearString
@@ -22,7 +22,7 @@ const initialState: UserStatsState = {
 }
 
 export const userStatsSlice = createSlice({
-  name: FEATURE_NAME,
+  name: FEAT_STATS,
   initialState,
   reducers: {
     addDay: (state, action: PayloadAction<DayData>) => {
@@ -35,7 +35,7 @@ export const userStatsSlice = createSlice({
       const { dayData, index } = action.payload
       state.daysData[index] = dayData
     },
-    setStats: (state, action: PayloadAction<UserStatsData>) => {
+    setStats: (state, action: PayloadAction<AppStatsData>) => {
       state.stats = action.payload
     },
     setActivityData: (state, action: PayloadAction<DayData[]>) => {
@@ -83,6 +83,11 @@ export const userStatsSlice = createSlice({
       })
       .addCase(fetchActivityDataThunk.rejected, (state, action) => {
         console.error(action.error)
+        state.status = "error"
+        state.errorMessage = action.error.message ?? null
+      })
+      .addCase(sendUserStatsThunk.rejected, (state, action) => {
+        console.error(action)
         state.status = "error"
         state.errorMessage = action.error.message ?? null
       })

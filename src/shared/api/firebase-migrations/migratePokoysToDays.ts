@@ -4,8 +4,8 @@ import {
   DocumentData,
   QueryDocumentSnapshot,
   setDoc
-} from "@firebase/firestore"
-import { firestore } from "features/home/firebase-init"
+} from "firebase/firestore"
+import { firestore } from "app/firebase-init"
 import {
   doc,
   Firestore,
@@ -17,6 +17,7 @@ import {
   where
 } from "firebase/firestore"
 import { SkukaSession, PseudoServerDayData } from "shared/types"
+import { COLL_DAYS } from "features/home/main-screen.constants"
 
 // eslint-disable
 const timestamp = Timestamp.fromDate(new Date(new Date().toDateString()))
@@ -47,7 +48,7 @@ export const migrateSkukaToDay = async (
           (sessionData.user as string).replace("users/", "")
         : sessionData.user?.id || "user-id-not-found" // NOTE: check and replace hardcode
 
-      const daysColRef = collection(firestoreDB, "days")
+      const daysColRef = collection(firestoreDB, COLL_DAYS)
       const dayDateString = new Date(sessionData.timestamp).toDateString()
       const dayTimestamp = Timestamp.fromDate(new Date(dayDateString))
       const daysQuery = query(

@@ -1,6 +1,6 @@
 import {
   DEFAULT_SETTINGS,
-  FEATURE_NAME
+  FEAT_SETTINGS
 } from "features/settings/settings.constants"
 import { Settings } from "features/settings/settings.types"
 import { User } from "firebase/auth"
@@ -19,7 +19,7 @@ export const fetchSettings = async (
 ) => {
   const settingsColRef = collection(
     firestoreDB,
-    FEATURE_NAME
+    FEAT_SETTINGS
   ) as CollectionReference<Settings>
 
   const settingsRef = await doc(settingsColRef, userUid)

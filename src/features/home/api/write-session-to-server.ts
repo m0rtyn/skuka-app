@@ -16,6 +16,8 @@ import {
 } from "firebase/firestore"
 import { Minute, SkukaSession, ServerDayData } from "shared/types"
 import { roundToHundredth } from "shared/utils/round-to-nth"
+import { COLL_DAYS } from "../main-screen.constants"
+import { COLL_STATS } from "features/user-stats/user-stats.constants"
 
 /* eslint-disable-next-line max-statements */
 export const sendSessionToServer = async (
@@ -23,7 +25,7 @@ export const sendSessionToServer = async (
   sessionData: SkukaSession
 ) => {
   const userId = sessionData.userId
-  const daysColRef = collection(firestoreDB, "days")
+  const daysColRef = collection(firestoreDB, COLL_DAYS)
   const dayTimestamp = Timestamp.fromMillis(
     // WARN: possible bug with forgetting timezone
     new Date(sessionData.timestamp).setHours(0, 0, 0, 0)
@@ -67,7 +69,7 @@ const createNewDay = async (
   const newDayRef = doc(daysColRef)
 
   const statsQuery = query(
-    collection(firestoreDB, "stats"),
+    collection(firestoreDB, COLL_STATS),
     where("userId", "==", userId),
     limit(1)
   )

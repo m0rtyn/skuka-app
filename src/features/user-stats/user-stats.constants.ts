@@ -1,6 +1,7 @@
 import { Hour } from "shared/types"
 
-export const FEATURE_NAME = "userStats"
+export const FEAT_STATS = "stats"
+export const COLL_STATS = FEAT_STATS
 
 export const INIT_TOTAL_DURATION = 0
 export const SECONDARY_AXIS_LABEL = "Daily duration"

@@ -10,9 +10,11 @@ import {
   where
 } from "firebase/firestore"
 import { firestore } from "app/firebase-init"
-import { Minute, ServerDayData, ServerUserStatsData } from "shared/types"
+import { Minute, ServerDayData, DbStatsData } from "shared/types"
 import { MILLIS_IN_QUARTER } from "shared/constants"
 import { getUserNicknameFromId } from "./leaderboard.utils"
+import { COLL_DAYS } from "features/home/main-screen.constants"
+import { COLL_STATS } from "features/user-stats/user-stats.constants"
 
 export const getLeaderboardThunk = createAsyncThunk<
   LeaderboardData[],
@@ -20,7 +22,7 @@ export const getLeaderboardThunk = createAsyncThunk<
   { rejectValue: string }
 >("leaderboard/fetchData", async (_, thunkApi) => {
   try {
-    const daysColRef = collection(firestore, "days") as CollectionReference<
+    const daysColRef = collection(firestore, COLL_DAYS) as CollectionReference<
       ServerDayData,
       ServerDayData
     >
@@ -33,9 +35,9 @@ export const getLeaderboardThunk = createAsyncThunk<
     const daysColSnapshot = await getDocs(daysQuery)
     const daysWithSessions = daysColSnapshot.docs.map(snap => snap.data())
 
-    const statsColRef = collection(firestore, "stats") as CollectionReference<
-      ServerUserStatsData,
-      ServerUserStatsData
+    const statsColRef = collection(firestore, COLL_STATS) as CollectionReference<
+      DbStatsData,
+      DbStatsData
     >
     const statsQuery = query(
       statsColRef,
@@ -46,7 +48,9 @@ export const getLeaderboardThunk = createAsyncThunk<
       )
     )
     const statsColSnapshot = await getDocs(statsQuery)
-    const stats = statsColSnapshot.docs.map(snap => snap.data())
+    const stats = statsColSnapshot.docs
+      .map(snap => snap.data())
+      .filter(s => s.totalDuration !== 0)
 
     const leaderboardMap = daysWithSessions.reduce((acc, day) => {
       const doesUserExist = acc.has(day.userId)

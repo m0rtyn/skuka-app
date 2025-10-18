@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
 
   &:empty {
     min-height: 12rem;
-    min-width: 50rem;
+    min-width: 30rem;
   }
 `
 

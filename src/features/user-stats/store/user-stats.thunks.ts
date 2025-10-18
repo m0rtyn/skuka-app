@@ -7,22 +7,23 @@ import {
   FirestoreRefPath,
   Millisecond,
   Minute,
-  ServerUserStatsData
+  DbStatsData
 } from "shared/types"
 import { serverStatsDataToStoreAdapter } from "shared/utils/adapters"
 import { firestore } from "app/firebase-init"
 import { statsActions } from "./user-stats.slice"
 import { getFullRange } from "../utils/get-full-range"
-import { FEATURE_NAME } from "../user-stats.constants"
+import { FEAT_STATS } from "../user-stats.constants"
 import { fetchDays } from "../api/fetch-days"
 import { fetchStats } from "../api/fetch-stats"
 import { roundToHundredth } from "shared/utils"
 import { calcAverageSessionPerDay as calcAverageSessionPerDay } from "../utils/user-stats.utils"
-import { sendStats } from "../api/stats"
+import { sendUpdatedStats } from "../api/stats"
 import { AppThunkAPI } from "app/store"
+import { countMaxStreak, getNewMaxStreak } from "../utils/get-streak"
 
 export const fetchStatsThunk = createAsyncThunk<void, User, AppThunkAPI>(
-  `${FEATURE_NAME}/getStats` as const,
+  `${FEAT_STATS}/fetchStats` as const,
   // eslint-disable-next-line max-statements
   async (user: User, thunkAPI) => {
     try {
@@ -37,6 +38,11 @@ export const fetchStatsThunk = createAsyncThunk<void, User, AppThunkAPI>(
         )
       }
 
+      if (!statsData?.maxStreak) {
+        const daysData = thunkAPI.getState().userStats.daysData
+        statsData.maxStreak = countMaxStreak(daysData)
+      }
+
       const setStatsAction = statsActions.setStats(statsData)
       thunkAPI.dispatch(setStatsAction)
     } catch (error) {
@@ -46,10 +52,9 @@ export const fetchStatsThunk = createAsyncThunk<void, User, AppThunkAPI>(
 )
 
 export const fetchActivityDataThunk = createAsyncThunk(
-  `${FEATURE_NAME}/getActivityData` as const,
-  // TODO: refactor this method
-  async (user: User, thunkAPI) => {
-    const daysWithSessions = await fetchDays(user, firestore)
+  `${FEAT_STATS}/fetchActivityData` as const,
+  async (userId: string, thunkAPI) => {
+    const daysWithSessions = await fetchDays(userId, firestore)
     const shallowDaysWithSessions = daysWithSessions.map(d => ({
       ...d,
       timestamp: d.timestamp.toMillis() as Millisecond,
@@ -65,15 +70,16 @@ export const fetchActivityDataThunk = createAsyncThunk(
 
 interface Payload {
   dayData: DayData
-  user: User
+  userId: string
 }
 export const sendUserStatsThunk = createAsyncThunk<void, Payload, AppThunkAPI>(
-  `${FEATURE_NAME}/setUserStats` as const,
+  `${FEAT_STATS}/sendStats` as const,
   // eslint-disable-next-line max-statements
-  async ({ dayData, user }: { dayData: DayData; user: User }, thunkAPI) => {
+  async ({ dayData, userId }: { dayData: DayData; userId: string }, thunkAPI) => {
     const stats = thunkAPI.getState().userStats.stats
+    const statsId = stats?.statsId as FirestoreRefPath
 
-    const { totalDuration, count, firstSessionDate, maxStreak, streak } =
+    const { totalDuration, count, firstSessionDate, maxStreak, streak, displayName } =
       stats ?? INIT_STATS
     const newTotalDuration = roundToHundredth(
       (totalDuration +
@@ -87,24 +93,22 @@ export const sendUserStatsThunk = createAsyncThunk<void, Payload, AppThunkAPI>(
       newTotalDuration
     )
 
-    const newMaxStreak =
-      dayData.sessions.length === 0 && maxStreak ?
-        maxStreak // FIXME: this is a bug
-      : Math.max(maxStreak, streak || 1)
+    const newMaxStreak = getNewMaxStreak(streak, maxStreak)
 
-    const newUserStats: ServerUserStatsData = {
+    const newUserStats: DbStatsData = {
       userId: dayData.userId,
       count: count + 1,
       maxStreak: newMaxStreak,
       totalDuration: newTotalDuration,
       firstSessionDate: Timestamp.fromMillis(firstSessionDate),
       averageDuration: newAverageDuration,
-      updatedAt: Date.now() as Millisecond
+      updatedAt: Date.now() as Millisecond,
+      displayName,
     }
 
     try {
-      await sendStats(user, newUserStats)
-      const newUserStatsState = serverStatsDataToStoreAdapter(newUserStats)
+      await sendUpdatedStats(userId, newUserStats, statsId)
+      const newUserStatsState = serverStatsDataToStoreAdapter(newUserStats, statsId)
 
       thunkAPI.dispatch(statsActions.setStats(newUserStatsState))
     } catch (e) {

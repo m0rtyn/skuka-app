@@ -34,6 +34,7 @@ export const getLeaderboardThunk = createAsyncThunk<
     )
     const daysColSnapshot = await getDocs(daysQuery)
     const daysWithSessions = daysColSnapshot.docs.map(snap => snap.data())
+    const userIdsFromLastDays = Array.from(new Set(daysWithSessions.map(d => d.userId))).slice(0, 30)
 
     const statsColRef = collection(firestore, COLL_STATS) as CollectionReference<
       DbStatsData,
@@ -44,7 +45,7 @@ export const getLeaderboardThunk = createAsyncThunk<
       where(
         "userId",
         "in",
-        daysWithSessions.map(d => d.userId)
+        userIdsFromLastDays
       )
     )
     const statsColSnapshot = await getDocs(statsQuery)

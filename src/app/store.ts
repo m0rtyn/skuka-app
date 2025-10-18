@@ -26,7 +26,7 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   AnyAction
 >
-export type ThunkAPI = {
+export type AppThunkAPI = {
   state: RootState
   dispatch: AppDispatch
 }

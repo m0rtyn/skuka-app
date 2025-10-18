@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { FEATURE_NAME } from "../settings.constants"
-import { ThunkAPI } from "app/store"
+import { AppThunkAPI } from "app/store"
 import { User } from "firebase/auth"
 import { settingsActions } from "./settings.slice"
 import { fetchSettings } from "../api/fetch-settings"
@@ -15,7 +15,7 @@ interface Payload {
 const { setSettings } = settingsActions
 const { setDateRange } = statsActions
 
-export const fetchSettingsThunk = createAsyncThunk<void, string, ThunkAPI>(
+export const fetchSettingsThunk = createAsyncThunk<void, string, AppThunkAPI>(
   `${FEATURE_NAME}/getSettings` as const,
   async (userUid, thunkAPI): Promise<void> => {
     const userSettings = await fetchSettings(userUid, firestore)
@@ -30,7 +30,7 @@ export const fetchSettingsThunk = createAsyncThunk<void, string, ThunkAPI>(
   }
 )
 
-export const sendSettingsThunk = createAsyncThunk<void, string, ThunkAPI>(
+export const sendSettingsThunk = createAsyncThunk<void, string, AppThunkAPI>(
   `${FEATURE_NAME}/setSettings` as const,
   // eslint-disable-next-line max-statements
   async (userUid, thunkAPI) => {

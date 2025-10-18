@@ -28,9 +28,8 @@ const LeaderboardPage: React.FC = () => {
   const [user] = useAuthState(auth)
 
   useEffect(() => {
-    if (status === "idle") {
-      dispatch(getLeaderboardThunk())
-    }
+    if (status !== "idle") return
+    dispatch(getLeaderboardThunk())
   }, [status, dispatch])
 
   if (status === "loading" || status === "idle") {

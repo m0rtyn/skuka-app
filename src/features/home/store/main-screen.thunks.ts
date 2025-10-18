@@ -3,7 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit"
 import { statsActions } from "features/user-stats/store/user-stats.slice"
 import { sendUserStatsThunk } from "features/user-stats/store/user-stats.thunks"
 import { serverDayDataToStoreAdapter } from "shared/utils/adapters"
-import { ThunkAPI } from "app/store"
+import { AppThunkAPI } from "app/store"
 import { firestore } from "app/firebase-init"
 import { FEATURE_NAME } from "../main-screen.constants"
 import { mainScreenActions } from "./main-screen.slice"
@@ -16,7 +16,7 @@ type Payload = {
   seconds: number
 }
 
-export const setSessionThunk = createAsyncThunk<void, Payload, ThunkAPI>(
+export const setSessionThunk = createAsyncThunk<void, Payload, AppThunkAPI>(
   `${FEATURE_NAME}/setSession` as const,
   // eslint-disable-next-line max-statements
   async ({ user, seconds }, thunkAPI): Promise<void> => {

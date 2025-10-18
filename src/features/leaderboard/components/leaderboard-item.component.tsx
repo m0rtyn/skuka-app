@@ -25,28 +25,30 @@ export const LeaderboardItem: React.FC<{
         {isCurrentUser && " (You)"}
       </UserName>
 
-      <div className='stats'>
-        {maxStreak && (
-          <span>
-            Max Streak
-            <b>{maxStreak}</b>
-          </span>
-        )}
+      {leader.displayName && (
+        <div className='stats'>
+          {maxStreak && (
+            <span>
+              Max Streak
+              <b>{maxStreak}</b>
+            </span>
+          )}
 
-        {total && (
-          <span>
-            Overall Time
-            <b>{total} mins</b>
-          </span>
-        )}
+          {total && (
+            <span>
+              Overall Time
+              <b>{total} mins</b>
+            </span>
+          )}
 
-        {lastSession && (
-          <span>
-            Last Session
-            <b>{lastSession}</b>
-          </span>
-        )}
-      </div>
+          {lastSession && (
+            <span>
+              Last Session
+              <b>{lastSession}</b>
+            </span>
+          )}
+        </div>
+      )}
     </ListItem>
   )
 }

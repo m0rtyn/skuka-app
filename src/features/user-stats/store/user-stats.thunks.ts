@@ -19,9 +19,9 @@ import { fetchStats } from "../api/fetch-stats"
 import { roundToHundredth } from "shared/utils"
 import { calcAverageSessionPerDay as calcAverageSessionPerDay } from "../utils/user-stats.utils"
 import { sendStats } from "../api/stats"
-import { ThunkAPI } from "app/store"
+import { AppThunkAPI } from "app/store"
 
-export const fetchStatsThunk = createAsyncThunk(
+export const fetchStatsThunk = createAsyncThunk<void, User, AppThunkAPI>(
   `${FEATURE_NAME}/getStats` as const,
   // eslint-disable-next-line max-statements
   async (user: User, thunkAPI) => {
@@ -67,7 +67,7 @@ interface Payload {
   dayData: DayData
   user: User
 }
-export const sendUserStatsThunk = createAsyncThunk<void, Payload, ThunkAPI>(
+export const sendUserStatsThunk = createAsyncThunk<void, Payload, AppThunkAPI>(
   `${FEATURE_NAME}/setUserStats` as const,
   // eslint-disable-next-line max-statements
   async ({ dayData, user }: { dayData: DayData; user: User }, thunkAPI) => {

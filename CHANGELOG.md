@@ -1,3 +1,8 @@
+### Version 0.11.1
+
+- fix: changelog
+- fix: leaderboard query
+
 ### Version 0.11.0
 
 - fix: stats initialization && stats loading state
